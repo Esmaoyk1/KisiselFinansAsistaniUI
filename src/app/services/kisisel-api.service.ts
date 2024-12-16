@@ -10,8 +10,8 @@ import { HttpClientModule } from '@angular/common/http'
 })
 export class KisiselApiService {
 
-  private apiUrl = 'http://localhost:5177/api/User/login';
-  //private apiUrl = 'http://esmaapp.somee.com/api/User/login';
+  //private apiUrl = 'http://localhost:5177/api/User/login';
+  private apiUrl = 'http://esmaapp.somee.com/api/User/login';
 
   constructor(private http: HttpClient) { }
 

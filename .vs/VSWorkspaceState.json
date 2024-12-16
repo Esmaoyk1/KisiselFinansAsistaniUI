@@ -1,8 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src"
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\KisiselFinansAsistaniUI",
+    "\\src\\app\\KisiselFinansAsistaniUI\\account",
+    "\\src\\app\\services"
   ],
-  "SelectedNode": "\\server.ts",
+  "SelectedNode": "\\src\\app\\services\\account-api.service.ts",
   "PreviewInSolutionExplorer": false
 }

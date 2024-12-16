@@ -15,8 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class LoginComponent {
 
-  emaill: string = ''; 
-  passwordd: string = ''; 
+  emaill: string = '';   //qwgg
+  passwordd: string = ''; //1231165
 
   constructor(private kisiselapiService: KisiselApiService, private http: HttpClient) { }
 
@@ -25,19 +25,11 @@ export class LoginComponent {
   
   }
   onSubmit() {
-    alert(this.emaill);
-    alert(this.passwordd);
     const post = {
       email: this.emaill,
       password: this.passwordd
     };
-
-    alert(post);
-    //const post = {
-    //  email: "ada@gmail.com",
-    //  password: "Esma.38"
-    //};
-
+    //{ email: "qwgg",password :"1231165"}
 
     this.kisiselapiService.createPost(post).subscribe(
       response => {
