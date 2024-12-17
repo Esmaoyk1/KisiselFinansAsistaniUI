@@ -3,10 +3,14 @@
     "",
     "\\src",
     "\\src\\app",
+    "\\src\\app\\Auth",
+    "\\src\\app\\home",
     "\\src\\app\\KisiselFinansAsistaniUI",
     "\\src\\app\\KisiselFinansAsistaniUI\\account",
-    "\\src\\app\\services"
+    "\\src\\app\\KisiselFinansAsistaniUI\\budget",
+    "\\src\\app\\menu",
+    "\\src\\app\\search-bar"
   ],
-  "SelectedNode": "\\src\\app\\services\\account-api.service.ts",
+  "SelectedNode": "\\src\\app\\app.routes.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -153,15 +153,11 @@
           <canvas id="myPieChart"></canvas>
         </div>
         <div class="mt-4 text-center small">
-          <span class="mr-2">
-            <i class="fas fa-circle text-primary"></i> Direct
+          <span *ngFor="let data of chartData" class="mr-2">
+            <!-- Dinamik olarak icon ve metni göstereceğiz -->
+            <i [class]="data.iconClass + ' ' + data.colorClass"></i> {{ data.label }}
           </span>
-          <span class="mr-2">
-            <i class="fas fa-circle text-success"></i> Social
-          </span>
-          <span class="mr-2">
-            <i class="fas fa-circle text-info"></i> Referral
-          </span>
+         
         </div>
       </div>
     </div>
@@ -323,10 +319,3 @@
     </div>
   </div>
 </div>
-<script src="src/assets/vendor/jquery/jquery.min.js"></script>
-<script src="src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="src/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="src/assets/js/sb-admin-2.min.js"></script>
-<script src="src/assets/vendor/chart.js/Chart.min.js"></script>
-<script src="src/assets/js/demo/chart-area-demo.js"></script>
-<script src="src/assets/js/demo/chart-pie-demo.js"></script>
