@@ -32,19 +32,20 @@ export class HomeComponent {
   remainingBudget: number = 0; // Başlangıç değeri
   percentageRemaining: number = 0;
 
+  //PieChart değişkenleri
   chartData: { label: any; colorClass: string; iconClass: string }[] = [];
   dataResp: number[] = [];
   datalabels: string[] = [];
   colorClasses: string[] = ['text-primary', 'text-success', 'text-info', 'text-black'];
-
-
-
   //chartData = [
   //  { label: 'Direct', colorClass: 'text-primary', iconClass: 'fas fa-circle' },
   //  { label: 'Social', colorClass: 'text-success', iconClass: 'fas fa-circle' },
   //  { label: 'denem', colorClass: 'text-info', iconClass: 'fas fa-circle' },
   //  { label: 'yeni', colorClass: 'text-black', iconClass: 'fas fa-circle' }
   //];
+
+  //AreaChart  değişkenleri
+  dataArea: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   constructor(private accountapiService: AccountApiService, private savingApiService: SavingApiService, private transactionApiService: TransactionApiService) { };
 
 
@@ -55,7 +56,7 @@ export class HomeComponent {
     this.TransactionAmount();
 
     this.calculatePercentageRemaining();
-   
+    this.getAreaChartByAccount();
 
   }
 
@@ -133,13 +134,13 @@ export class HomeComponent {
           iconClass: 'fas fa-circle', // Varsayılan ikon sınıfı
         }));
         this.datalabels = response.data.items.map((item: any) => item.categoryName),
-        this.dataResp = response.data.items.map((item: any) => item.percentage),
+          this.dataResp = response.data.items.map((item: any) => item.percentage),
           console.log(this.dataResp);
         //this.chartData.a
         //  { label: 'Direct', colorClass: 'text-primary', iconClass: 'fas fa-circle' },
         //  response.data.items;
         this.KalanButce();
-        this.chart();
+        this.pieChart();
       },
       error => {
         console.error(' hata:', error);
@@ -148,7 +149,32 @@ export class HomeComponent {
 
     )
   }
-  chart() {
+  getAreaChartByAccount() {
+    this.transactionApiService.GetTransactionAreaChartByAccount(1).subscribe(
+      response => {
+        console.log("Aylar", response);
+
+        //const allMonths = Array.from({ length: 12 }, (_, i) => i + 1);
+
+        //// Verilerinizi eşleştirin ve eksik aylar için totalAmount'u 0 yapın
+        //this.dataArea = allMonths.map((month) => {
+        //  const foundItem = response.data.items.find((item: any) => item.month === month);
+        //  return foundItem ? foundItem.totalAmount : 0; // Eğer bulanırsa totalAmount'u kullan, yoksa 0 bas
+        //});
+        this.dataArea = response.data.items.map((item: any) => item.totalAmount),
+         
+          console.log(this.dataArea);
+      
+        this.chartArea();
+      },
+      error => {
+        console.error(' hata:', error);
+        alert(' hatası:');
+      }
+
+    )
+  }
+  pieChart() {
 
     // Set new default font family and font color to mimic Bootstrap's default styling
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
@@ -189,5 +215,130 @@ export class HomeComponent {
       },
     });
   }
+  chartArea() {
 
+    // Set new default font family and font color to mimic Bootstrap's default styling
+    Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+    Chart.defaults.global.defaultFontColor = '#858796';
+
+    function number_format(number: number, decimals: number, dec_point: string, thousands_sep: string) {
+      // *     example: number_format(1234.56, 2, ',', ' ');
+      // *     return: '1 234,56'
+      number = parseFloat((number + '').replace(',', '').replace(' ', '')); // Tür dönüşümü
+      //number = (number + '').replace(',', '').replace(' ', '');
+      var n = !isFinite(+number) ? 0 : +number,
+        prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+        sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+        dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+        s: string[] = [], // Dizi olarak tanımlandı.
+        //s = '',
+        toFixedFix = function (n:number, prec:number) {
+          var k = Math.pow(10, prec);
+          return '' + Math.round(n * k) / k;
+        };
+      // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+      s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+      if (s[0].length > 3) {
+        s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+      }
+      if ((s[1] || '').length < prec) {
+        s[1] = s[1] || '';
+        s[1] += new Array(prec - s[1].length + 1).join('0');
+      }
+      return s.join(dec);
+    }
+
+    // Area Chart Example
+    var ctx = document.getElementById("myAreaChart");
+    var myLineChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ["Ocak", "Şubat", "Mart" ,"Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+        datasets: [{
+          label: "Harcamalar ",
+          lineTension: 0.3,
+          backgroundColor: "rgba(78, 115, 223, 0.05)",
+          borderColor: "rgba(78, 115, 223, 1)",
+          pointRadius: 3,
+          pointBackgroundColor: "rgba(78, 115, 223, 1)",
+          pointBorderColor: "rgba(78, 115, 223, 1)",
+          pointHoverRadius: 3,
+          pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+          pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+          pointHitRadius: 10,
+          pointBorderWidth: 2,
+          data: this.dataArea,
+          //data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+        }],
+      },
+      options: {
+        maintainAspectRatio: false,
+        layout: {
+          padding: {
+            left: 10,
+            right: 25,
+            top: 25,
+            bottom: 0
+          }
+        },
+        scales: {
+          xAxes: [{
+            time: {
+              unit: 'date'
+            },
+            gridLines: {
+              display: false,
+              drawBorder: false
+            },
+            ticks: {
+              maxTicksLimit: 7
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              maxTicksLimit: 5,
+              padding: 10,
+              // Include a dollar sign in the ticks
+              callback: function (value: number, index: number, values: number[]) {
+                return '₺' + number_format(value, 2, '.', ',');
+              }
+            },
+            gridLines: {
+              color: "rgb(234, 236, 244)",
+              zeroLineColor: "rgb(234, 236, 244)",
+              drawBorder: false,
+              borderDash: [2],
+              zeroLineBorderDash: [2]
+            }
+          }],
+        },
+        legend: {
+          display: false
+        },
+        tooltips: {
+          backgroundColor: "rgb(255,255,255)",
+          bodyFontColor: "#858796",
+          titleMarginBottom: 10,
+          titleFontColor: '#6e707e',
+          titleFontSize: 14,
+          borderColor: '#dddfeb',
+          borderWidth: 1,
+          xPadding: 15,
+          yPadding: 15,
+          displayColors: false,
+          intersect: false,
+          mode: 'index',
+          caretPadding: 10,
+          callbacks: {
+            label: function (tooltipItem:any, chart:any) {
+              var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+              return datasetLabel + ': ₺' + number_format(tooltipItem.yLabel, 2, '.', ',');
+
+
+            }
+          }
+        }
+      }
+    });
+  }
 }

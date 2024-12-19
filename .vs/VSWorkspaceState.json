@@ -4,10 +4,12 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\KisiselFinansAsistaniUI",
-    "\\src\\app\\KisiselFinansAsistaniUI\\account",
     "\\src\\app\\KisiselFinansAsistaniUI\\budget",
     "\\src\\app\\menu",
-    "\\src\\app\\search-bar"
+    "\\src\\app\\search-bar",
+    "\\src\\assets",
+    "\\src\\assets\\js",
+    "\\src\\assets\\js\\demo"
   ],
   "PreviewInSolutionExplorer": false
 }
