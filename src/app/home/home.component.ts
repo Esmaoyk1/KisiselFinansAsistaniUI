@@ -33,10 +33,16 @@ export class HomeComponent {
   percentageRemaining: number = 0;
 
   //PieChart değişkenleri
-  chartData: { label: any; colorClass: string; iconClass: string }[] = [];
+  //chartData: { label: any; colorClass: string; iconClass: string }[] = [];
+  chartData: { label: any; colorClass: string; iconClass: string; color: string }[] = [];
+
   dataResp: number[] = [];
   datalabels: string[] = [];
-  colorClasses: string[] = ['text-danger', 'text-warning', 'text-success', 'text-secondary'];
+  //colorClasses: string[] = ['text-danger', 'text-warning', 'text-success', 'text-secondary', 'text-primary'];
+  chartColors: string[] = ['#dc3545', '#ffc107', '#28a745', '#0d6efd', '#6c757d'];
+  hoverBackgroundColor: string[] = ['#c82333', '#e0a800', '#218838', '#1c7ed6', '#5a6268'];
+
+
   //chartData = [
   //  { label: 'Direct', colorClass: 'text-primary', iconClass: 'fas fa-circle' },
   //  { label: 'Social', colorClass: 'text-success', iconClass: 'fas fa-circle' },
@@ -118,24 +124,29 @@ export class HomeComponent {
     console.log(this.userBalance + "Kalan bütçe: " + this.remainingBudget);
   }
 
-  getRandomColorClass(): string {
-    // Rastgele bir renk sınıfı seçer
-    const randomIndex = Math.floor(Math.random() * this.colorClasses.length);
-    return this.colorClasses[randomIndex];
-  }
+  //getRandomColorClass(): string {
+  //  // Rastgele bir renk sınıfı seçer
+  //  const randomIndex = Math.floor(Math.random() * this.colorClasses.length);
+  //  return this.colorClasses[randomIndex];
+  //}
   calculatePercentageRemaining() {
     this.transactionApiService.GetTransactionPercentageByAccount(1).subscribe(
       response => {
         console.log("başardık ulan", response);
 
-        this.chartData = response.data.items.map((item: any) => ({
+        this.chartData = response.data.items.map((item: any, index: number) => ({
+         
+        
           label: item.categoryName, // API'den gelen label
-          colorClass: this.getRandomColorClass(), // Rastgele bir renk sınıfı
+          //colorClass: this.getRandomColorClass() + index, // Rastgele bir renk sınıfı
+          color: this.chartColors[index],
           iconClass: 'fas fa-circle', // Varsayılan ikon sınıfı
         }));
         this.datalabels = response.data.items.map((item: any) => item.categoryName),
           this.dataResp = response.data.items.map((item: any) => item.percentage),
-          console.log(this.dataResp);
+          console.log(this.chartData); // Düzenlenmiş chartData
+          console.log(this.dataResp); // Yüzde değerleri
+         // console.log(this.dataResp);
         //this.chartData.a
         //  { label: 'Direct', colorClass: 'text-primary', iconClass: 'fas fa-circle' },
         //  response.data.items;
@@ -191,9 +202,10 @@ export class HomeComponent {
         datasets: [{
           data: this.dataResp,
           //data: [ 67.94871794871794,  6.410256410256411,  25.641025641025642  ],
-          backgroundColor: ['#2FF3E0', '#F8D210', '#FA26A0', '#F51720', '#B0B0B0'],
-          hoverBackgroundColor: ['#1ED4C2', '#E6C10F', '#D21A8A', '#D0101C', '#A0A0A0'],
+          backgroundColor: this.chartColors, 
+          _hoverBackgroundColor: this.hoverBackgroundColor,
           hoverBorderColor: "rgba(234, 236, 244, 1)",
+
         }],
       },
       options: {
