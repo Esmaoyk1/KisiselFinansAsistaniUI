@@ -25,18 +25,18 @@ declare var Chart: any;
 })
 export class HomeComponent {
   title = 'KisiselFinansAsistaniUI';
-  userBalance: number = 0; // Başlangıç değeri
+  userBalance: number = 12356; // Başlangıç değeri
   currency: string | undefined;
-  savedAmount: number = 0; // Başlangıç değeri
-  transactionAmount: number = 0; // Başlangıç değeri
-  remainingBudget: number = 0; // Başlangıç değeri
+  savedAmount: number = 1500; // Başlangıç değeri
+  transactionAmount: number = 4236; // Başlangıç değeri
+  remainingBudget: number = 6500; // Başlangıç değeri
   percentageRemaining: number = 0;
 
   //PieChart değişkenleri
   chartData: { label: any; colorClass: string; iconClass: string }[] = [];
   dataResp: number[] = [];
   datalabels: string[] = [];
-  colorClasses: string[] = ['text-primary', 'text-success', 'text-info', 'text-black'];
+  colorClasses: string[] = ['text-danger', 'text-warning', 'text-success', 'text-secondary'];
   //chartData = [
   //  { label: 'Direct', colorClass: 'text-primary', iconClass: 'fas fa-circle' },
   //  { label: 'Social', colorClass: 'text-success', iconClass: 'fas fa-circle' },
@@ -70,7 +70,7 @@ export class HomeComponent {
       },
       error => {
         console.error(' hata:', error);
-        alert(' hatası:');
+        //alert(' hatası:');
       }
     );
   }
@@ -86,7 +86,7 @@ export class HomeComponent {
       },
       error => {
         console.error(' hata:', error);
-        alert(' hatası:');
+       // alert(' hatası:');
       }
     )
   }
@@ -102,7 +102,7 @@ export class HomeComponent {
       },
       error => {
         console.error(' hata:', error);
-        alert(' hatası:');
+       // alert(' hatası:');
       }
 
     )
@@ -144,7 +144,7 @@ export class HomeComponent {
       },
       error => {
         console.error(' hata:', error);
-        alert(' hatası:');
+       // alert(' hatası:');
       }
 
     )
@@ -169,7 +169,7 @@ export class HomeComponent {
       },
       error => {
         console.error(' hata:', error);
-        alert(' hatası:');
+       // alert(' hatası:');
       }
 
     )
