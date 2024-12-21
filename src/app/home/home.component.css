@@ -1,0 +1,17 @@
+.prbar-hedef {
+  float: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /*overflow: hidden;*/
+  color: black;
+  text-align: end;
+  white-space: nowrap;
+  background-color: none !important;
+  transition: width .6s ease;
+  position: relative;
+  /*position: absolute;*/
+  right: 0;
+
+  
+}

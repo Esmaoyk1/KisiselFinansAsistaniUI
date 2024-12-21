@@ -54,6 +54,11 @@ export class HomeComponent {
   dataArea: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   constructor(private accountapiService: AccountApiService, private savingApiService: SavingApiService, private transactionApiService: TransactionApiService) { };
 
+  //tasaruf değişkenleri
+
+  dataFive: any[]= [];
+ 
+
 
   ngOnInit() {
 
@@ -63,8 +68,29 @@ export class HomeComponent {
 
     this.calculatePercentageRemaining();
     this.getAreaChartByAccount();
-
+    this.GetLastFiveByUser();
+ 
   }
+
+
+
+  GetLastFiveByUser() {
+    this.savingApiService.GetLastFiveByUser(1).subscribe(
+      response => {
+        console.log('five respo:', response);
+        this.dataFive = response.data.items;
+
+      },
+      error => {
+        console.error(' hata:', error);
+        //alert(' hatası:');
+      }
+    );
+  }
+
+  
+
+
 
   GetUserBalance() {
     this.accountapiService.getUserAccountBalance(1).subscribe(
@@ -352,5 +378,18 @@ export class HomeComponent {
         }
       }
     });
+  }
+
+
+
+  calculatePercentage(savedAmount: number, goalAmount: number): string {
+    if (goalAmount === 0) return '0%';  // Avoid division by zero
+    const percentage = (savedAmount / goalAmount) * 100;
+    return `${percentage.toFixed(2)}%`;
+  }
+
+  calculateProgressBarWidth(savedAmount: number, goalAmount: number): string {
+    const percentage = this.calculatePercentage(savedAmount, goalAmount);
+    return percentage + '%';
   }
 }
