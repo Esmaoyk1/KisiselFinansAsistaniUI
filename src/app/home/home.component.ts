@@ -15,6 +15,7 @@ import { parse } from 'node:path/posix';
 
 import { HttpClientModule } from '@angular/common/http';
 
+import { DovizKuruServisi } from './doviz-kuru-servisi';
 
 declare var Chart: any; 
 
@@ -61,6 +62,7 @@ export class HomeComponent {
 
   dataFive: any[] = [];
 
+  public url = 'https://www.tcmb.gov.tr/kurlar/today.xml';
 
   ngOnInit() {
 
@@ -405,4 +407,18 @@ export class HomeComponent {
     return classes[index % classes.length];
   }
 
+
+  private parseXml(xml: string) {
+    // DOMParser ile XML'i parse ediyoruz
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xml, 'application/xml');
+
+    const dolarElement = xmlDoc.querySelector('Currency [CurrencyCode="USD"]');
+    const euroElement = xmlDoc.querySelector('Currency [CurrencyCode="EUR"]');
+
+    const dolarKuru = parseFloat(dolarElement?.querySelector('BanknoteSelling')?.textContent || '0');
+    const euroKuru = parseFloat(euroElement?.querySelector('BanknoteSelling')?.textContent || '0');
+
+    return { dolarKuru, euroKuru };
+  }
 }
