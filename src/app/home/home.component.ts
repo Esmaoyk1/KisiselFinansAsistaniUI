@@ -13,12 +13,15 @@ import { SavingApiService } from '../services/saving.service';
 import { TransactionApiService } from '../services/transactionapi.service';
 import { parse } from 'node:path/posix';
 
+import { HttpClientModule } from '@angular/common/http';
+
+
 declare var Chart: any; 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterOutlet, MenuComponent, AccountComponent, SearchBarComponent, CommonModule],
+  imports: [RouterOutlet, MenuComponent, AccountComponent, SearchBarComponent, CommonModule, HttpClientModule],
   providers: [AccountApiService, SavingApiService, TransactionApiService],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
@@ -56,8 +59,7 @@ export class HomeComponent {
 
   //tasaruf değişkenleri
 
-  dataFive: any[]= [];
- 
+  dataFive: any[] = [];
 
 
   ngOnInit() {
@@ -69,7 +71,7 @@ export class HomeComponent {
     this.calculatePercentageRemaining();
     this.getAreaChartByAccount();
     this.GetLastFiveByUser();
- 
+
   }
 
 
@@ -88,7 +90,7 @@ export class HomeComponent {
     );
   }
 
-  
+
 
 
 
@@ -118,7 +120,7 @@ export class HomeComponent {
       },
       error => {
         console.error(' hata:', error);
-       // alert(' hatası:');
+        // alert(' hatası:');
       }
     )
   }
@@ -134,7 +136,7 @@ export class HomeComponent {
       },
       error => {
         console.error(' hata:', error);
-       // alert(' hatası:');
+        // alert(' hatası:');
       }
 
     )
@@ -161,8 +163,8 @@ export class HomeComponent {
         console.log("başardık ulan", response);
 
         this.chartData = response.data.items.map((item: any, index: number) => ({
-         
-        
+
+
           label: item.categoryName, // API'den gelen label
           //colorClass: this.getRandomColorClass() + index, // Rastgele bir renk sınıfı
           color: this.chartColors[index],
@@ -171,8 +173,8 @@ export class HomeComponent {
         this.datalabels = response.data.items.map((item: any) => item.categoryName),
           this.dataResp = response.data.items.map((item: any) => item.percentage),
           console.log(this.chartData); // Düzenlenmiş chartData
-          console.log(this.dataResp); // Yüzde değerleri
-         // console.log(this.dataResp);
+        console.log(this.dataResp); // Yüzde değerleri
+        // console.log(this.dataResp);
         //this.chartData.a
         //  { label: 'Direct', colorClass: 'text-primary', iconClass: 'fas fa-circle' },
         //  response.data.items;
@@ -181,7 +183,7 @@ export class HomeComponent {
       },
       error => {
         console.error(' hata:', error);
-       // alert(' hatası:');
+        // alert(' hatası:');
       }
 
     )
@@ -199,14 +201,14 @@ export class HomeComponent {
         //  return foundItem ? foundItem.totalAmount : 0; // Eğer bulanırsa totalAmount'u kullan, yoksa 0 bas
         //});
         this.dataArea = response.data.items.map((item: any) => item.totalAmount),
-         
+
           console.log(this.dataArea);
-      
+
         this.chartArea();
       },
       error => {
         console.error(' hata:', error);
-       // alert(' hatası:');
+        // alert(' hatası:');
       }
 
     )
@@ -228,7 +230,7 @@ export class HomeComponent {
         datasets: [{
           data: this.dataResp,
           //data: [ 67.94871794871794,  6.410256410256411,  25.641025641025642  ],
-          backgroundColor: this.chartColors, 
+          backgroundColor: this.chartColors,
           _hoverBackgroundColor: this.hoverBackgroundColor,
           hoverBorderColor: "rgba(234, 236, 244, 1)",
 
@@ -270,7 +272,7 @@ export class HomeComponent {
         dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
         s: string[] = [], // Dizi olarak tanımlandı.
         //s = '',
-        toFixedFix = function (n:number, prec:number) {
+        toFixedFix = function (n: number, prec: number) {
           var k = Math.pow(10, prec);
           return '' + Math.round(n * k) / k;
         };
@@ -291,7 +293,7 @@ export class HomeComponent {
     var myLineChart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ["Ocak", "Şubat", "Mart" ,"Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+        labels: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
         datasets: [{
           label: "Harcamalar ",
           lineTension: 0.3,
@@ -368,7 +370,7 @@ export class HomeComponent {
           mode: 'index',
           caretPadding: 10,
           callbacks: {
-            label: function (tooltipItem:any, chart:any) {
+            label: function (tooltipItem: any, chart: any) {
               var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
               return datasetLabel + ': ₺' + number_format(tooltipItem.yLabel, 2, '.', ',');
 
@@ -388,8 +390,19 @@ export class HomeComponent {
     return `${percentage.toFixed(2)}%`;
   }
 
-  calculateProgressBarWidth(savedAmount: number, goalAmount: number): string {
-    const percentage = this.calculatePercentage(savedAmount, goalAmount);
-    return percentage + '%';
+  //calculateProgressBarWidth(savedAmount: number, goalAmount: number): string {
+  //  const percentage = this.calculatePercentage(savedAmount, goalAmount);
+  //  return percentage + '%';
+  //}
+
+  calculateProgressBarWidth(savedAmount: number, goalAmount: number): number {
+    if (goalAmount === 0) return 0; // Hedef tutar sıfır ise yüzde 0 döndür
+    return (savedAmount / goalAmount) * 100;
   }
+
+  getProgressBarClass(index: number): string {
+    const classes = ['bg-danger', 'bg-warning', 'bg-primary', 'bg-info', 'bg-success'];
+    return classes[index % classes.length];
+  }
+
 }

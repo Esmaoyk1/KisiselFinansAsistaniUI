@@ -3,15 +3,28 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /*overflow: hidden;*/
+  overflow: hidden;
   color: black;
   text-align: end;
   white-space: nowrap;
   background-color: none !important;
   transition: width .6s ease;
   position: relative;
-  /*position: absolute;*/
+  position: absolute;
   right: 0;
 
   
 }
+
+
+/*.prbar-hedef {
+  position: absolute;
+  top: 0;
+  right: 100px;*/ /* Grafiğin en sağ ucuna hizalar */
+  /*transform: translateX(50%);*/ /* Metni tam olarak hizalar */
+  /*white-space: nowrap;*/ /* Taşma olursa alt satıra geçmesini engeller */
+  /*font-weight: bold;
+  color: #000;
+}*/
+
+
