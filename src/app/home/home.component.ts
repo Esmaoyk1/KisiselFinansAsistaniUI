@@ -12,12 +12,12 @@ import { response } from 'express';
 import { SavingApiService } from '../services/saving.service';
 import { TransactionApiService } from '../services/transactionapi.service';
 import { parse } from 'node:path/posix';
-
+import { map } from 'rxjs/operators';
 import { HttpClientModule } from '@angular/common/http';
 
-import { DovizKuruServisi } from './doviz-kuru-servisi';
 
-declare var Chart: any; 
+
+declare var Chart: any;
 
 @Component({
   selector: 'app-home',
@@ -56,13 +56,16 @@ export class HomeComponent {
 
   //AreaChart  değişkenleri
   dataArea: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  constructor(private accountapiService: AccountApiService, private savingApiService: SavingApiService, private transactionApiService: TransactionApiService) { };
+  constructor(private accountapiService: AccountApiService, private savingApiService: SavingApiService, private transactionApiService: TransactionApiService, private http: HttpClient) { };
 
   //tasaruf değişkenleri
 
   dataFive: any[] = [];
 
   public url = 'https://www.tcmb.gov.tr/kurlar/today.xml';
+
+  dolarKuru: number = 0;
+  euroKuru: number = 0;
 
   ngOnInit() {
 
@@ -73,11 +76,8 @@ export class HomeComponent {
     this.calculatePercentageRemaining();
     this.getAreaChartByAccount();
     this.GetLastFiveByUser();
-
+    this.getKurlaar();
   }
-
-
-
   GetLastFiveByUser() {
     this.savingApiService.GetLastFiveByUser(1).subscribe(
       response => {
@@ -91,11 +91,6 @@ export class HomeComponent {
       }
     );
   }
-
-
-
-
-
   GetUserBalance() {
     this.accountapiService.getUserAccountBalance(1).subscribe(
       response => {
@@ -110,8 +105,6 @@ export class HomeComponent {
       }
     );
   }
-
-
   SavedAmount() {
     this.savingApiService.getSavedAmount(1).subscribe(
       response => {
@@ -126,7 +119,6 @@ export class HomeComponent {
       }
     )
   }
-
 
   TransactionAmount() {
     this.transactionApiService.getTransactionAmount(1).subscribe(
@@ -143,7 +135,6 @@ export class HomeComponent {
 
     )
   }
-
 
   KalanButce() {
 
@@ -384,8 +375,6 @@ export class HomeComponent {
     });
   }
 
-
-
   calculatePercentage(savedAmount: number, goalAmount: number): string {
     if (goalAmount === 0) return '0%';  // Avoid division by zero
     const percentage = (savedAmount / goalAmount) * 100;
@@ -418,7 +407,21 @@ export class HomeComponent {
 
     const dolarKuru = parseFloat(dolarElement?.querySelector('BanknoteSelling')?.textContent || '0');
     const euroKuru = parseFloat(euroElement?.querySelector('BanknoteSelling')?.textContent || '0');
-
+    console.log("geldii" + dolarKuru, euroKuru);
     return { dolarKuru, euroKuru };
   }
+  getDovizKurlari(): Observable<any> {
+    return this.http.get(this.url, { responseType: 'text' }).pipe(map((response: string) => {
+      console.log('TCMB Response:', response); // Gelen XML verisi konsola yazdırılır
+      return this.parseXml(response);
+    }) );
+  }
+  getKurlaar(): void {
+    
+    this.getDovizKurlari().subscribe(data => {
+      this.dolarKuru = data.dolarKuru;
+      this.euroKuru = data.euroKuru;
+     
+    });
+   }
 }
