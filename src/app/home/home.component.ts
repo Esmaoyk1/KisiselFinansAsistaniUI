@@ -94,7 +94,7 @@ export class HomeComponent {
   GetUserBalance() {
     this.accountapiService.getUserAccountBalance(1).subscribe(
       response => {
-        console.log('başarılı:', response);
+        //console.log('başarılı:', response);
         this.userBalance = response.data.balance;
         this.currency = response.data.currency;
         this.KalanButce();
@@ -108,7 +108,7 @@ export class HomeComponent {
   SavedAmount() {
     this.savingApiService.getSavedAmount(1).subscribe(
       response => {
-        console.log("başarılı", response);
+        //console.log("başarılı", response);
         this.savedAmount = response.data.savedAmount;
         this.KalanButce();
 
@@ -123,7 +123,7 @@ export class HomeComponent {
   TransactionAmount() {
     this.transactionApiService.getTransactionAmount(1).subscribe(
       response => {
-        console.log("başarılı", response);
+        //console.log("başarılı", response);
         this.transactionAmount = response.data.transactionAmount;
         this.KalanButce();
 
@@ -401,10 +401,10 @@ export class HomeComponent {
     // DOMParser ile XML'i parse ediyoruz
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xml, 'application/xml');
-
-    const dolarElement = xmlDoc.querySelector('Currency [CurrencyCode="USD"]');
-    const euroElement = xmlDoc.querySelector('Currency [CurrencyCode="EUR"]');
-
+   
+    const dolarElement = xmlDoc.querySelector('Currency[CurrencyCode="USD"] ');
+    const euroElement = xmlDoc.querySelector('Currency[CurrencyCode="EUR"]');
+    console.log("xmlDoc : " + dolarElement);
     const dolarKuru = parseFloat(dolarElement?.querySelector('BanknoteSelling')?.textContent || '0');
     const euroKuru = parseFloat(euroElement?.querySelector('BanknoteSelling')?.textContent || '0');
     console.log("geldii" + dolarKuru, euroKuru);
