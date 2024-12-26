@@ -6,11 +6,13 @@ import { Comp1Component } from './comp1/comp1.component';
 import { SignUpComponent } from './Auth/user/sign-up/sign-up.component';
 import { AccountComponent } from './KisiselFinansAsistaniUI/account/account.component';
 import { BudgetComponent } from './KisiselFinansAsistaniUI/budget/budget.component';
+import { SavingComponent } from './KisiselFinansAsistaniUI/saving/saving.component';
 
 export const routes: Route[] = [
   { path: '', component: HomeComponent }, // Ana sayfa
   { path: 'account', component: AccountComponent },
   { path: 'budget', component: BudgetComponent },
+  { path: 'saving', component: SavingComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signUp', component: SignUpComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },    // Geçersiz yollar için ana sayfaya yönlendirme

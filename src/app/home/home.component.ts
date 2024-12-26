@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 
+
 declare var Chart: any;
 
 @Component({
@@ -64,8 +65,22 @@ export class HomeComponent {
 
   public url = 'https://www.tcmb.gov.tr/kurlar/today.xml';
 
+
+
+  gramAltin: number = 100;
+  ceyrekAltin: number = 200;
+  yarimAltin: number = 300;
+  tamAltin: number = 500;
+
+
+
   dolarKuru: number = 0;
   euroKuru: number = 0;
+  gramAltin2: number = 0;
+
+
+
+
 
   ngOnInit() {
 
@@ -77,6 +92,7 @@ export class HomeComponent {
     this.getAreaChartByAccount();
     this.GetLastFiveByUser();
     this.getKurlaar();
+
   }
   GetLastFiveByUser() {
     this.savingApiService.GetLastFiveByUser(1).subscribe(
@@ -401,7 +417,7 @@ export class HomeComponent {
     // DOMParser ile XML'i parse ediyoruz
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xml, 'application/xml');
-   
+
     const dolarElement = xmlDoc.querySelector('Currency[CurrencyCode="USD"] ');
     const euroElement = xmlDoc.querySelector('Currency[CurrencyCode="EUR"]');
     console.log("xmlDoc : " + dolarElement);
@@ -414,14 +430,15 @@ export class HomeComponent {
     return this.http.get(this.url, { responseType: 'text' }).pipe(map((response: string) => {
       console.log('TCMB Response:', response); // Gelen XML verisi konsola yazdırılır
       return this.parseXml(response);
-    }) );
+    }));
   }
   getKurlaar(): void {
-    
+
     this.getDovizKurlari().subscribe(data => {
       this.dolarKuru = data.dolarKuru;
       this.euroKuru = data.euroKuru;
-     
+
     });
-   }
+
+  }
 }

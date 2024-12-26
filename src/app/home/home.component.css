@@ -16,15 +16,28 @@
   
 }
 
+.currency-prices {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
 
-/*.prbar-hedef {
-  position: absolute;
-  top: 0;
-  right: 100px;*/ /* Grafiğin en sağ ucuna hizalar */
-  /*transform: translateX(50%);*/ /* Metni tam olarak hizalar */
-  /*white-space: nowrap;*/ /* Taşma olursa alt satıra geçmesini engeller */
-  /*font-weight: bold;
-  color: #000;
-}*/
+  .currency-prices h2 {
+    color: #333;
+  }
+
+#goldPrices {
+  margin-top: 10px;
+}
+
+
+
+
+
+
+
+
+
 
 
