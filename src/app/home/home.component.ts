@@ -87,7 +87,6 @@ export class HomeComponent {
     this.GetUserBalance();
     this.SavedAmount();
     this.TransactionAmount();
-
     this.calculatePercentageRemaining();
     this.getAreaChartByAccount();
     this.GetLastFiveByUser();

@@ -39,6 +39,7 @@ export class TransactionApiService {
     return this.http.get<any>(`${this.apiUrl}/GetTransactionPercentageByAccount/${id}`);
   }
   GetTransactionAreaChartByAccount(id: number): Observable<any> {
+    alert("geldi");
     return this.http.get<any>(`${this.apiUrl}/GetTransactionAreaChartByAccount/${id}`);
   }
 }

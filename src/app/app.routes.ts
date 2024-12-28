@@ -8,6 +8,7 @@ import { AccountComponent } from './KisiselFinansAsistaniUI/account/account.comp
 import { BudgetComponent } from './KisiselFinansAsistaniUI/budget/budget.component';
 import { SavingComponent } from './KisiselFinansAsistaniUI/saving/saving.component';
 import { SavingUpdateComponent } from './KisiselFinansAsistaniUI/saving-update/saving-update.component';
+import { SavingDeleteComponent } from './KisiselFinansAsistaniUI/saving-delete/saving-delete.component';
 
 export const routes: Route[] = [
   { path: '', component: HomeComponent }, // Ana sayfa
@@ -15,6 +16,7 @@ export const routes: Route[] = [
   { path: 'budget', component: BudgetComponent },
   { path: 'saving', component: SavingComponent },
   { path: 'savingUpdate/:sid', component: SavingUpdateComponent },
+ // { path: 'savingDelete/:sid', component: SavingDeleteComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signUp', component: SignUpComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },    // Geçersiz yollar için ana sayfaya yönlendirme
