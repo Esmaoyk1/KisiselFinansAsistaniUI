@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gelir-Gider Güncelleme</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fc;
+    }
+
+    .card-header {
+      background-color: #4e73df;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Gelir-Gider Güncelleme</h1>
+
+    <!-- Güncelleme Formu -->
+    <form (ngSubmit)="onUpdate(updateForm)" #updateForm="ngForm">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="itemName">Hedef Adı</label>
+          <input type="text" class="form-control" id="itemName" [(ngModel)]="post.goalName" name="goalName" placeholder="Adı girin" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="itemAmount">Hedef Miktar (₺)</label>
+          <input type="number" class="form-control" id="itemAmount" [(ngModel)]="post.goalAmount" name="goalAmount" placeholder="Miktarı girin" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="itemSavedAmount">Biriktirilen Miktar (₺)</label>
+          <input type="number" class="form-control" id="itemSavedAmount" [(ngModel)]="post.savedAmount" name="savedAmount" placeholder="Miktarı girin" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="itemDate">Tamamlanma Tarihi</label>
+          <input type="date" class="form-control" id="itemDate" [(ngModel)]="post.targetDate" name="targetDate" required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Güncelle</button>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
