@@ -77,10 +77,8 @@ export class HomeComponent {
 
   dolarKuru: number = 0;
   euroKuru: number = 0;
-  gramAltin2: number = 0;
-
-
-
+  sterlinKuru: number = 0;
+  frangKuru: number = 0;
 
 
   ngOnInit() {
@@ -420,11 +418,17 @@ export class HomeComponent {
 
     const dolarElement = xmlDoc.querySelector('Currency[CurrencyCode="USD"] ');
     const euroElement = xmlDoc.querySelector('Currency[CurrencyCode="EUR"]');
-    console.log("xmlDoc : " + dolarElement);
+    const sterlinElement = xmlDoc.querySelector('Currency[CurrencyCode="GBP"]');
+    const frangElement = xmlDoc.querySelector('Currency[CurrencyCode="CHF"]');
+
+
     const dolarKuru = parseFloat(dolarElement?.querySelector('BanknoteSelling')?.textContent || '0');
     const euroKuru = parseFloat(euroElement?.querySelector('BanknoteSelling')?.textContent || '0');
-    console.log("geldii" + dolarKuru, euroKuru);
-    return { dolarKuru, euroKuru };
+    const sterlinKuru = parseFloat(sterlinElement?.querySelector('BanknoteSelling')?.textContent || '0');
+    const frangKuru = parseFloat(frangElement?.querySelector('BanknoteSelling')?.textContent || '0');
+
+
+    return { dolarKuru, euroKuru, sterlinKuru, frangKuru};
   }
   getDovizKurlari(): Observable<any> {
     return this.http.get(this.url, { responseType: 'text' }).pipe(map((response: string) => {
@@ -437,8 +441,12 @@ export class HomeComponent {
     this.getDovizKurlari().subscribe(data => {
       this.dolarKuru = data.dolarKuru;
       this.euroKuru = data.euroKuru;
+      this.sterlinKuru = data.sterlinKuru;
+      this.frangKuru = data.frangKuru;
 
+      
     });
+    console.log("getirildiiiiii" + this.frangKuru, "dfsghja", this.sterlinKuru);
 
   }
 }
