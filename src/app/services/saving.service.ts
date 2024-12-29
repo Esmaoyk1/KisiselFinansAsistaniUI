@@ -78,9 +78,13 @@ export class SavingApiService {
     return this.http.put<any>(`${this.apiUrl}/update/${id}`, post);
   }
   deletePost(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+    return this.http.delete<any>(`${this.apiUrl}/delete/${id}`);
   }
   GetLastFiveByUser(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/SavingLastFiveByUser/ ${id}`);
+  }
+
+  getPostById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/saving/${id}`); // API URL'sini güncelleyin
   }
 }

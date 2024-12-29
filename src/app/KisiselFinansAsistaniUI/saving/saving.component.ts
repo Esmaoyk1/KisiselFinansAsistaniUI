@@ -43,7 +43,7 @@ export class SavingComponent {
   onSubmit(form: NgForm) {
     if (form.valid) {
       const tasarruf = {
-        userID: this.Id,
+        userID: 1,
         goalName: this.goalName,
         goalAmount: this.goalAmount,
         savedAmount: this.savedAmount,
@@ -85,33 +85,10 @@ export class SavingComponent {
     });
   }
 
-
-
-  //guncelle(itemId: number) {
-  //  this.selectedHedef = this.hedefler.find(hedef => hedef.id === itemId);
-  //  this.isUpdateFormVisible = true; // Formu görünür hale getir
-  //}
-
-
   savingUpdate(sid: number, post: any) {
     this.router.navigate(['savingUpdate', sid], { state: { post: post } });
 
   }
-
-  //onUpdate(form: NgForm) {
-  //  if (form.valid && this.selectedHedef) {
-  //    this.savingApiService.updatePost(this.selectedHedef.userID, this.selectedHedef).subscribe(response => {
-  //      console.log('Başarıyla güncellendi:', response);
-  //      this.isUpdateFormVisible = false; // Formu gizle
-  //      this.savingGet(); // Güncellemeleri almak için tekrar çağır
-  //    }, error => {
-  //      console.error('Güncelleme hatası:', error);
-  //    });
-  //  } else {
-  //    console.log('Form geçersiz.');
-  //  }
-  //}
-
 
 
   guncelle(itemId: number) {
@@ -145,123 +122,17 @@ export class SavingComponent {
     }
   }
 
-  
+
+  deleteHedef(itemId: number) {
+    const confirmDelete = confirm('Bu hedefi silmek istediğinize emin misiniz?');
+    if (confirmDelete) {
+      this.savingApiService.deletePost(itemId).subscribe(response => {
+        console.log('Başarıyla silindi:', response);
+        this.hedefler = this.hedefler.filter(hedef => hedef.id !== itemId);
+      }, error => {
+        console.error('Silme hatası:', error);
+      });
+    }
+  }
+
 }
-
-
-
-
-
-  
-//import { Component, OnInit } from '@angular/core';
-//import { MenuComponent } from '../../menu/menu.component';
-//import { Router, RouterModule } from '@angular/router';
-//import { CommonModule } from '@angular/common';
-//import { SavingApiService } from '../../services/saving.service';
-//import { FormsModule, NgForm } from '@angular/forms';
-//import { HttpClient } from '@angular/common/http';
-
-
-
-//@Component({
-//  selector: 'app-saving',
-//  standalone: true,
-//  imports: [RouterModule, MenuComponent, CommonModule, FormsModule],
-//  templateUrl: './saving.component.html',
-//  styleUrls: ['./saving.component.css']  // Burada styleUrl hatası var, doğru kullanım styleUrls
-//})
-//export class SavingComponent {
-
-//  hedefler: { goalName: string, goalAmount: number, savedAmount: number, targetDate: string, id: number }[] = [];
-
-
-//  Id: number = 0;
-//  goalName: string = ''; // Hedef adı
-//  goalAmount: number = 0; // Hedef miktarı
-//  savedAmount: number = 0; // Biriktirilen miktar
-//  targetDate: string = ''; // Tamamlanma tarihi
-
-//  selectedHedef: any;
-
-//  isUpdateFormVisible: boolean = false;
-//  constructor(private router: Router, private savingApiService: SavingApiService) {
-//  }
-
-//  ngOnInit() {
-//    this.savingGet(); // Sayfa yüklendiğinde geçmiş tasarrufları al
-//  }
-
-//  onSubmit(form: NgForm) {
-//    if (form.valid) {
-//      const tasarruf = {
-//        userID: this.Id,
-//        goalName: this.goalName,
-//        goalAmount: this.goalAmount,
-//        savedAmount: this.savedAmount,
-//        targetDate: this.targetDate
-//      };
-
-//      console.log('Gönderilen veri:', tasarruf);
-//      this.savingCreate(tasarruf);
-//    } else {
-//      console.log('Form geçersiz.');
-//    }
-//  }
-
-//  savingCreate(tasarruf: any) {
-//    this.savingApiService.createPost(tasarruf).subscribe(response => {
-//      console.log('Başarıyla eklendi:', response);
-//      this.hedefler.push(tasarruf);
-//    }, error => {
-//      console.error('Ekleme hatası:', error);
-//    });
-//  }
-
-
-//  savingGet() {
-//    this.savingApiService.getPosts().subscribe(response => {
-
-//      // response.data'nın dizide olup olmadığını kontrol edin
-//      if (Array.isArray(response.data)) {
-
-//        this.hedefler = response.data.items;
-//        console.log(this.hedefler
-//        );
-
-//      } else {
-//        // Eğer nesne ise diziyi oluşturun
-//        this.hedefler = Object.values(response.data.items);
-
-//      }
-//    });
-//  }
-
-
-
-//  guncelle(itemId: number) {
-//    this.selectedHedef = this.hedefler.find(hedef => hedef.id === itemId);
-//    this.isUpdateFormVisible = true; // Formu görünür hale getir
-//  }
-
-
-//  savingUpdate(sid: number, post: any) {
-//    this.router.navigate(['savingUpdate', sid], { state: { post: post } });
-
-//  }
-
-//  onUpdate(form: NgForm) {
-//    if (form.valid && this.selectedHedef) {
-//      this.savingApiService.updatePost(this.selectedHedef.userID, this.selectedHedef).subscribe(response => {
-//        console.log('Başarıyla güncellendi:', response);
-//        this.isUpdateFormVisible = false; // Formu gizle
-//        this.savingGet(); // Güncellemeleri almak için tekrar çağır
-//      }, error => {
-//        console.error('Güncelleme hatası:', error);
-//      });
-//    } else {
-//      console.log('Form geçersiz.');
-//    }
-//  }
-
-
-//}

@@ -16,7 +16,7 @@ export const routes: Route[] = [
   { path: 'budget', component: BudgetComponent },
   { path: 'saving', component: SavingComponent },
   { path: 'savingUpdate/:sid', component: SavingUpdateComponent },
- // { path: 'savingDelete/:sid', component: SavingDeleteComponent },
+  { path: 'savingDelete/:sid', component: SavingDeleteComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signUp', component: SignUpComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },    // Geçersiz yollar için ana sayfaya yönlendirme

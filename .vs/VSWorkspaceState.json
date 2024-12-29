@@ -7,9 +7,9 @@
     "\\src\\app\\KisiselFinansAsistaniUI",
     "\\src\\app\\KisiselFinansAsistaniUI\\saving",
     "\\src\\app\\KisiselFinansAsistaniUI\\saving-delete",
+    "\\src\\app\\KisiselFinansAsistaniUI\\saving-update",
     "\\src\\app\\services",
     "\\src\\assets"
   ],
-  "SelectedNode": "\\src\\app\\home\\home.component.html",
   "PreviewInSolutionExplorer": false
 }
