@@ -74,26 +74,27 @@
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th>Hedef Id</th>
+                   
                     <th>Hedef Adı</th>
                     <th>Hedef Miktarı</th>
                     <th>Biriktirilen Miktar</th>
-                    <th>Tamamlanma Tarihi</th>
+                    <th>Hedef Tarihi</th>
                     <th>Durum</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let hedef of hedefler">
-                    <td>{{ hedef.id }}</td>
+                  
                     <td>{{ hedef.goalName }}</td>
                     <td>{{ hedef.goalAmount }}</td>
                     <td>{{ hedef.savedAmount }}</td>
-                    <td>{{ hedef.targetDate }}</td>
+                    <td>{{ hedef.targetDate  | date: 'yyyy-MM-dd' }}</td>
                     <td>
                       <a class="btn btn-warning btn-sm" (click)="savingUpdate(hedef.id, hedef)">Güncelle</a>
                       <!--<button class="btn btn-danger btn-sm" >Sil</button>-->
                       <!--<button class="btn btn-danger btn-sm" (click)="deleteHedef(hedef.id)">Sil</button>-->
-                      <button class="btn btn-danger btn-sm" (click)="deleteHedef(hedef.id)">Sil</button>
+                      <!--<button class="btn btn-danger btn-sm" (click)="deleteHedef(hedef.id)">Sil</button>-->
+                      <button class="btn btn-danger btn-sm" [routerLink]="['/savingDelete', hedef.id]">Sil</button>
                     </td>
                   </tr>
                 </tbody>

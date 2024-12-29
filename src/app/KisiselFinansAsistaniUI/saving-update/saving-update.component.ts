@@ -42,7 +42,7 @@ export class SavingUpdateComponent implements OnInit {
       };
 
       this.savingApiService.updatePost(this.hedefId, updatedData).subscribe(response => {
-        alert(this.hedefId);
+        
         console.log('Başarıyla güncellendi:', response);
         alert('Güncelleme işlemi başarıyla tamamlandı!');
         this.router.navigate(['/saving']);

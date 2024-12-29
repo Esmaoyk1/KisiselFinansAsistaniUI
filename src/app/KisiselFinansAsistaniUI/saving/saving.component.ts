@@ -47,7 +47,7 @@ export class SavingComponent {
         goalName: this.goalName,
         goalAmount: this.goalAmount,
         savedAmount: this.savedAmount,
-        targetDate: this.targetDate
+        targetDate: new Date(this.targetDate).toISOString().split('T')[0]
       };
 
       console.log('Gönderilen veri:', tasarruf);
@@ -61,6 +61,10 @@ export class SavingComponent {
     this.savingApiService.createPost(tasarruf).subscribe(response => {
       console.log('Başarıyla eklendi:', response);
       this.hedefler.push(tasarruf);
+     
+
+      window.location.reload();
+
     }, error => {
       console.error('Ekleme hatası:', error);
     });
