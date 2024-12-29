@@ -63,7 +63,8 @@ export class HomeComponent {
 
   dataFive: any[] = [];
 
-  public url = 'https://www.tcmb.gov.tr/kurlar/today.xml';
+  public url = 'http://localhost:5177/api/Exchange/exchange-rates';
+  //public url = 'https://www.tcmb.gov.tr/kurlar/today.xml';
 
 
 
