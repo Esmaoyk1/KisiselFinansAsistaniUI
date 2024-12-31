@@ -9,6 +9,8 @@ import { Component, Renderer2 } from '@angular/core';
 })
 export class BudgetComponent {
   ngOnInit() {
+    this.loadCss('assets/vendor/datatables/dataTables.bootstrap4.min.css');
+
     this.loadScript('assets/js/test.js');
     this.loadScript('assets/vendor/jquery/jquery.min.js');
     this.loadScript('assets/vendor/datatables/jquery.dataTables.min.js');
@@ -25,4 +27,12 @@ export class BudgetComponent {
     script.async = true;
     this.renderer.appendChild(document.body, script);
   }
+  private loadCss(url: string) {
+    const link = this.renderer.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = url;
+    this.renderer.appendChild(document.head, link);
+  }
+
 }
