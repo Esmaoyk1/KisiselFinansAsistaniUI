@@ -2,8 +2,22 @@
 
 
 
+  - TASK
 
+    Ana Dashboard için: 
+    Mevcut toplam hesap bakiyeleri (garanti,ziraat,halk bank için) bulunsun 
+    Toplam gelir ve gider(bu ay ki toplam gelir gider) 
+    Tasarruf hedeflerinin durumu bulunsun.(ahmet bilgisayar almak istiyor bilgisayarın fiyatı 5000 TL o ana kadar biriktirdiği toplam tutar 2000 TL Hedef tutarından biriktirilen miktarın çıkarılmasıyla elde edilen, hedefe ulaşmak için gereken miktar 5000 TL - 2000 TL = 3000 TL olmalıdır. Biriktirilen miktarın hedef tutarına oranı %40 gibi gosterilsin.
+    Hedef tarihine kalan süre. Bu, kullanıcının hedefe ulaşmak için ne kadar süresi kaldıgı olsun. Kullanıcı, hedef tutarını veya tarihini güncelleyebilir. Örneğin, hedefin tutarını artırmak veya tarihini ertelemek gibi.
 
+    Hesap Yönetimi:
+    Kullanıcı, yeni bir hesap ekleyebilir (banka, kredi kartı, nakit gibi). Ziraat , Halk bank vs diye
+    Kullanıcı, mevcut hesaplarını görebilir, düzenleyebilir veya silebilir.
+    Banka işlemleri yapılsın İşlem türü (gelir/gider)
+    Tutar
+    Tarih
+    Açıklama (isteğe bağlı)
+    Kullanıcı, tüm işlemlerini listeleyebilir ve filtreleyebilir (tarih, tür, kategori).
 
   - TASK
 
@@ -22,6 +36,10 @@
     Harcama Uyarıları
     Harcama bütçesini aşarsa veya belirli bir kategori çok harcama yapılırsa bildirim gösterin.
 
+
+    ahmet buget ta 200 liralıkmeğitim bütçesi ayırdı.
+    bütçe tarihi gidecek güncellem yapacak bu şlem gerçekleştiyse ve
+    beklenen tutarın altında ysa saving tasarruf kaydı yapılacak
 
 
   - TASK
