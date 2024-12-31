@@ -2,6 +2,28 @@
 
 
 
+
+
+
+  - TASK
+
+    Aylık Bütçe ve Harcama Takibi
+    Kullanıcı aylık bir bütçe belirlemişse, bu bütçeye ne kadar yaklaştığını gösterebilirsiniz.
+    Örnek: “Bütçenizin %70’i harcandı.”
+
+    Yaklaşan Ödemeler
+    Kullanıcının yaklaşan fatura, kredi kartı borcu veya diğer ödemelerini listeleyin.
+    Örnek: “Elektrik faturası – 20 Aralık 2024 – 300 TL”
+
+    Tasarruf ve Birikim Durumu
+    Eğer kullanıcı tasarruf hedefi belirlediyse, mevcut birikimi ve hedefe ulaşmak için kalan miktarı gösterebilirsiniz.
+    Bir ilerleme çubuğu (progress bar) eklemek motivasyon sağlayabilir.
+
+    Harcama Uyarıları
+    Harcama bütçesini aşarsa veya belirli bir kategori çok harcama yapılırsa bildirim gösterin.
+
+
+
   - TASK
     Home DashBoarda  gelir ve giderlerin oranını gosteren grafikler olsun (bulunduguı ay için)
 
