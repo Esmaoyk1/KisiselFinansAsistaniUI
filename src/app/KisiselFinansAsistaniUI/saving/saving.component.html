@@ -79,7 +79,7 @@
                     <th>Hedef Miktarı</th>
                     <th>Biriktirilen Miktar</th>
                     <th>Hedef Tarihi</th>
-                    <th>Durum</th>
+                    <th>&nbsp;&nbsp;&nbsp;Durum</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -90,11 +90,13 @@
                     <td>{{ hedef.savedAmount }}</td>
                     <td>{{ hedef.targetDate  | date: 'yyyy-MM-dd' }}</td>
                     <td>
-                      <a class="btn btn-warning btn-sm" (click)="savingUpdate(hedef.id, hedef)">Güncelle</a>
+                      <a class="badge badge-success" (click)="savingUpdate(hedef.id, hedef)">Güncelle</a>
+                      &nbsp;
+
                       <!--<button class="btn btn-danger btn-sm" >Sil</button>-->
                       <!--<button class="btn btn-danger btn-sm" (click)="deleteHedef(hedef.id)">Sil</button>-->
                       <!--<button class="btn btn-danger btn-sm" (click)="deleteHedef(hedef.id)">Sil</button>-->
-                      <button class="btn btn-danger btn-sm" [routerLink]="['/savingDelete', hedef.id]">Sil</button>
+                      <a class="badge badge-danger" [routerLink]="['/savingDelete', hedef.id]"> Sil </a>
                     </td>
                   </tr>
                 </tbody>

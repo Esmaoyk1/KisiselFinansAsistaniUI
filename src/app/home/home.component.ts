@@ -57,7 +57,12 @@ export class HomeComponent {
 
   //AreaChart  değişkenleri
   dataArea: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  constructor(private accountapiService: AccountApiService, private savingApiService: SavingApiService, private transactionApiService: TransactionApiService, private http: HttpClient) { };
+  constructor(
+    private accountapiService: AccountApiService,
+    private savingApiService: SavingApiService,
+    private transactionApiService: TransactionApiService,
+    private http: HttpClient
+  ) { };
 
   //tasaruf değişkenleri
 
@@ -80,9 +85,7 @@ export class HomeComponent {
   sterlinKuru: number = 0;
   frangKuru: number = 0;
 
-
   ngOnInit() {
-
     this.GetUserBalance();
     this.SavedAmount();
     this.TransactionAmount();
