@@ -44,6 +44,5 @@
 
   - TASK
     Home DashBoarda  gelir ve giderlerin oranını gosteren grafikler olsun (bulunduguı ay için)
-
     bakiyekutusu : account tablosunda kişinin bütün balancelarını getrisin
        ** transaction gerçekleşince accountıd den gidip balance tan eksiltsin (yapıldı)
