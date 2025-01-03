@@ -3,12 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { HttpClientModule } from '@angular/common/http'
+import { environment } from '../../environment';
 
 
 @Injectable()
 export class SignUpService {
 
-  private apiUrl = 'http://esmaapp.somee.com/api/User/signup';
+  private apiUrl = environment.apiUrl + '/User/signup';
+  //private apiUrl = 'http://esmaapp.somee.com/api/User/signup';
 
 
   constructor(private http: HttpClient) { }

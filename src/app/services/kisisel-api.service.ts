@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { HttpClientModule } from '@angular/common/http'
+import { environment } from '../../environment';
 
 
 @Injectable({
@@ -10,8 +11,9 @@ import { HttpClientModule } from '@angular/common/http'
 })
 export class KisiselApiService {
 
+  private apiUrl = environment.apiUrl + '/User/login';
   //private apiUrl = 'http://localhost:5177/api/User/login';
-  private apiUrl = 'http://esmaapp.somee.com/api/User/login';
+  //private apiUrl = 'http://esmaapp.somee.com/api/User/login';
 
   constructor(private http: HttpClient) { }
 
