@@ -4,6 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { environment } from '../../environment';
 
 
 @Injectable({
@@ -11,7 +12,8 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class TransactionApiService {
 
-  private apiUrl = 'http://localhost:5177/api/Transaction';
+  private apiUrl = environment.apiUrl + '/Transaction';
+  //private apiUrl = 'http://localhost:5177/api/Transaction';
 
   constructor(private http: HttpClient) { }
 

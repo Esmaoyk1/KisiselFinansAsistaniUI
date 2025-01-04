@@ -1,4 +1,4 @@
 export const environment = {
-  production: true,
-  apiUrl: 'http://localhost:5177/api'
+  production: true,//site yayındayken çalışır canlı ortamdır
+  apiUrl: 'http://esmaapp.somee.com/api'
 };

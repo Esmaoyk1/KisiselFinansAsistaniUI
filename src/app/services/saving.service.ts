@@ -48,6 +48,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { environment } from '../../environment';
 
 
 
@@ -58,7 +59,8 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class SavingApiService {
 
-  private apiUrl = 'http://localhost:5177/api/Saving';
+  private apiUrl = environment.apiUrl + '/Saving';
+  //private apiUrl = 'http://localhost:5177/api/Saving';
 
   constructor(private http: HttpClient) { }
 

@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { environment } from '../../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountApiService {
 
-  private apiUrl = 'http://localhost:5177/api/Accounts';
+  private apiUrl = environment.apiUrl +'/Accounts';
+  //private apiUrl = 'http://localhost:5177/api/Accounts';
 
   constructor(private http: HttpClient) { }
 
