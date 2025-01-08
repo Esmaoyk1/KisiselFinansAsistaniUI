@@ -3,13 +3,12 @@ import { BudgetService } from '../../services/budget.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-budget',
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule],
+  imports: [FormsModule, CommonModule, HttpClientModule, RouterModule],
   templateUrl: './budget.component.html',
   styleUrls: ['./budget.component.css'] // styleUrl yerine styleUrls kullanılmalı
 })
@@ -20,7 +19,7 @@ export class BudgetComponent implements OnInit {
   selectedItem: any; // Güncellenen öğeyi tutacak değişken
   isUpdateFormVisible: boolean = false; // Güncelleme formunun görünürlüğü
 
-  constructor(private renderer: Renderer2, private budgetService: BudgetService) { }
+  constructor(private renderer: Renderer2, private budgetService: BudgetService, private router: Router) { }
 
   ngOnInit() {
     this.loadScriptsSequentially();
@@ -70,6 +69,10 @@ export class BudgetComponent implements OnInit {
     this.isUpdateFormVisible = true; // Güncelleme formunu göster
   }
 
+  budgetUpdate(sid: number, post: any) {
+    this.router.navigate(['budgetUpdate', sid], { state: { post: post } });
+
+  }
   onUpdate(form: NgForm) {
     if (form.valid && this.selectedItem) {
       this.budgetService.updatePost(this.selectedItem.categoryID, this.selectedItem).subscribe(response => {
