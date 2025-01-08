@@ -1,4 +1,5 @@
 import { Component, Renderer2 } from '@angular/core';
+import { BudgetService } from '../../services/budget.service';
 
 @Component({
   selector: 'app-budget',
@@ -8,6 +9,10 @@ import { Component, Renderer2 } from '@angular/core';
   styleUrl: './budget.component.css'
 })
 export class BudgetComponent {
+
+  items: any[] = []; // Bütçe öğelerini tutacak dizi
+  newItem = { name: '', amount: null, type: '', date: '' }; 
+
   ngOnInit() {
     this.loadScriptsSequentially();
 
@@ -19,9 +24,12 @@ export class BudgetComponent {
     //this.loadScript('assets/vendor/datatables/dataTables.bootstrap4.min.js');
     //this.loadScript('assets/js/demo/datatables-demo.js');
 
+
+    this.loadItems();
+
   }
 
-  constructor(private renderer: Renderer2) { }
+  constructor(private renderer: Renderer2, private budgetService: BudgetService) { }
   async loadScriptsSequentially() {
     try {
       await this.loadScript('assets/vendor/jquery/jquery.min.js');
@@ -64,4 +72,17 @@ export class BudgetComponent {
     this.renderer.appendChild(document.head, link);
   }
 
+
+  loadItems() {
+    this.budgetService.getPosts().subscribe(data => {
+      this.items = data; // Öğeleri al ve diziye ata
+    });
+  }
+
+  addItem() {
+    this.budgetService.createPost(this.newItem).subscribe(() => {
+      this.loadItems(); // Yeni öğe ekledikten sonra öğeleri yeniden yükle
+      this.newItem = { name: '', amount: null, type: '', date: '' }; // Formu sıfırla
+    });
+  }
 }
