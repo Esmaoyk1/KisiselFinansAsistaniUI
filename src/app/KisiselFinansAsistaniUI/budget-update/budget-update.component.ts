@@ -40,7 +40,7 @@ export class BudgetUpdateComponent {
         amount: this.post.amount,
         startDate: this.post.startDate,
         endDate: this.post.endDate,
-        id: this.hedefId
+        budgetID: this.hedefId
       };
 
       this.budgetApiService.updatePost(this.hedefId, updatedData).subscribe(response => {

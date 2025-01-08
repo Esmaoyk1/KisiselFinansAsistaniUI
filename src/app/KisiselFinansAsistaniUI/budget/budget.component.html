@@ -155,9 +155,9 @@
                     <td>{{ item.startDate | date }}</td>
                     <td>{{ item.endDate | date }}</td>
                     <td>
-                      <a class="badge badge-success" (click)="budgetUpdate(item.id, item)">Güncelle</a>
+                      <a id="cursorButon" class="badge badge-success" (click)="budgetUpdate(item.id, item)">Güncelle</a>
                       &nbsp;
-                      <a class="badge badge-danger" [routerLink]="['/budgetDelete', item.id]"> Sil </a>
+                      <a id="cursorButon"class="badge badge-danger" [routerLink]="['/budgetDelete', item.id]"> Sil </a>
                     </td>
                   </tr>
                 </tbody>
