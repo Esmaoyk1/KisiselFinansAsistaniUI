@@ -20,8 +20,8 @@
     }
   </style>
 
-  <div id="wrapper">
-    <!-- Sidebar -->
+  <!--<div id="wrapper">
+     Sidebar 
     
 
     <div id="content-wrapper" class="d-flex flex-column">
@@ -29,14 +29,14 @@
         <div class="container-fluid">
           <h1 class="h3 mb-4 text-gray-800">Gelir-Gider Yönetimi</h1>
 
-          <!-- Gelir-Gider Ekleme Formu -->
+           Gelir-Gider Ekleme Formu 
           <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
               <h5>Gelir veya Gider Ekle</h5>
               <i class="fas fa-plus-circle"></i>
             </div>
             <div class="card-body">
-              <form>
+              <form (ngSubmit)="addItem()">
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="itemName">Gelir/Gider Adı</label>
@@ -66,7 +66,7 @@
             </div>
           </div>
 
-          <!-- Geçmiş Gelir-Giderleri Görüntüleme -->
+           Geçmiş Gelir-Giderleri Görüntüleme 
           <div class="card mb-4">
             <div class="card-header">
               <h5>Geçmiş Gelir-Giderler</h5>
@@ -121,7 +121,53 @@
         </div>
       </div>
     </div>
+  </div>-->
+
+
+  <div id="wrapper">
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <div class="container-fluid">
+          <h1 class="h3 mb-4 text-gray-800">Gelir-Gider Yönetimi</h1>
+
+          <h5>Geçmiş Gelir-Giderleri Görüntüleme</h5>
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5>Geçmiş Gelir-Giderler</h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th> ID</th>
+                    <th>Kategori ID</th>
+                    <th>Miktar (₺)</th>
+                    <th>Başlangıç Tarihi</th>
+                    <th>Bitiş Tarihi</th>
+                    <th>İşlemler</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of items">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.categoryID }}</td>
+                    <td>{{ item.amount }}</td>
+                    <td>{{ item.startDate | date }}</td>
+                    <td>{{ item.endDate | date }}</td>
+                    <td>
+                      <button (click)="guncelle(item)" class="btn btn-warning btn-sm">Güncelle</button>
+                      <button (click)="deleteHedef(item.categoryID)" class="btn btn-danger btn-sm">Sil</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
   <!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
