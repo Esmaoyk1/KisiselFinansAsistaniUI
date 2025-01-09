@@ -14,7 +14,13 @@ import { HttpClientModule } from '@angular/common/http';
 export class BudgetUpdateComponent {
   hedefId: number | null = null;
   post: any;
-
+  items: { id: number, categoryName: string, categoryType: string }[] = [];
+  //"items": [
+  //  {
+  //    "id": 1,
+  //    "categoryName": "Eğlence",
+  //    "categoryType": "gider"
+  //  },
   constructor(private route: ActivatedRoute, private router: Router, private budgetApiService: BudgetService) {
     const id = this.route.snapshot.paramMap.get('id');
     //this.hedefId? = id;
@@ -32,7 +38,20 @@ export class BudgetUpdateComponent {
   ngOnInit() {
     this.hedefId = this.post.id; // Eğer post içinde id varsa
   }
-
+  loadCategoryItems() {
+    this.budgetApiService.getPosts().subscribe(response => {
+      console.log('API Yanıtı:', response); 
+      if (response && response.data && Array.isArray(response.data.items)) {
+        this.items = response.data.items;
+      } else {
+        console.error('Beklenen dizi değil:', response);
+        this.items = []; 
+      }
+    }, error => {
+      console.error('Hata:', error);
+      this.items = [];
+    });
+  }
   onUpdate(form: NgForm) {
     if (form.valid && this.hedefId) {
       const updatedData = {
