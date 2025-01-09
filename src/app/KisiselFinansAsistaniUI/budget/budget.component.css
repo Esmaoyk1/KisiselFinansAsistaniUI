@@ -1,0 +1,8 @@
+#cursorButon {
+  cursor: pointer; /* Ok imleci için */
+}
+
+  #cursorButon:hover {
+    transform: scale(1.05); /* Hover sırasında öğeyi büyütür */
+    cursor: pointer; /* Ok şekli imleci */
+  }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gelir-Gider Güncelleme</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fc;
+    }
+
+    .card-header {
+      background-color: #4e73df;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Gelir-Gider Güncelleme</h1>
+
+    <!-- Güncelleme Formu -->
+    <form (ngSubmit)="onUpdate(updateForm)" #updateForm="ngForm">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="dropdown">Kategori Seçiminiz:</label>
+          <select [(ngModel)]="post.categoryID" id="dropdown" name="categoryDropdown" class="form-control">
+            <option *ngFor="let category of items" [value]="category.id">{{ category.categoryName }}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="itemAmount">Hedef Miktar (₺)</label>
+          <input type="number" class="form-control" id="itemAmount" [(ngModel)]="post.amount" name="amount" placeholder="Miktarı girin" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="itemstartDate">Baslangic Tarihi</label>
+          <input type="date" class="form-control" id="itemStartDate" [(ngModel)]="post.startDate" name="startDate" placeholder="Baslangic tarihi girin" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="itemEndDate">Tamamlanma Tarihi</label>
+          <input type="date" class="form-control" id="itemEndDate" [(ngModel)]="post.endDate" name="endDate" required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Güncelle</button>
+    </form>
+  </div>
+
+</body>
+</html>
