@@ -24,7 +24,7 @@
     <form (ngSubmit)="onUpdate(updateForm)" #updateForm="ngForm">
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="dropdown">Kategori Seçiminiz:</label>
+          <label for="dropdown">Kategori Seçiniz:</label>
           <select [(ngModel)]="post.categoryID" id="dropdown" name="categoryDropdown" class="form-control">
             <option *ngFor="let category of items" [value]="category.id">{{ category.categoryName }}</option>
           </select>

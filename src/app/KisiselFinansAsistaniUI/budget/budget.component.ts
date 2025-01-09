@@ -4,22 +4,33 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { CategoryApiService } from '../../services/category-api.service';
 
 @Component({
   selector: 'app-budget',
   standalone: true,
   imports: [FormsModule, CommonModule, HttpClientModule, RouterModule],
+  providers: [CategoryApiService],
   templateUrl: './budget.component.html',
   styleUrls: ['./budget.component.css'] // styleUrl yerine styleUrls kullanılmalı
 })
 export class BudgetComponent implements OnInit {
 
-  items: { categoryID: number, amount: number, startDate: string, endDate: string, budgetId:number,categoryName:string}[] = [];
-  newItem = { categoryID: 0, amount: 0, startDate: '', endDate: '', budgetId: 0, categoryName:'' };
-  selectedItem: any; // Güncellenen öğeyi tutacak değişken
+  categoryItems: { id: number, categoryName: string, categoryType: string }[] = [];
+  items: { categoryID: number, amount: number, startDate: string, endDate: string, budgetId: number, categoryName: string }[] = [];
+  newItem = { categoryID: 0, amount: 0, startDate: '', endDate: '', budgetId: 0, categoryName: '' };
+  selectedItem: any=0; // Güncellenen öğeyi tutacak değişken
   isUpdateFormVisible: boolean = false; // Güncelleme formunun görünürlüğü
 
-  constructor(private renderer: Renderer2, private budgetService: BudgetService, private router: Router) { }
+  constructor(
+    private renderer: Renderer2,
+    private budgetService: BudgetService,
+    private router: Router,
+    private categoryApiService: CategoryApiService
+  )
+  {
+    this.loadCategoryItems();
+  }
 
   ngOnInit() {
     this.loadScriptsSequentially();
@@ -29,6 +40,18 @@ export class BudgetComponent implements OnInit {
     this.loadItems(); // Sayfa yüklendiğinde bütçe öğelerini al
   }
 
+  private loadCategoryItems(): void {
+    this.categoryApiService.getPosts().subscribe({
+      next: (categories) => {
+        this.categoryItems = categories.data.items; // API'den gelen veriyi items'a ata
+        console.log("Categories loaded: ", this.items);
+
+      },
+      error: (err) => {
+        console.error("Category loading failed: ", err);
+      }
+    });
+  }
   loadItems() {
     this.budgetService.getPostsBudgetByUser(1).subscribe(response => {
       console.log('API Yanıtı:', response); // Yanıtı kontrol edin

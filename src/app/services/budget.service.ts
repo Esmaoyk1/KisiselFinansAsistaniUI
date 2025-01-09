@@ -26,8 +26,10 @@ export class BudgetService {
     return this.http.put<any>(`${this.apiUrl}/update/${id}`, post);
   }
   deletePost(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/delete/${id}`);
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
-
+  getPostById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/budget/${id}`); // API URL'sini güncelleyin
+  }
 
 }

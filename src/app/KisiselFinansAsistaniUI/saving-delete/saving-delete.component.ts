@@ -49,20 +49,8 @@ export class SavingDeleteComponent implements OnInit {
           alert(error.error.message || 'Silme sırasında bir hata oluştu.');
         }
       );
-      //  } else {
-      //    console.log('Silme işlemi iptal edildi.');
-      //  }
-      //} else {
-      //  console.log('Silinecek hedef ID mevcut değil.');
-      //}
+     
     }
-    //delete() {
-    //  this.savingApiService.deletePost(1).subscribe(() => {
-    //    this.router.navigate(['/hedefler']); // Silme işlemi sonrası yönlendirme
-    //  });
-    //}
-
-
   }
   cancel() {
     this.router.navigate(['/saving']); // İptal edildiğinde yönlendirme
