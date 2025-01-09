@@ -73,22 +73,16 @@ export class BudgetUpdateComponent {
       //console.log('Category API Yanıtı:', response); 
    
       if (response && response.data && Array.isArray(response.data.items)) {
-        console.log("apien gelen : " + response.data.items[0][0]);
         this.items = response.data.items;
-        //alert(this.items[0].categoryName);
-      
-        //console.log(this.items);
-      } else {
-        console.error('Beklenen dizi değil:', response);
+      }
+      else {
         this.items = []; 
       }
     }, error => {
-      console.error('Hata:', error);
       this.items = [];
     });
   }
   onUpdate(form: NgForm) {
-    //alert("upd");
     if (form.valid && this.hedefId) {
       const updatedData = {
         categoryID: this.post.categoryID,
