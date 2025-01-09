@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gelir-Gider Güncelleme</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <!--<style>
+  <style>
     body {
       background-color: #f8f9fc;
     }
@@ -14,7 +14,7 @@
       background-color: #4e73df;
       color: white;
     }
-  </style>-->
+  </style>
 </head>
 <body>
   <div class="container-fluid">
@@ -24,21 +24,10 @@
     <form (ngSubmit)="onUpdate(updateForm)" #updateForm="ngForm">
       <div class="form-row">
         <div class="form-group col-md-6">
-          <!--<label for="dropdown">Kategori Seçiminiz:</label>
-          <select [(ngModel)]="items" id="dropdown" class="form-control">
-            <option *ngFor="let category of items" name="categoryDropdown" [value]="category.id">{{ category.categoryName  }}</option>
-          </select>-->
-          <!--<label for="dropdown">Kategori Seçiminiz:</label>
-  <select [(ngModel)]="items" id="dropdown" class="form-control">
-    <option *ngFor="let category of items" name="categoryDropdown" [value]="category.id">{{ category.categoryName  }}</option>
-  </select>-->
           <label for="dropdown">Kategori Seçiminiz:</label>
-          <select [(ngModel)]="selectedCategoryId" id="dropdown" name="categoryDropdown" class="form-control">
+          <select [(ngModel)]="post.categoryID" id="dropdown" name="categoryDropdown" class="form-control">
             <option *ngFor="let category of items" [value]="category.id">{{ category.categoryName }}</option>
           </select>
-
-          <!--<label for="itemName">Kategori Id</label>
-  <input type="text" class="form-control" id="itemCategoryId" [(ngModel)]="post.categoryID" name="CategoryID" placeholder="Kategori Id" required>-->
         </div>
         <div class="form-group col-md-6">
           <label for="itemAmount">Hedef Miktar (₺)</label>
@@ -59,8 +48,5 @@
     </form>
   </div>
 
-  <!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
 </body>
 </html>

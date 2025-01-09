@@ -7,12 +7,15 @@ import { Observable } from 'rxjs/internal/Observable';
   providedIn: 'root'
 })
 export class BudgetService {
-
+  //  apiUrl: 'http://localhost:5177/api'
   private apiUrl = environment.apiUrl + '/Budget';
   constructor(private http: HttpClient) { }
 
   getPosts(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}`);
+  }
+  getPostsBudgetByUser(userId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/BudgetByUser/${userId}`);
   }
 
   createPost(post: any): Observable<any> {

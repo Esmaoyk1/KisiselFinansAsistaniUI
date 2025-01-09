@@ -14,8 +14,8 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class BudgetComponent implements OnInit {
 
-  items: { categoryID: number, amount: number, startDate: string, endDate: string , id:number}[] = [];
-  newItem = { categoryID: 0, amount: 0, startDate: '', endDate: '',id:0 };
+  items: { categoryID: number, amount: number, startDate: string, endDate: string, budgetId:number,categoryName:string}[] = [];
+  newItem = { categoryID: 0, amount: 0, startDate: '', endDate: '', budgetId: 0, categoryName:'' };
   selectedItem: any; // Güncellenen öğeyi tutacak değişken
   isUpdateFormVisible: boolean = false; // Güncelleme formunun görünürlüğü
 
@@ -30,7 +30,7 @@ export class BudgetComponent implements OnInit {
   }
 
   loadItems() {
-    this.budgetService.getPosts().subscribe(response => {
+    this.budgetService.getPostsBudgetByUser(1).subscribe(response => {
       console.log('API Yanıtı:', response); // Yanıtı kontrol edin
 
       // Yanıtın içindeki data nesnesini kontrol edin
@@ -58,7 +58,7 @@ export class BudgetComponent implements OnInit {
     this.budgetService.createPost(this.newItem).subscribe(response => {
       console.log('Başarıyla eklendi:', response);
       this.items.push({ ...this.newItem }); // Yeni öğeyi diziye ekle
-      this.newItem = { categoryID: 0, amount: 0, startDate: '', endDate: '' , id:0 }; // Formu sıfırla
+      this.newItem = { categoryID: 0, amount: 0, startDate: '', endDate: '', budgetId: 0, categoryName :''}; // Formu sıfırla
     }, error => {
       console.error('Ekleme hatası:', error);
     });

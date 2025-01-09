@@ -39,15 +39,15 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let item of items">
-                    <td>{{ item.id }}</td>
-                    <td>{{ item.categoryID }}</td>
+                    <td>{{ item.budgetId }}</td>
+                    <td>{{ item.categoryName }}</td>
                     <td>{{ item.amount }}</td>
                     <td>{{ item.startDate | date }}</td>
                     <td>{{ item.endDate | date }}</td>
                     <td>
-                      <a id="cursorButon" class="badge badge-success" (click)="budgetUpdate(item.id, item)">Güncelle</a>
+                      <a id="cursorButon" class="badge badge-success" (click)="budgetUpdate(item.budgetId, item)">Güncelle</a>
                       &nbsp;
-                      <a id="cursorButon"class="badge badge-danger" [routerLink]="['/budgetDelete', item.id]"> Sil </a>
+                      <a id="cursorButon"class="badge badge-danger" [routerLink]="['/budgetDelete', item.budgetId]"> Sil </a>
                     </td>
                   </tr>
                 </tbody>

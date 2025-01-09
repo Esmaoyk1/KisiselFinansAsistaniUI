@@ -18,7 +18,7 @@ export class BudgetUpdateComponent {
   hedefId: number | null = null;
   post: any;
   items: { id: number, categoryName: string, categoryType: string }[] = [];
-  selectedCategoryId!: number;
+
   dizi: any= [];
   //"items": [
   //  {
@@ -45,8 +45,6 @@ export class BudgetUpdateComponent {
       this.post.startDate = new Date(this.post.startDate).toISOString().split('T')[0];
       this.post.endDate = new Date(this.post.endDate).toISOString().split('T')[0];
      
-      this.selectedCategoryId = this.post.categoryID; // Varsayılan olarak ilk seçeneği seç
-      console.log("cat id : " + this.selectedCategoryId);
 
     } else {
       console.warn('Navigation veya state bulunamadı.');
@@ -55,7 +53,7 @@ export class BudgetUpdateComponent {
   }
 
   ngOnInit() {
-    this.hedefId = this.post.id; // Eğer post içinde id varsa
+    this.hedefId = this.post.budgetId; // Eğer post içinde id varsa
    
   }
   private loadCategoryItems(): void {
@@ -90,6 +88,7 @@ export class BudgetUpdateComponent {
     });
   }
   onUpdate(form: NgForm) {
+    //alert("upd");
     if (form.valid && this.hedefId) {
       const updatedData = {
         categoryID: this.post.categoryID,
