@@ -81,6 +81,7 @@ export class BudgetComponent implements OnInit {
     this.budgetService.createPost(this.newItem).subscribe(response => {
       console.log('Başarıyla eklendi:', response);
       this.items.push({ ...this.newItem }); // Yeni öğeyi diziye ekle
+      alert("Başarıyla Eklendi");
       this.newItem = { categoryID: 0, amount: 0, startDate: '', endDate: '', budgetId: 0, categoryName :''}; // Formu sıfırla
     }, error => {
       console.error('Ekleme hatası:', error);
