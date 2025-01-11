@@ -4,12 +4,13 @@ import { MenuComponent } from '../../menu/menu.component';
 import { AccountApiService } from '../../services/account-api.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { BanksApiService } from '../../services/banks-api.service';
 
 @Component({
   selector: 'app-account',
   standalone: true,
   imports: [RouterModule, MenuComponent, FormsModule, CommonModule],
-  providers: [AccountApiService],
+  providers: [AccountApiService,BanksApiService],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css'
 })
@@ -30,13 +31,15 @@ export class AccountComponent {
   accountType: string = '';
   balance: number = 0;
 
+  bankNames: string[] = [];
 
-  constructor(private accountapiService: AccountApiService) { };
+  constructor(private accountapiService: AccountApiService , private bankApiService: BanksApiService) { };
 
 
   ngOnInit() {
     this.GetUserBalance();
     this.accountGet();
+    this.loadBankNames();
   }
   GetUserBalance() {
     this.accountapiService.getUserAccountBalance(1).subscribe(
@@ -70,7 +73,7 @@ export class AccountComponent {
   accountGet() {
     this.accountapiService.getPosts().subscribe(
       response => {
-        console.log('Hesap verileri başarıyla alındı:', response);
+        //console.log('Hesap verileri başarıyla alındı:', response);
 
         // response.data'nın dizide olup olmadığını kontrol et
         if (Array.isArray(response.data)) {
@@ -80,7 +83,7 @@ export class AccountComponent {
           this.accounts = Object.values(response.data.items);
         }
 
-        console.log('Alınan hesaplar:', this.accounts);
+        //console.log('Alınan hesaplar:', this.accounts);
       },
       error => {
         console.error('Hesap verileri alınırken hata oluştu:', error);
@@ -88,6 +91,20 @@ export class AccountComponent {
       }
     );
   }
+
+  private loadBankNames(): void {
+    this.bankApiService.getPosts().subscribe({
+      next: (response) => {
+        this.bankNames = response.data.items; // API'den gelen banka adlarını al
+        console.log("Bank names loaded: ", this.bankNames);
+      },
+      error: (err) => {
+        console.error("Bank loading failed: ", err);
+      }
+    });
+  }
+
+  
   
 }
 
