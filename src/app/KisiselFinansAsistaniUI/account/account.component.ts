@@ -17,6 +17,7 @@ import { BanksApiService } from '../../services/banks-api.service';
 export class AccountComponent {
   userbalance: any;
   account = {
+    bankID:0,
     accountName: '',
     accountType: '',
     balance: 0,
@@ -26,14 +27,15 @@ export class AccountComponent {
   };
 
  
-  accounts: { accountName: string, accountType: string, balance: number }[] = [];
+  accounts: { bankId: number, bankName: string, accountName: string, accountType: string, balance: number }[] = [];
+  bankNames: { id: number, bankName: string }[] = [];
   accountName: string = '';
   accountType: string = '';
   balance: number = 0;
+  constructor(private accountapiService: AccountApiService, private bankApiService: BanksApiService) {
 
-  bankNames: string[] = [];
-
-  constructor(private accountapiService: AccountApiService , private bankApiService: BanksApiService) { };
+  /*  this.accountName = this.bankName;*/
+  };
 
 
   ngOnInit() {
@@ -60,7 +62,7 @@ export class AccountComponent {
       response => {
         console.log('Hesap başarıyla eklendi:', response);
         // Formu temizle
-        this.account = { accountName: '', accountType: '', balance: 0, createdDate: '', currency: 'TL', status :true};
+        this.account = { bankID: 0 ,accountName: '', accountType: '', balance: 0, createdDate: '', currency: 'TL', status :true};
         this.GetUserBalance(); // Güncel bakiye bilgilerini al
       },
       error => {
@@ -68,12 +70,12 @@ export class AccountComponent {
         alert('Hata oluştu: ' + error.message);
       }
     );
-  }
+  } 
 
   accountGet() {
     this.accountapiService.getPosts().subscribe(
       response => {
-        //console.log('Hesap verileri başarıyla alındı:', response);
+        console.log('Hesap verileri başarıyla alındı:', response);
 
         // response.data'nın dizide olup olmadığını kontrol et
         if (Array.isArray(response.data)) {
@@ -96,7 +98,8 @@ export class AccountComponent {
     this.bankApiService.getPosts().subscribe({
       next: (response) => {
         this.bankNames = response.data.items; // API'den gelen banka adlarını al
-        console.log("Bank names loaded: ", this.bankNames);
+        //console.log(this.bankNames[0].bankName+"Bank names loaded: ", this.bankNames);
+      
       },
       error: (err) => {
         console.error("Bank loading failed: ", err);
