@@ -74,13 +74,18 @@
             </thead>
             <tbody>
               <!-- Hesapları döngüyle listele -->
-              <tr *ngFor="let acc of accounts">
+              <tr *ngFor="let acc of bankaBilgileri">
                 <td>{{ acc.bankName}}</td>
                 <td>{{ acc.accountType }}</td>
                 <td>{{ acc.balance }}</td>
+                <!--<td>
+                  <button class="btn btn-primary btn-sm">Güncelle</button>
+                  <button class="btn btn-danger btn-sm">Sil</button>
+                </td>-->
                 <td>
-                  <button class="btn btn-primary btn-sm" >Güncelle</button>
-                  <button class="btn btn-danger btn-sm" >Sil</button>
+                  <a id="cursorButon" class="btn btn-primary btn-sm" (click)="accountUpdate(acc.accountID, acc)">Güncelle</a>
+                  &nbsp;
+                  <!--<a id="cursorButon"  class="btn btn-danger btn-sm" [routerLink]="['/accountDelete', item.accountId]"> Sil </a>-->
                 </td>
               </tr>
             </tbody>
