@@ -25,41 +25,32 @@
     </div>
     <div class="card-body">
       <form (ngSubmit)="onSubmit()" #accountForm="ngForm">
-        <div class="form-group">
-          <label for="accountName">Banka Seçin:</label>
-          <select id="accountName" required [(ngModel)]="account.accountName" name="accountName" class="form-control form-control-lg custom-select">
-            <option value="Halkbank">Halkbank</option>
-            <option value="Garanti BBVA">Garanti BBVA</option>
-            <option value="Ziraat Bankası">Ziraat Bankası</option>
-            <option value="Akbank">Akbank</option>
-            <option value="İş Bankası">İş Bankası</option>
-            <option value="Yapı Kredi">Yapı Kredi</option>
-            <option value="VakıfBank">VakıfBank</option>
-            <option value="DenizBank">DenizBank</option>
-            <option value="QNB Finansbank">QNB Finansbank</option>
-            <option value="Türkiye Ekonomi Bankası (TEB)">Türkiye Ekonomi Bankası (TEB)</option>
-            <option value="Şekerbank">Şekerbank</option>
-            <option value="Kuveyt Türk">Kuveyt Türk</option>
-            <option value="Albaraka Türk">Albaraka Türk</option>
-            <option value="Finansbank (NBG Group'a bağlı)">Finansbank (NBG Group'a bağlı)</option>
-            <option value="ING Türkiye">ING Türkiye</option>
-          </select>
-        </div>
-
-
+        <div class="form-row"> 
+          <div class="form-group col-md-12">
+            <label for="bankNames">Banka Seçiniz:</label>
+            <select [(ngModel)]="account.bankID" id="bankNames" name="bankNames" class="form-control" required>
+              <option [value]="0" disabled>Seçiniz...</option>
+              <option *ngFor="let item of bankNames" [value]="item.id">
+                {{ item.bankName }}
+              </option>
+            </select>
+          </div>
+        </div> 
 
         <div class="form-group">
           <label for="accountType">Hesap Türü:</label>
-          <select id="accountType" required [(ngModel)]="account.accountType" name="accountType" class="form-control form-control-lg">
+          <select id="accountType" required [(ngModel)]="account.accountType" name="accountType" class="form-control col-md-12">
             <option value="banka">Banka</option>
             <option value="kredi">Kredi</option>
             <option value="nakit">Nakit</option>
           </select>
         </div>
 
+
+
         <div class="form-group">
           <label for="balance">Bakiye:</label>
-          <input type="number" id="balance" required [(ngModel)]="account.balance" name="balance" class="form-control form-control-lg">
+          <input type="number" id="balance" required [(ngModel)]="account.balance" name="balance" class="form-control col-md-12">
         </div>
 
         <button type="submit" class="btn btn-primary btn-block btn-lg">Kaydet</button>
@@ -83,13 +74,18 @@
             </thead>
             <tbody>
               <!-- Hesapları döngüyle listele -->
-              <tr *ngFor="let acc of accounts">
-                <td>{{ acc.accountName }}</td>
+              <tr *ngFor="let acc of bankaBilgileri">
+                <td>{{ acc.bankName}}</td>
                 <td>{{ acc.accountType }}</td>
                 <td>{{ acc.balance }}</td>
+                <!--<td>
+                  <button class="btn btn-primary btn-sm">Güncelle</button>
+                  <button class="btn btn-danger btn-sm">Sil</button>
+                </td>-->
                 <td>
-                  <button class="btn btn-primary btn-sm" >Güncelle</button>
-                  <button class="btn btn-danger btn-sm" >Sil</button>
+                  <a id="cursorButon" class="btn btn-primary btn-sm" (click)="accountUpdate(acc.accountID, acc)">Güncelle</a>
+                  &nbsp;
+                  <!--<a id="cursorButon"  class="btn btn-danger btn-sm" [routerLink]="['/accountDelete', item.accountId]"> Sil </a>-->
                 </td>
               </tr>
             </tbody>

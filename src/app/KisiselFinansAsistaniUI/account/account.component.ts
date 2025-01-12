@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MenuComponent } from '../../menu/menu.component';
 import { AccountApiService } from '../../services/account-api.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BanksApiService } from '../../services/banks-api.service';
 
@@ -17,6 +17,7 @@ import { BanksApiService } from '../../services/banks-api.service';
 export class AccountComponent {
   userbalance: any;
   account = {
+    bankID:0,
     accountName: '',
     accountType: '',
     balance: 0,
@@ -26,14 +27,22 @@ export class AccountComponent {
   };
 
  
-  accounts: { accountName: string, accountType: string, balance: number }[] = [];
+  bankaBilgileri: { accountID:number, bankId: number, bankName: string, accountName: string, accountType: string, balance: number }[] = [];
+  bankNames: { id: number, bankName: string }[] = [];
   accountName: string = '';
   accountType: string = '';
   balance: number = 0;
+  accountID: number = 0;
 
-  bankNames: string[] = [];
+  selectedItem: any = 0;
 
-  constructor(private accountapiService: AccountApiService , private bankApiService: BanksApiService) { };
+  isUpdateFormVisible: boolean = false;
+  constructor(private accountapiService: AccountApiService,
+    private bankApiService: BanksApiService,
+    private router: Router) {
+
+  /*  this.accountName = this.bankName;*/
+  };
 
 
   ngOnInit() {
@@ -60,7 +69,7 @@ export class AccountComponent {
       response => {
         console.log('Hesap başarıyla eklendi:', response);
         // Formu temizle
-        this.account = { accountName: '', accountType: '', balance: 0, createdDate: '', currency: 'TL', status :true};
+        this.account = { bankID: 0 ,accountName: '', accountType: '', balance: 0, createdDate: '', currency: 'TL', status :true};
         this.GetUserBalance(); // Güncel bakiye bilgilerini al
       },
       error => {
@@ -68,19 +77,21 @@ export class AccountComponent {
         alert('Hata oluştu: ' + error.message);
       }
     );
-  }
+  } 
 
   accountGet() {
     this.accountapiService.getPosts().subscribe(
       response => {
-        //console.log('Hesap verileri başarıyla alındı:', response);
+      
 
         // response.data'nın dizide olup olmadığını kontrol et
         if (Array.isArray(response.data)) {
-          this.accounts = response.data.items; // Hesapları dizi olarak al
+          this.bankaBilgileri = response.data.items; // Hesapları dizi olarak al
+          console.log(' this.accounts:', this.bankaBilgileri);
         } else {
           // Eğer nesne ise, diziyi oluştur
-          this.accounts = Object.values(response.data.items);
+          this.bankaBilgileri = Object.values(response.data.items);
+          console.log('else this.accounts:', this.bankaBilgileri);
         }
 
         //console.log('Alınan hesaplar:', this.accounts);
@@ -96,13 +107,41 @@ export class AccountComponent {
     this.bankApiService.getPosts().subscribe({
       next: (response) => {
         this.bankNames = response.data.items; // API'den gelen banka adlarını al
-        console.log("Bank names loaded: ", this.bankNames);
+        //console.log(this.bankNames[0].bankName+"Bank names loaded: ", this.bankNames);
+      
       },
       error: (err) => {
         console.error("Bank loading failed: ", err);
       }
     });
   }
+
+  guncelle(item: any) {
+    this.selectedItem = { ...item }; // Seçilen öğeyi kopyala
+    this.isUpdateFormVisible = true; // Güncelleme formunu göster
+  }
+
+  accountUpdate(sid: number, post: any) {
+    console.log(sid + " : " + post);
+    this.router.navigate(['accountUpdate', sid], { state: { post: post } });
+  }
+
+  //onUpdate(form: NgForm) {
+  //  if (form.valid && this.selectedItem) {
+  //    this.accountapiService.updatePost(this.selectedItem.accountID, this.selectedItem).subscribe(response => {
+  //      console.log('Başarıyla güncellendi:', response);
+  //      const index = this.accounts.findIndex(item => item.accountID === this.selectedItem.accountID);
+  //      if (index !== -1) {
+  //        this.accounts[index] = this.selectedItem; // Dizi içindeki öğeyi güncelle
+  //      }
+  //      this.isUpdateFormVisible = false; // Güncelleme formunu gizle
+  //    }, error => {
+  //      console.error('Güncelleme hatası:', error);
+  //    });
+  //  } else {
+  //    console.log('Form geçersiz.');
+  //  }
+  //}
 
   
   
