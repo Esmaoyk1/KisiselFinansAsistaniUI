@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MenuComponent } from '../../menu/menu.component';
 import { AccountApiService } from '../../services/account-api.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BanksApiService } from '../../services/banks-api.service';
 
@@ -27,12 +27,19 @@ export class AccountComponent {
   };
 
  
-  accounts: { bankId: number, bankName: string, accountName: string, accountType: string, balance: number }[] = [];
+  bankaBilgileri: { accountID:number, bankId: number, bankName: string, accountName: string, accountType: string, balance: number }[] = [];
   bankNames: { id: number, bankName: string }[] = [];
   accountName: string = '';
   accountType: string = '';
   balance: number = 0;
-  constructor(private accountapiService: AccountApiService, private bankApiService: BanksApiService) {
+  accountID: number = 0;
+
+  selectedItem: any = 0;
+
+  isUpdateFormVisible: boolean = false;
+  constructor(private accountapiService: AccountApiService,
+    private bankApiService: BanksApiService,
+    private router: Router) {
 
   /*  this.accountName = this.bankName;*/
   };
@@ -75,14 +82,16 @@ export class AccountComponent {
   accountGet() {
     this.accountapiService.getPosts().subscribe(
       response => {
-        console.log('Hesap verileri başarıyla alındı:', response);
+      
 
         // response.data'nın dizide olup olmadığını kontrol et
         if (Array.isArray(response.data)) {
-          this.accounts = response.data.items; // Hesapları dizi olarak al
+          this.bankaBilgileri = response.data.items; // Hesapları dizi olarak al
+          console.log(' this.accounts:', this.bankaBilgileri);
         } else {
           // Eğer nesne ise, diziyi oluştur
-          this.accounts = Object.values(response.data.items);
+          this.bankaBilgileri = Object.values(response.data.items);
+          console.log('else this.accounts:', this.bankaBilgileri);
         }
 
         //console.log('Alınan hesaplar:', this.accounts);
@@ -106,6 +115,33 @@ export class AccountComponent {
       }
     });
   }
+
+  guncelle(item: any) {
+    this.selectedItem = { ...item }; // Seçilen öğeyi kopyala
+    this.isUpdateFormVisible = true; // Güncelleme formunu göster
+  }
+
+  accountUpdate(sid: number, post: any) {
+    console.log(sid + " : " + post);
+    this.router.navigate(['accountUpdate', sid], { state: { post: post } });
+  }
+
+  //onUpdate(form: NgForm) {
+  //  if (form.valid && this.selectedItem) {
+  //    this.accountapiService.updatePost(this.selectedItem.accountID, this.selectedItem).subscribe(response => {
+  //      console.log('Başarıyla güncellendi:', response);
+  //      const index = this.accounts.findIndex(item => item.accountID === this.selectedItem.accountID);
+  //      if (index !== -1) {
+  //        this.accounts[index] = this.selectedItem; // Dizi içindeki öğeyi güncelle
+  //      }
+  //      this.isUpdateFormVisible = false; // Güncelleme formunu gizle
+  //    }, error => {
+  //      console.error('Güncelleme hatası:', error);
+  //    });
+  //  } else {
+  //    console.log('Form geçersiz.');
+  //  }
+  //}
 
   
   
