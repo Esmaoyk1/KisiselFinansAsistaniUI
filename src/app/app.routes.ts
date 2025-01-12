@@ -14,6 +14,7 @@ import { BudgetUpdateComponent } from './KisiselFinansAsistaniUI/budget-update/b
 import { AccountUpdateComponent } from './KisiselFinansAsistaniUI/account-update/account-update.component';
 import { LoginLayoutComponent } from './Auth/user/login.layout.component';
 import { MainLayoutComponent } from './KisiselFinansAsistaniUI/main-layout.component';
+import { AuthGuard } from './Auth/guards/auth.guard';
 
 export const routes: Route[] = [
 
@@ -21,15 +22,15 @@ export const routes: Route[] = [
     path: '', // Ana layout
     component: MainLayoutComponent,
     children: [
-      { path: '', component: HomeComponent }, // Ana sayfa
-      { path: 'account', component: AccountComponent },
-      { path: 'budget', component: BudgetComponent },
-      { path: 'saving', component: SavingComponent },
-      { path: 'savingUpdate/:sid', component: SavingUpdateComponent },
-      { path: 'savingDelete/:sid', component: SavingDeleteComponent },
-      { path: 'budgetDelete/:sid', component: BudgetDeleteComponent },
-      { path: 'budgetUpdate/:sid', component: BudgetUpdateComponent },
-      { path: 'accountUpdate/:sid', component: AccountUpdateComponent },
+      { path: '', component: HomeComponent, canActivate: [AuthGuard] }, // Ana sayfa
+      { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
+      { path: 'budget', component: BudgetComponent, canActivate: [AuthGuard] },
+      { path: 'saving', component: SavingComponent, canActivate: [AuthGuard] },
+      { path: 'savingUpdate/:sid', component: SavingUpdateComponent, canActivate: [AuthGuard] },
+      { path: 'savingDelete/:sid', component: SavingDeleteComponent, canActivate: [AuthGuard] },
+      { path: 'budgetDelete/:sid', component: BudgetDeleteComponent, canActivate: [AuthGuard] },
+      { path: 'budgetUpdate/:sid', component: BudgetUpdateComponent, canActivate: [AuthGuard] },
+      { path: 'accountUpdate/:sid', component: AccountUpdateComponent, canActivate: [AuthGuard] },
     ],
   },
 
