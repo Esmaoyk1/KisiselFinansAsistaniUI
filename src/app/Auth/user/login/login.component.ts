@@ -4,6 +4,7 @@ import { Observable } from 'rxjs'; // Observable kullanacağız
 import { KisiselApiService } from '../../../services/kisisel-api.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../../auth-service.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,10 @@ export class LoginComponent {
   emaill: string = '';   //qwgg
   passwordd: string = ''; //1231165
 
-  constructor(private kisiselapiService: KisiselApiService, private http: HttpClient) { }
+  constructor(
+    private kisiselapiService: KisiselApiService,
+    private authService: AuthService,
+    private http: HttpClient) { }
 
 
   ngOnInit() {
@@ -30,17 +34,8 @@ export class LoginComponent {
       password: this.passwordd
     };
     //{ email: "qwgg",password :"1231165"}
-
-    this.kisiselapiService.createPost(post).subscribe(
-      response => {
-        console.log('Giriş başarılı:', response);
-        alert('Giriş başarılı:');
-
-      },
-      error => {
-        console.error('Giriş hatası:', error);
-        alert('Giriş hatası:');
-      }
-    );
+    //auth service in loginine aatcak
+    this.authService.login(post);
+   
   }
 }
