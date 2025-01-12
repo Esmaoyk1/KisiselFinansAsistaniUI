@@ -37,4 +37,7 @@ export class AuthService {
     const token = localStorage.getItem('authToken');
     return !!token; // Token varsa true döner, yoksa false
   }
+  getToken(): string | null {
+    return localStorage.getItem('authToken'); // Token alınır
+  }
 }
