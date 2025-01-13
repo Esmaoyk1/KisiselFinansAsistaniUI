@@ -12,4 +12,5 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   `,
 
 })
-export class LoginLayoutComponent { }
+export class LoginLayoutComponent {
+}

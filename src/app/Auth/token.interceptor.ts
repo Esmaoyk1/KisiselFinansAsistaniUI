@@ -1,25 +1,23 @@
-import { HttpInterceptorFn } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+import { HttpRequest, HttpHandlerFn, HttpEvent, HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth-service.service';
 
-@Injectable()  // Bu dekoratörü ekliyoruz
-export class TokenInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) { }
+// Interceptor fonksiyonunu tanımlıyoruz
+export const TokenInterceptor: HttpInterceptorFn = (req, next) => {
+  alert("Interceptor çalıştı");
+  const authService = inject(AuthService);
+  const token = authService.getToken();
+  alert("Interceptor çalıştı" + token);
+  if (token) {
+    console.log("token : " + token);
+    req = req.clone({
+      setHeaders: {
+        Authorization: `Bearer123 ${token}`,
+      },
+    });
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this.authService.getToken(); // AuthService'den token alınır
-
-    if (token) {
-      // Token varsa, Authorization header eklenir
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-    }
-
-    return next.handle(request); // İstek işleme devam eder
   }
-}
+
+  return next(req);
+};

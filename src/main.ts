@@ -6,6 +6,7 @@ import { appConfig } from './app/app.config';
 
 bootstrapApplication(AppComponent, {
   providers: [
+ 
     importProvidersFrom(HttpClientModule),  // HttpClientModule burada sağlanıyor
     ...appConfig.providers  // appConfig'in provider'larını buraya ekleyin
   ]
