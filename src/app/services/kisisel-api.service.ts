@@ -11,11 +11,13 @@ import { environment } from '../../environment';
 })
 export class KisiselApiService {
 
+  constructor(private http: HttpClient) { }
+
   private apiUrl = environment.apiUrl + '/User/login';
   //private apiUrl = 'http://localhost:5177/api/User/login';
   //private apiUrl = 'http://esmaapp.somee.com/api/User/login';
 
-  constructor(private http: HttpClient) { }
+ // constructor(private http: HttpClient) { }
 
   getPosts(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/posts`);

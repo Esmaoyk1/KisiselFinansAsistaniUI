@@ -1,11 +1,13 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { HttpClientModule } from '@angular/common/http';  // HttpClientModule import edilmiştir
+import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';  // HttpClientModule import edilmiştir
 import { importProvidersFrom } from '@angular/core';     // importProvidersFrom import edilmiştir
 import { appConfig } from './app/app.config';
+import { TokenInterceptor } from './app/Auth/token.interceptor';
 
 bootstrapApplication(AppComponent, {
   providers: [
+    provideHttpClient(withInterceptors([TokenInterceptor])),
     importProvidersFrom(HttpClientModule),  // HttpClientModule burada sağlanıyor
     ...appConfig.providers  // appConfig'in provider'larını buraya ekleyin
   ]

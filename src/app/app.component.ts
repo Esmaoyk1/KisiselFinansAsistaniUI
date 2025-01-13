@@ -17,16 +17,13 @@ import { KisiselApiService } from './services/kisisel-api.service';
   styleUrls: ['./app.component.css'],
   imports: [RouterOutlet, AccountComponent,HttpClientModule /*SearchBarComponent,*/ ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    },
-    KisiselApiService
+   
+    KisiselApiService, HttpClientModule
   ]
 })
 export class AppComponent {
-  private authService = inject(AuthService); // AuthService'yi injection ile alıyoruz
+ 
+  //private authService = inject(AuthService); // AuthService'yi injection ile alıyoruz*/
   private httpClient = inject(HttpClient); // HttpClient'ı da injection ile alıyoruz
 
 }
