@@ -6,8 +6,6 @@ import { Observable } from 'rxjs'; // Observable kullanacağız
 import { AccountComponent } from './KisiselFinansAsistaniUI/account/account.component';
 
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { TokenInterceptor } from './Auth/token.interceptor';
-import { AuthService } from './Auth/auth-service.service';
 import { KisiselApiService } from './services/kisisel-api.service';
 
 @Component({
@@ -23,7 +21,5 @@ import { KisiselApiService } from './services/kisisel-api.service';
 })
 export class AppComponent {
  
-  //private authService = inject(AuthService); // AuthService'yi injection ile alıyoruz*/
-  private httpClient = inject(HttpClient); // HttpClient'ı da injection ile alıyoruz
 
 }

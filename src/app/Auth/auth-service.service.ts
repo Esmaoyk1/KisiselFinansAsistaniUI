@@ -27,9 +27,6 @@ export class AuthService {
         //alert('Giriş hatası:');
       }
     );
-
-
-   
   }
 
   logout() {
@@ -38,10 +35,19 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    const token = localStorage.getItem('authToken');
-    return !!token; // Token varsa true döner, yoksa false
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('authToken');
+      return !!token; // Token varsa true döner, yoksa false
+    }
+    return false;
   }
+  //getToken(): string | null {
+  //  return localStorage.getItem('authToken'); // Token alınır
+  //}
   getToken(): string | null {
-    return localStorage.getItem('authToken'); // Token alınır
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('authToken');
+    }
+    return null; // veya uygun bir varsayılan değer
   }
 }

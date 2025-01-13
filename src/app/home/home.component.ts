@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs'; // Observable kullanacağız
@@ -14,6 +14,7 @@ import { TransactionApiService } from '../services/transactionapi.service';
 import { parse } from 'node:path/posix';
 import { map } from 'rxjs/operators';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../Auth/auth-service.service';
 
 
 
@@ -29,7 +30,9 @@ declare var Chart: any;
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  title = 'KisiselFinansAsistaniUI';
+
+  private authService = inject(AuthService); // AuthService'yi injection ile alıyoruz*/
+  private httpClient = inject(HttpClient); // HttpClient'ı da injection ile alıyoruz
   userBalance: number = 12356; // Başlangıç değeri
   currency: string | undefined;
   savedAmount: number = 1500; // Başlangıç değeri
