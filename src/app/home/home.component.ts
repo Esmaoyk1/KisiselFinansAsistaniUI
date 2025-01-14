@@ -13,8 +13,6 @@ import { SavingApiService } from '../services/saving.service';
 import { TransactionApiService } from '../services/transactionapi.service';
 import { parse } from 'node:path/posix';
 import { map } from 'rxjs/operators';
-import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from '../Auth/auth-service.service';
 
 
 
@@ -24,15 +22,13 @@ declare var Chart: any;
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterOutlet, MenuComponent, AccountComponent, SearchBarComponent, CommonModule, HttpClientModule],
+  imports: [RouterOutlet, MenuComponent, AccountComponent, SearchBarComponent, CommonModule],
   providers: [AccountApiService, SavingApiService, TransactionApiService],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
 
-  private authService = inject(AuthService); // AuthService'yi injection ile alıyoruz*/
-  private httpClient = inject(HttpClient); // HttpClient'ı da injection ile alıyoruz
   userBalance: number = 12356; // Başlangıç değeri
   currency: string | undefined;
   savedAmount: number = 1500; // Başlangıç değeri

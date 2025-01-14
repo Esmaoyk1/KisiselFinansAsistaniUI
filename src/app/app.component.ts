@@ -5,18 +5,16 @@ import { Observable } from 'rxjs'; // Observable kullanacağız
 //import { SearchBarComponent } from './search-bar/search-bar.component';
 import { AccountComponent } from './KisiselFinansAsistaniUI/account/account.component';
 
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { KisiselApiService } from './services/kisisel-api.service';
+//import {  HttpClient } from '@angular/common/http';
+//import { KisiselApiService } from './services/kisisel-api.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  imports: [RouterOutlet, AccountComponent,HttpClientModule /*SearchBarComponent,*/ ],
+  imports: [RouterOutlet, AccountComponent /*SearchBarComponent,*/ ],
   providers: [
-   
-    KisiselApiService, HttpClientModule
   ]
 })
 export class AppComponent {

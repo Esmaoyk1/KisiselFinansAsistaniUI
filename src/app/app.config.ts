@@ -10,6 +10,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes), provideClientHydration(),
     provideHttpClient(withInterceptors([TokenInterceptor])),
-    AuthService
+    AuthService//bu modul globaldedir başka componenten çağrılmammalı zazten global DI dan geelcek
   ]
 };
