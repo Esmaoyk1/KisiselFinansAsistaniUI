@@ -97,7 +97,7 @@ export class HomeComponent {
   GetLastFiveByUser() {
     this.savingApiService.GetLastFiveByUser(1).subscribe(
       response => {
-        console.log('five respo:', response);
+        //console.log('five respo:', response);
         this.dataFive = response.data.items;
 
       },
@@ -158,7 +158,7 @@ export class HomeComponent {
     this.remainingBudget = this.userBalance - this.savedAmount - this.transactionAmount;
 
     // Kalan bütçeyi konsola yazdır
-    console.log(this.userBalance + "Kalan bütçe: " + this.remainingBudget);
+    //console.log(this.userBalance + "Kalan bütçe: " + this.remainingBudget);
   }
 
   //getRandomColorClass(): string {
@@ -169,7 +169,7 @@ export class HomeComponent {
   calculatePercentageRemaining() {
     this.transactionApiService.GetTransactionPercentageByAccount(1).subscribe(
       response => {
-        console.log("başardık ulan", response);
+        //console.log("başardık ulan", response);
 
         this.chartData = response.data.items.map((item: any, index: number) => ({
 
@@ -434,7 +434,7 @@ export class HomeComponent {
   }
   getDovizKurlari(): Observable<any> {
     return this.http.get(this.url, { responseType: 'text' }).pipe(map((response: string) => {
-      console.log('TCMB Response:', response); // Gelen XML verisi konsola yazdırılır
+      //console.log('TCMB Response:', response); // Gelen XML verisi konsola yazdırılır
       return this.parseXml(response);
     }));
   }
