@@ -27,7 +27,7 @@ export class AccountComponent {
   };
 
  
-  bankaBilgileri: { accountID:number, bankId: number, bankName: string, accountName: string, accountType: string, balance: number }[] = [];
+  bankaBilgileri: { accountID: number, bankId: number, bankName: string, accountName: string, accountTypeName: string, accountType: number, balance: number }[] = [];
   bankNames: { id: number, bankName: string }[] = [];
   accountName: string = '';
   accountType: string = '';
@@ -122,7 +122,7 @@ export class AccountComponent {
   }
 
   accountUpdate(sid: number, post: any) {
-    this.router.navigate(['accountUpdate', sid], { state: { post: post } });
+    this.router.navigate(['accountUpdate', sid], { state: { veri: post } });
   }
 
   //onUpdate(form: NgForm) {

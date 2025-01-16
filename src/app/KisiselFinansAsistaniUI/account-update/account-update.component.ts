@@ -47,9 +47,9 @@ export class AccountUpdateComponent implements OnInit {
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
      
-      this.post = navigation.extras.state['post'];
-      console.log("post geldim : ");
+      this.post = navigation.extras.state['veri'];
       console.log(this.post);
+     
 
     } else {
       console.warn('Navigation veya state bulunamadı.');
@@ -57,21 +57,6 @@ export class AccountUpdateComponent implements OnInit {
     }
 
 
-    //const navigation = this.router.getCurrentNavigation();
-    //if (navigation?.extras.state) {
-    //  this.post = navigation.extras.state['post'];
-    //  console.log(this.post);
-    //} else {
-    //  console.log('No state found');
-    //}
-    //console.log("navigatin : ");
-    //console.log(navigation);
-    //if (navigation && navigation.extras.state) {
-    //  this.selectedItem = navigation.extras.state['post'];
-    //  alert("nav agbkag");
-    //  console.log("seletedıtem geldi : ");
-    //  console.log(this.selectedItem);
-    //}
   }
 
   ngOnInit(): void {
@@ -105,8 +90,19 @@ export class AccountUpdateComponent implements OnInit {
   }
 
   onUpdate(form: NgForm) {
-    if (form.valid && this.selectedItem) {
-      this.accountApiService.updatePost(this.post.accountID, this.selectedItem).subscribe(response => {
+    if (form.valid && this.post) {
+      const updatedData = {
+        id: this.post.accountID,
+        accountName: this.post.bankName,
+        accountType: this.post.accountType,
+        balance: this.post.balance,
+        currency: this.post.currency
+      }
+
+
+      console.log("this post item");
+      console.log(this.post);
+      this.accountApiService.updatePost(this.post.accountID, updatedData).subscribe(response => {
         console.log('Başarıyla güncellendi:', response);
         this.router.navigate(['/account']); // Güncelleme sonrası ana hesaba yönlendir
       }, error => {
