@@ -26,10 +26,13 @@ export class AccountApiService {
   }
 
   updatePost(id: number, post: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, post);
+    return this.http.put<any>(`${this.apiUrl}`, post);
   }
 
   deletePost(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}`);
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
+  getPostById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`); 
   }
 }

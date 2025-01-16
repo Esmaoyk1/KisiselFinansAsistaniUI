@@ -15,6 +15,7 @@ import { AccountUpdateComponent } from './KisiselFinansAsistaniUI/account-update
 import { LoginLayoutComponent } from './Auth/user/login.layout.component';
 import { MainLayoutComponent } from './KisiselFinansAsistaniUI/main-layout.component';
 import { AuthGuard } from './Auth/guards/auth.guard';
+import { AccountDeleteComponent } from './KisiselFinansAsistaniUI/account-delete/account-delete.component';
 
 export const routes: Route[] = [
 
@@ -31,6 +32,7 @@ export const routes: Route[] = [
       { path: 'budgetDelete/:sid', component: BudgetDeleteComponent, canActivate: [AuthGuard] },
       { path: 'budgetUpdate/:sid', component: BudgetUpdateComponent, canActivate: [AuthGuard] },
       { path: 'accountUpdate/:sid', component: AccountUpdateComponent, canActivate: [AuthGuard] },
+      { path: 'accountDelete/:sid', component: AccountDeleteComponent, canActivate: [AuthGuard] }
     ],
   },
 
