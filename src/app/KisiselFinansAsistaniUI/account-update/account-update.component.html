@@ -1,1 +1,36 @@
-<p>account-update works!</p>
+<div class="card mb-4">
+  <div class="card-header">
+    <h5>Hesap Güncelle</h5>
+  </div>
+  <div class="card-body">
+    <form (ngSubmit)="onUpdate(updateForm)" #updateForm="ngForm">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="bankSelect">Banka Seçiniz:{{post.bankID}}</label>
+          <select [(ngModel)]="post.bankID" id="bankSelect" name="bankId" class="form-control" required>
+            <option *ngFor="let bank of bankNames" [value]="bank.id">
+              {{ bank.bankName }}
+            </option>
+          </select>
+        </div>
+       
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="accountTypeSelect">Banka Türü Seçiniz</label>
+          <select [(ngModel)]="post.accountID" id="accountTypeSelect" name="accountId" class="form-control" required>
+            <option *ngFor="let account of accountType" [value]="account.id">
+              {{ account.accountType }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="balance">Bakiye (₺)</label>
+          <input type="number" class="form-control" id="balance" [(ngModel)]="selectedItem" name="balance" placeholder="Bakiye girin" required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Güncelle</button>
+      <button type="button" class="btn btn-secondary" (click)="router.navigate(['/account'])">İptal</button>
+    </form>
+  </div>
+</div>

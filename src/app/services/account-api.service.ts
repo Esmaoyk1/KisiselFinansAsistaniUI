@@ -30,6 +30,6 @@ export class AccountApiService {
   }
 
   deletePost(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+    return this.http.delete<any>(`${this.apiUrl}`);
   }
 }

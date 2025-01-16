@@ -29,4 +29,8 @@ export class BanksApiService {
   deletePost(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
+
+  getAccountType(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/hesapturleri`);
+  }
 }

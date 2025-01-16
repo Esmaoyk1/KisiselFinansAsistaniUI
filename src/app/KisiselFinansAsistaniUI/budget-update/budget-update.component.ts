@@ -2,14 +2,13 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { BudgetService } from '../../services/budget.service';
 import { FormsModule, NgForm } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { CategoryApiService } from '../../services/category-api.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-budget-update',
   standalone: true,
-  imports: [RouterModule, FormsModule, HttpClientModule, CommonModule],
+  imports: [RouterModule, FormsModule, CommonModule],
   providers: [CategoryApiService],
   templateUrl: './budget-update.component.html',
   styleUrl: './budget-update.component.css'

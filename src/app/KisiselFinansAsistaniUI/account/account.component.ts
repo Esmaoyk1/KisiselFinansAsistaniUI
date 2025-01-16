@@ -122,7 +122,6 @@ export class AccountComponent {
   }
 
   accountUpdate(sid: number, post: any) {
-    console.log(sid + " : " + post);
     this.router.navigate(['accountUpdate', sid], { state: { post: post } });
   }
 
@@ -143,7 +142,22 @@ export class AccountComponent {
   //  }
   //}
 
-  
+  onUpdate(form: NgForm) {
+    if (form.valid && this.selectedItem) {
+      this.accountapiService.updatePost(this.selectedItem.accountID, this.selectedItem).subscribe(response => {
+        console.log('Başarıyla güncellendi:', response);
+        const index = this.bankaBilgileri.findIndex(item => item.accountID === this.selectedItem.accountID);
+        if (index !== -1) {
+          this.bankaBilgileri[index] = this.selectedItem; // Dizi içindeki öğeyi güncelle
+        }
+        this.isUpdateFormVisible = false; // Güncelleme formunu gizle
+      }, error => {
+        console.error('Güncelleme hatası:', error);
+      });
+    } else {
+      console.log('Form geçersiz.');
+    }
+  }
   
 }
 
