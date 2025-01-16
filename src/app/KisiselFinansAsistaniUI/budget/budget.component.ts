@@ -1,6 +1,6 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { BudgetService } from '../../services/budget.service';
-import { HttpClientModule } from '@angular/common/http';
+//import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
@@ -9,7 +9,7 @@ import { CategoryApiService } from '../../services/category-api.service';
 @Component({
   selector: 'app-budget',
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule, RouterModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   providers: [CategoryApiService],
   templateUrl: './budget.component.html',
   styleUrls: ['./budget.component.css'] // styleUrl yerine styleUrls kullanılmalı
