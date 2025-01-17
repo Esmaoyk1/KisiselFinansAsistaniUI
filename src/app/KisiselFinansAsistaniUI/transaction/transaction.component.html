@@ -1,0 +1,79 @@
+
+<div class="container-fluid">
+ Gelir/Gider Ekleme Formu 
+<div class="card shadow mb-4">
+  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+    <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-plus-circle"></i> Gelir/Gider Ekle</h6>
+  </div>
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit(transactionForm)" #transactionForm="ngForm">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="amount">Miktar:</label>
+          <input type="number" id="amount" name="amount" class="form-control" ngModel required>
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="description">Açıklama:</label>
+          <input type="text" id="description" name="description" class="form-control" ngModel required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="transactionType">İşlem Türü:</label>
+          <select id="transactionType" name="transactionType" class="form-control" ngModel required>
+            <option [ngValue]="true">Gelir</option>
+            <option [ngValue]="false">Gider</option>
+          </select>
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="categoryID">Kategori Seçin:</label>
+          <select id="categoryID" name="categoryID" class="form-control" ngModel required>
+            <option *ngFor="let category of categories" [value]="category.id">{{ category.categoryName }}</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Ekle</button>
+    </form>
+  </div>
+</div>
+
+<hr>
+ Mevcut İşlemler 
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-table"></i> İşlemler</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Açıklama</th>
+              <th>Miktar (₺)</th>
+              <th>Tür</th>
+              <th>İşlemler</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaction of transactions">
+              <td>{{ transaction.description }}</td>
+              <td>{{ transaction.amount }}</td>
+              <td>{{ transaction.transactionType ? 'Gelir' : 'Gider' }}</td>
+              <td>
+                <button (click)="guncelle(transaction)" class="btn btn-warning btn-sm">Güncelle</button>
+                <button (click)="deleteTransaction(transaction.id)" class="btn btn-danger btn-sm">Sil</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
