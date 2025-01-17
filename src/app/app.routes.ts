@@ -16,6 +16,9 @@ import { LoginLayoutComponent } from './Auth/user/login.layout.component';
 import { MainLayoutComponent } from './KisiselFinansAsistaniUI/main-layout.component';
 import { AuthGuard } from './Auth/guards/auth.guard';
 import { AccountDeleteComponent } from './KisiselFinansAsistaniUI/account-delete/account-delete.component';
+import { TransactionUpdateComponent } from './KisiselFinansAsistaniUI/transaction-update/transaction-update.component';
+import { TransactionDeleteComponent } from './KisiselFinansAsistaniUI/transaction-delete/transaction-delete.component';
+import { TransactionComponent } from './KisiselFinansAsistaniUI/transaction/transaction.component';
 
 export const routes: Route[] = [
 
@@ -27,12 +30,15 @@ export const routes: Route[] = [
       { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
       { path: 'budget', component: BudgetComponent, canActivate: [AuthGuard] },
       { path: 'saving', component: SavingComponent, canActivate: [AuthGuard] },
+      { path: 'transaction', component: TransactionComponent, canActivate: [AuthGuard] },
       { path: 'savingUpdate/:sid', component: SavingUpdateComponent, canActivate: [AuthGuard] },
       { path: 'savingDelete/:sid', component: SavingDeleteComponent, canActivate: [AuthGuard] },
       { path: 'budgetDelete/:sid', component: BudgetDeleteComponent, canActivate: [AuthGuard] },
       { path: 'budgetUpdate/:sid', component: BudgetUpdateComponent, canActivate: [AuthGuard] },
       { path: 'accountUpdate/:sid', component: AccountUpdateComponent, canActivate: [AuthGuard] },
-      { path: 'accountDelete/:sid', component: AccountDeleteComponent, canActivate: [AuthGuard] }
+      { path: 'accountDelete/:sid', component: AccountDeleteComponent, canActivate: [AuthGuard] },
+      { path: 'transactionDelete/:sid', component: TransactionUpdateComponent, canActivate: [AuthGuard] },
+      { path: 'transactionDelete/:sid', component: TransactionDeleteComponent, canActivate: [AuthGuard] }
     ],
   },
 

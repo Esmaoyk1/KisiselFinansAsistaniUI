@@ -29,12 +29,13 @@ declare var Chart: any;
 })
 export class HomeComponent {
 
-  userBalance: number = 12356; // Başlangıç değeri
+  userBalance: number = 0; // Başlangıç değeri
   currency: string | undefined;
-  savedAmount: number = 1500; // Başlangıç değeri
-  transactionAmount: number = 4236; // Başlangıç değeri
-  remainingBudget: number = 6500; // Başlangıç değeri
+  savedAmount: number = 0; // Başlangıç değeri
+  transactionAmount: number = 0; // Başlangıç değeri
+  remainingBudget: number = 0; // Başlangıç değeri
   percentageRemaining: number = 0;
+  totalTransactions: number = 0;
 
   //PieChart değişkenleri
   //chartData: { label: any; colorClass: string; iconClass: string }[] = [];
@@ -92,7 +93,7 @@ export class HomeComponent {
     this.getAreaChartByAccount();
     this.GetLastFiveByUser();
     this.getKurlaar();
-
+    this.GetTrueTransactions();
   }
   GetLastFiveByUser() {
     this.savingApiService.GetLastFiveByUser(1).subscribe(
@@ -107,17 +108,50 @@ export class HomeComponent {
       }
     );
   }
-  GetUserBalance() {
+  GetUserBalance(): void {
     this.accountapiService.getUserAccountBalance(1).subscribe(
       response => {
-        //console.log('başarılı:', response);
         this.userBalance = response.data.balance;
         this.currency = response.data.currency;
+        console.log("Kullanıcı Bakiyesi (Banka): " + this.userBalance);
         this.KalanButce();
       },
       error => {
-        console.error(' hata:', error);
-        //alert(' hatası:');
+        console.error('Hata:', error);
+      }
+    );
+  }
+
+  GetUserBalanceWithTotal(): void {
+    this.accountapiService.getUserAccountBalance(1).subscribe(
+      response => {
+        this.userBalance = response.data.balance + this.totalTransactions; // Toplam işlemleri ekle
+        this.currency = response.data.currency;
+        console.log("Kasadaki Toplam Değer: " + this.userBalance);
+        this.KalanButce();
+      },
+      error => {
+        console.error('Hata:', error);
+      }
+    );
+  }
+
+  GetTrueTransactions(): void {
+    this.transactionApiService.GetTrueTransactions().subscribe(
+      response => {
+        console.log("API Yanıtı:", response); // Yanıtı kontrol et
+        if (response.data && Array.isArray(response.data.items)) {
+          //items dizisini kullanarak toplam işlemleri hesapla
+          this.totalTransactions = response.data.items.reduce((acc: number, transaction: any) => acc + transaction.amount, 0);
+          console.log("Gelir Değerleri: ", this.totalTransactions);
+          this.KalanButce();
+          this.GetUserBalanceWithTotal(); // Bakiyeyi güncelle
+        } else {
+          console.error('response.data.items bir dizi değil veya boş:', response.data.items);
+        }
+      },
+      error => {
+        console.error('Hata:', error);
       }
     );
   }
@@ -446,7 +480,7 @@ export class HomeComponent {
       this.sterlinKuru = data.sterlinKuru;
       this.frangKuru = data.frangKuru;
 
-      
+
     });
     console.log("getirildiiiiii" + this.frangKuru, "dfsghja", this.sterlinKuru);
 
