@@ -105,7 +105,7 @@ export class TransactionComponent {
     console.log(form.value);
     if (form.valid) {
       const transactionData = {
-        accountID: 8, // Kullanıcının seçtiği hesap ID'si
+        accountID: 9, // Kullanıcının seçtiği hesap ID'si
         userID: 1,       // Geçerli kullanıcı ID'si
         transactionType: form.value.transactionType, // Gelir veya gider
         categoryID: form.value.categoryID, // Seçilen kategori ID'si
