@@ -37,8 +37,8 @@ export const routes: Route[] = [
       { path: 'budgetUpdate/:sid', component: BudgetUpdateComponent, canActivate: [AuthGuard] },
       { path: 'accountUpdate/:sid', component: AccountUpdateComponent, canActivate: [AuthGuard] },
       { path: 'accountDelete/:sid', component: AccountDeleteComponent, canActivate: [AuthGuard] },
-      { path: 'transactionDelete/:sid', component: TransactionUpdateComponent, canActivate: [AuthGuard] },
-      { path: 'transactionDelete/:sid', component: TransactionDeleteComponent, canActivate: [AuthGuard] }
+      { path: 'transactionDelete/:sid', component: TransactionDeleteComponent, canActivate: [AuthGuard] },
+      { path: 'transactionUpdate/:sid', component: TransactionUpdateComponent, canActivate: [AuthGuard] }
     ],
   },
 

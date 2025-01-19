@@ -1,5 +1,5 @@
 import { Component, Renderer2 } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { TransactionApiService } from '../../services/transactionapi.service';
 import { CommonModule } from '@angular/common';
@@ -9,7 +9,7 @@ import { CategoryApiService } from '../../services/category-api.service';
 @Component({
   selector: 'app-transaction',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './transaction.component.html',
   styleUrl: './transaction.component.css'
 })
@@ -134,6 +134,10 @@ export class TransactionComponent {
   guncelle(transaction: any): void {
     this.selectedTransaction = { ...transaction }; // Seçilen işlemi kopyala
     this.isUpdateFormVisible = true; // Güncelleme formunu göster
+  }
+  transactionUpdate(sid: number, post: any) {
+    this.router.navigate(['transactionUpdate', sid], { state: { post: post } });
+
   }
 
   onUpdate(form: NgForm): void {
