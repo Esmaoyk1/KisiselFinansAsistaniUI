@@ -30,7 +30,7 @@ export class TransactionApiService {
   }
 
   updatePost(id: number, post: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, post);
+    return this.http.put<any>(`${this.apiUrl}/TransactionUpdate/${id}`, post);
   }
 
   deletePost(id: number): Observable<any> {
@@ -46,5 +46,8 @@ export class TransactionApiService {
 
   GetTrueTransactions(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/GetTrueTransactions`);
+  }
+  getPostById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/GetPostById/${id}`); // API URL'sini güncelleyin
   }
 }

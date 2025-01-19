@@ -1,1 +1,36 @@
-<p>transaction-update works!</p>
+<div *ngIf="isUpdateFormVisible">
+  <h2>İşlem Güncelle</h2>
+  <form #updateForm="ngForm" (ngSubmit)="onUpdate(updateForm)">
+
+    <div class="form-group">
+      <label for="transactionType">İşlem Türü</label>
+      <select id="transactionType" class="form-control" [(ngModel)]="post.transactionType" name="transactionType" required>
+        <option [ngValue]="true">Gelir</option>
+        <option [ngValue]="false">Gider</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="categoryID">Kategori ID</label>
+      <input type="number" id="categoryID" class="form-control" [(ngModel)]="post.categoryID" name="categoryID" required>
+    </div>
+
+    <div class="form-group">
+      <label for="amount">Miktar</label>
+      <input type="number" id="amount" class="form-control" [(ngModel)]="post.amount" name="amount" required>
+
+    </div>
+
+    <div class="form-group">
+      <label for="date">Tarih</label>
+      <input type="datetime-local" id="date" class="form-control" [(ngModel)]="post.date" name="date" required>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Açıklama</label>
+      <textarea id="description" class="form-control" [(ngModel)]="post.description" name="description" required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Güncelle</button>
+  </form>
+</div>

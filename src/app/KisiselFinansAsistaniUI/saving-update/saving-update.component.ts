@@ -32,6 +32,7 @@ export class SavingUpdateComponent implements OnInit {
   }
 
   onUpdate(form: NgForm) {
+    console
     if (form.valid && this.hedefId) {
       const updatedData = {
         goalName: this.post.goalName,
