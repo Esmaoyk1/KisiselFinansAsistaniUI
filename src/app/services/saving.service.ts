@@ -89,4 +89,8 @@ export class SavingApiService {
   getPostById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/saving/${id}`); // API URL'sini güncelleyin
   }
+
+  GetHighSavingsByUser(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/HighSavings/${id}`); 
+  }
 }
