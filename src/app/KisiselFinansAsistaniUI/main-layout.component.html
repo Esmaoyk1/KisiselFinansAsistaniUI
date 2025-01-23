@@ -1,6 +1,7 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
   <app-menu></app-menu>
+
   <!-- Content Wrapper -->
   <div id="content-wrapper" class="d-flex flex-column">
 
@@ -17,24 +18,19 @@
 
         <app-search-bar></app-search-bar>
 
-
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
 
           <!-- Nav Item - Search Dropdown (Visible Only XS) -->
           <li class="nav-item dropdown no-arrow d-sm-none">
-            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-search fa-fw"></i>
             </a>
             <!-- Dropdown - Messages -->
-            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                 aria-labelledby="searchDropdown">
+            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
               <form class="form-inline mr-auto w-100 navbar-search">
                 <div class="input-group">
-                  <input type="text" class="form-control bg-light border-0 small"
-                         placeholder="Search for..." aria-label="Search"
-                         aria-describedby="basic-addon2">
+                  <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                   <div class="input-group-append">
                     <button class="btn btn-primary" type="button">
                       <i class="fas fa-search fa-sm"></i>
@@ -45,144 +41,85 @@
             </div>
           </li>
 
-          <!-- Nav Item - Alerts -->
+          <!-- Alerts Dropdown -->
           <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-bell fa-fw"></i>
               <!-- Counter - Alerts -->
-              <span class="badge badge-danger badge-counter">3+</span>
+              <span *ngIf="hedefler.length > 0"
+                    class="badge badge-danger badge-counter">
+                {{ hedefler.length }}+
+              </span>
+
             </a>
-            <!-- Dropdown - Alerts -->
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                 aria-labelledby="alertsDropdown">
-              <h6 class="dropdown-header">
-                Alerts Center
-              </h6>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="mr-3">
-                  <div class="icon-circle bg-primary">
-                    <i class="fas fa-file-alt text-white"></i>
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+              <h6 class="dropdown-header">Tasarruf Bildirimleri</h6>
+              <div *ngFor="let hedef of hedefler">
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-success">
+                      <span class="text-white" style="font-size: 24px;">🥳</span>
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <div class="small text-gray-500">December 12, 2019</div>
-                  <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                </div>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="mr-3">
-                  <div class="icon-circle bg-success">
-                    <i class="fas fa-donate text-white"></i>
+                  <div>
+                    <div class="small text-500" style="color: #FF6347; font-weight: bold;">{{ hedef.goalName }}</div>
+                    <span class="font-weight-bold">{{ hedef.goalName }} için hedefe çok az kaldı: ₺{{ hedef.goalAmount - hedef.savedAmount }}</span>
                   </div>
-                </div>
-                <div>
-                  <div class="small text-gray-500">December 7, 2019</div>
-                  $290.29 has been deposited into your account!
-                </div>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="mr-3">
-                  <div class="icon-circle bg-warning">
-                    <i class="fas fa-exclamation-triangle text-white"></i>
-                  </div>
-                </div>
-                <div>
-                  <div class="small text-gray-500">December 2, 2019</div>
-                  Spending Alert: We've noticed unusually high spending for your account.
-                </div>
-              </a>
+                </a>
+              </div>
               <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
             </div>
           </li>
 
           <!-- Nav Item - Messages -->
           <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-envelope fa-fw"></i>
               <!-- Counter - Messages -->
-              <span class="badge badge-danger badge-counter">7</span>
+              <span *ngIf="categories.length > 0"
+                    class="badge badge-danger badge-counter">
+                + {{ categories.length }}
+              </span>
+
             </a>
+
             <!-- Dropdown - Messages -->
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                 aria-labelledby="messagesDropdown">
-              <h6 class="dropdown-header">
-                Message Center
-              </h6>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="./assets/img/undraw_profile_1.svg"
-                       alt="...">
-                  <div class="status-indicator bg-success"></div>
-                </div>
-                <div class="font-weight-bold">
-                  <div class="text-truncate">
-                    Hi there! I am wondering if you can help me with a
-                    problem I've been having.
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+              <h6 class="dropdown-header">Harcama Oranları</h6>
+
+              <!-- Kategorileri listeliyoruz -->
+              <div *ngFor="let category of categories">
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <i class="fas fa-exclamation-triangle text-danger fa-2x text-white"></i>
+                    <!-- Kategorinin durumunu göstermek için renkli çubuk -->
+                    <div class="status-indicator" [ngClass]="{'bg-success': category.isHighPercentage, 'bg-primary': !category.isHighPercentage}"></div>
                   </div>
-                  <div class="small text-gray-500">Emily Fowler · 58m</div>
-                </div>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="./assets/img/undraw_profile_2.svg"
-                       alt="...">
-                  <div class="status-indicator"></div>
-                </div>
-                <div>
-                  <div class="text-truncate">
-                    I have the photos that you ordered last month, how
-                    would you like them sent to you?
+
+                  <div class="font-weight-bold">
+                    <!-- Kategori adı ve yüzdesi -->
+                    <div class="text-truncate">{{ category.categoryName }} - {{ category.percentage | number:'1.2-2' }}%</div>
+
+                    <!-- Yüksek yüzde durumu -->
+                    <div class="small text-gray-500" *ngIf="category.isHighPercentage">Yüksek Yüzde!</div>
                   </div>
-                  <div class="small text-gray-500">Jae Chun · 1d</div>
-                </div>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="./assets/img/undraw_profile_3.svg"
-                       alt="...">
-                  <div class="status-indicator bg-warning"></div>
-                </div>
-                <div>
-                  <div class="text-truncate">
-                    Last month's report looks great, I am very happy with
-                    the progress so far, keep up the good work!
-                  </div>
-                  <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                </div>
-              </a>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <div class="dropdown-list-image mr-3">
-                  <img class="rounded-circle" src="./assets/img/unnamed.jpg"
-                       alt="...">
-                  <div class="status-indicator bg-success"></div>
-                </div>
-                <div>
-                  <div class="text-truncate">
-                    Am I a good boy? The reason I ask is because someone
-                    told me that people say this to all dogs, even if they aren't good...
-                  </div>
-                  <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                </div>
-              </a>
+                </a>
+              </div>
+
+              <!-- "Daha Fazla Mesaj Oku" linki -->
               <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
             </div>
           </li>
 
-          <div class="topbar-divider d-none d-sm-block"></div>
-
+          <!--<div class="topbar-divider d-none d-sm-block"></div>-->
           <!-- Nav Item - User Information -->
           <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="mr-2 d-none d-lg-inline text-gray-600 small">Esmanur OYANIK</span>
-              <img class="img-profile rounded-circle"
-                   src="./assets/img/unnamed.jpg">
+              <img class="img-profile rounded-circle" src="./assets/img/unnamed.jpg">
             </a>
             <!-- Dropdown - User Information -->
-            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                 aria-labelledby="userDropdown">
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
               <a class="dropdown-item" href="#">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 Profile
@@ -209,7 +146,6 @@
       <!-- End of Topbar -->
       <!-- Begin Page Content -->
       <div class="container-fluid">
-
         <router-outlet></router-outlet>
       </div>
       <!-- /.container-fluid -->
@@ -237,8 +173,7 @@
 </a>
 
 <!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -254,5 +189,4 @@
       </div>
     </div>
   </div>
-
 </div>
