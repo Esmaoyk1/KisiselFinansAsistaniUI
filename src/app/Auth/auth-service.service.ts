@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { KisiselApiService } from '../services/kisisel-api.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { UserapiService } from '../services/user-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +9,12 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
   private isAuthenticated = false; // Kullanıcının giriş durumu
   constructor(
-    private kisiselapiService: KisiselApiService,
+    private userapiService: UserapiService,
     private router: Router,
     private http: HttpClient) { }
   login(post: any) {
 
-    this.kisiselapiService.createPost(post).subscribe(
+    this.userapiService.loginPost(post).subscribe(
       response => {
         console.log('Giriş başarılı:', response);
         this.isAuthenticated = true;

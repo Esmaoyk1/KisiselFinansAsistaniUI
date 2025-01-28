@@ -6,12 +6,21 @@ import { HttpClientModule } from '@angular/common/http'
 import { environment } from '../../environment';
 
 
-@Injectable()
-export class SignUpService {
+@Injectable({ providedIn: 'root' })
+export class UserapiService {
 
-  private apiUrl = environment.apiUrl + '/User/signup';
+  private apiUrl = environment.apiUrl + '/User';
   //private apiUrl = 'http://esmaapp.somee.com/api/User/signup';
+  
 
+
+ /* POST
+/api/User / login
+POST
+  / api / User / Logout
+POST
+  / api / User / signup
+  */
 
   constructor(private http: HttpClient) { }
 
@@ -19,6 +28,12 @@ export class SignUpService {
     return this.http.get<any>(`${this.apiUrl}`);
   }
 
+  loginPost(post: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/login`, post);
+  }
+  signupPost(post: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/signup`, post);
+  }
   createPost(post: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}`, post);
   }
