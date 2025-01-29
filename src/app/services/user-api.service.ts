@@ -11,16 +11,16 @@ export class UserapiService {
 
   private apiUrl = environment.apiUrl + '/User';
   //private apiUrl = 'http://esmaapp.somee.com/api/User/signup';
-  
 
 
- /* POST
-/api/User / login
-POST
-  / api / User / Logout
-POST
-  / api / User / signup
-  */
+
+  /* POST
+ /api/User / login
+ POST
+   / api / User / Logout
+ POST
+   / api / User / signup
+   */
 
   constructor(private http: HttpClient) { }
 
@@ -45,4 +45,12 @@ POST
   deletePost(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
+
+  /*'http://localhost:5177/api/User/get-profile-picture?userId=20' \*/
+
+
+  getUserProfilePicture(userId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/get-profile-picture/${userId}`);
+  }
+
 }

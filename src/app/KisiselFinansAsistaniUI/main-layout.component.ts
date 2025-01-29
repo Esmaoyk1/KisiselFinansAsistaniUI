@@ -5,6 +5,7 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { SavingApiService } from '../services/saving.service';
 import { CommonModule } from '@angular/common';
 import { TransactionApiService } from '../services/transactionapi.service';
+import { UserapiService } from '../services/user-api.service';
 //import { HttpClient } from '@angular/common/http';
 //import { AuthService } from '../Auth/auth-service.service';
 
@@ -17,13 +18,18 @@ import { TransactionApiService } from '../services/transactionapi.service';
 export class MainLayoutComponent implements OnInit {
   hedefler: any[] = [];
   categories: any[] = [];
+  userProfilePictureUrl: string = ''; // Profil fotoğrafı URL'si için değişken
 
-  constructor(private savingApiService: SavingApiService , private transactionApiService: TransactionApiService) { }
+  constructor(private savingApiService: SavingApiService,
+    private transactionApiService: TransactionApiService,
+    private userApiService : UserapiService) { }
 
 
   ngOnInit() {
     this.getHighSavingsByUser(1); // Örnek olarak 1 kullanıcı ID'si kullanıldı
     this.getTransactionPercentageByAccount(1);
+    this.getUserProfilePicture(20); // Kullanıcı ID'sine göre profil fotoğrafını al
+
 
   }
   getHighSavingsByUser(userId: number) {
@@ -62,6 +68,21 @@ export class MainLayoutComponent implements OnInit {
         console.error('Veri alma hatası:', error);
       }
     );
+  }
+
+  getUserProfilePicture(userId: number) {
+    //this.userProfilePictureUrl = 'https://cdn.pixabay.com/photo/2012/04/11/11/53/user-27716_1280.png'; // Test URL'si
+
+    this.userApiService.getUserProfilePicture(userId).subscribe(response => {
+      if (response && response.profilePictureUrl) {
+        this.userProfilePictureUrl = response.profilePictureUrl; // Yeni formatta URL'yi alıyoruz
+        console.log('Kullanıcı profil fotoğrafı:', this.userProfilePictureUrl);
+      } else {
+        console.log('Kullanıcı profil fotoğrafı veri formatı:', response);
+      }
+    }, error => {
+      console.error('Kullanıcı profil fotoğrafı alma hatası:', error);
+    });
   }
 
 }
