@@ -19,6 +19,7 @@ import { AccountDeleteComponent } from './KisiselFinansAsistaniUI/account-delete
 import { TransactionUpdateComponent } from './KisiselFinansAsistaniUI/transaction-update/transaction-update.component';
 import { TransactionDeleteComponent } from './KisiselFinansAsistaniUI/transaction-delete/transaction-delete.component';
 import { TransactionComponent } from './KisiselFinansAsistaniUI/transaction/transaction.component';
+import { UserProfileComponent } from './KisiselFinansAsistaniUI/user-profile/user-profile.component';
 
 export const routes: Route[] = [
 
@@ -38,7 +39,9 @@ export const routes: Route[] = [
       { path: 'accountUpdate/:sid', component: AccountUpdateComponent, canActivate: [AuthGuard] },
       { path: 'accountDelete/:sid', component: AccountDeleteComponent, canActivate: [AuthGuard] },
       { path: 'transactionDelete/:sid', component: TransactionDeleteComponent, canActivate: [AuthGuard] },
-      { path: 'transactionUpdate/:sid', component: TransactionUpdateComponent, canActivate: [AuthGuard] }
+      { path: 'transactionUpdate/:sid', component: TransactionUpdateComponent, canActivate: [AuthGuard] },
+      { path: 'userProfile', component: UserProfileComponent, canActivate: [AuthGuard] }
+    
     ],
   },
 

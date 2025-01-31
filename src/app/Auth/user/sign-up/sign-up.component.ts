@@ -16,13 +16,17 @@ import { CommonModule } from '@angular/common';
 export class SignUpComponent implements OnInit {
 
   constructor(private userapiService: UserapiService, private http: HttpClient, private fb: FormBuilder) { }
+  selectedFile!: File;
+  //previewUrl: string | ArrayBuffer | null = null;
+
   name: string = '';
   surname: string = '';
   email: string = '';
   password: string = '';
   confirmPassword: string = '';
   phone: string = '';
-  profilePictureUrl = ''
+  profilePictureUrl = '';
+  previewUrl: string | ArrayBuffer | null = null;
   signUpForm: FormGroup | null = null;
 
   ngOnInit(): void {
@@ -33,7 +37,9 @@ export class SignUpComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
       phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
-      profilePictureUrl: ['', Validators.required] // Profil resmi için zorunlu alan
+      profilePictureUrl: ['', Validators.required] ,// Profil resmi için zorunlu alan,
+      previewUrl: ['']
+
     }, {
       validators: this.passwordMatcher // Şifre doğrulama validasyonu ekledik
     });
@@ -42,6 +48,34 @@ export class SignUpComponent implements OnInit {
   }
 
 
+  onFileSelected(event: any) {//resim seçerken bu fonksiyon çalışıyor
+    const file = event.target.files[0];
+
+    if (file) {
+      this.selectedFile = file;
+
+      // Resmi önizleme için FileReader kullanıyoruz
+      const reader = new FileReader();
+      reader.onload = (e) => (this.previewUrl = reader.result);
+      reader.readAsDataURL(file);
+    }
+  }
+
+
+  uploadFile() {//resim yükle derken bu fonksiyon çalışıyor
+    if (!this.selectedFile) {
+      alert("Lütfen bir dosya seçin!");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', this.selectedFile); // API'ye gönderilecek dosya
+
+    //this.http.post(this.apiUrl, formData).subscribe({
+    //  next: (res) => alert('Dosya başarıyla yüklendi!'),
+    //  error: (err) => console.error('Hata oluştu:', err),
+    //});
+  }
   passwordMatcher(formGroup: FormGroup) {
     const password = formGroup.get('password');
     const confirmPassword = formGroup.get('confirmPassword');
@@ -81,10 +115,21 @@ export class SignUpComponent implements OnInit {
     if (this.signUpForm!.invalid) {
       return;
     }
+    const formData = new FormData();
+    formData.append('name', this.signUpForm!.get('name')?.value);
+    formData.append('surname', this.signUpForm!.get('surname')?.value);
+    formData.append('email', this.signUpForm!.get('email')?.value);
+    formData.append('password', this.signUpForm!.get('password')?.value);
+    formData.append('confirmPassword', this.signUpForm!.get('confirmPassword')?.value);
+    formData.append('phone', this.signUpForm!.get('phone')?.value);
+    formData.append('profilePicture', this.selectedFile); // Resmi ekl
 
-    const post = this.signUpForm!.value;
 
-    this.userapiService.signupPost(post).subscribe(
+    //const post = this.signUpForm!.value;
+    //post.previewUrl = this.selectedFile;
+    console.log(formData.getAll);
+
+    this.userapiService.signupPost(formData).subscribe(
       response => {
         console.log('Kayıt başarılı:', response);
         alert(response.message);
