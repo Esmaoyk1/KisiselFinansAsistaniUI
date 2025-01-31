@@ -23,7 +23,7 @@ export const TokenInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next:
 
   }
   else {
-    alert("token intercepterda alınamadı");
+    //alert("token intercepterda alınamadı");
   }
 
   //return next(req);

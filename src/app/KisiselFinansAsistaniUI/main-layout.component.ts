@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { MenuComponent } from '../menu/menu.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { SavingApiService } from '../services/saving.service';
@@ -13,7 +13,7 @@ import { UserapiService } from '../services/user-api.service';
   selector: 'app-main-layout',
   standalone: true,
   templateUrl: './main-layout.component.html',
-  imports: [RouterOutlet, MenuComponent, SearchBarComponent, CommonModule],
+  imports: [RouterModule,RouterOutlet, MenuComponent, SearchBarComponent, CommonModule],
 })
 export class MainLayoutComponent implements OnInit {
   hedefler: any[] = [];
@@ -28,7 +28,7 @@ export class MainLayoutComponent implements OnInit {
   ngOnInit() {
     this.getHighSavingsByUser(1); // Örnek olarak 1 kullanıcı ID'si kullanıldı
     this.getTransactionPercentageByAccount(1);
-    this.getUserProfilePicture(20); // Kullanıcı ID'sine göre profil fotoğrafını al
+    this.getUserProfilePicture(1); // Kullanıcı ID'sine göre profil fotoğrafını al
 
 
   }
