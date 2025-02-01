@@ -17,8 +17,8 @@ export class AccountApiService {
     return this.http.get<any>(`${this.apiUrl}`);
   }
 
-  getUserAccountBalance(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/UserBalance/${id}`);
+  getUserAccountBalance(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/UserBalance`);
   }
 
   createPost(post: any): Observable<any> {
