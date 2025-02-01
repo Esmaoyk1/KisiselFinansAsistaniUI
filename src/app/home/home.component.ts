@@ -28,7 +28,7 @@ declare var Chart: any;
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  noDataMessageVisible: boolean = false;
+  noDataMessageVisible: boolean = false;//yıllık grafik verisi yoksa divi gizlemek için
   userBalance: number = 0; // Başlangıç değeri
   currency: string | undefined;
   savedAmount: number = 0; // Başlangıç değeri
@@ -209,10 +209,7 @@ export class HomeComponent {
 
     this.transactionApiService.GetTransactionPercentageByAccount(1).subscribe(
       response => {
-        alert(response.data.items.length);
         if (!response.data.items || response.data.items.length === 0) {
-          alert("veri yok");
-          console.warn('Veri yok');
           // Burada kullanıcıya bir mesaj gösterebilirsiniz
           this.chartData = [];
           this.showNoDataMessage(); // Mesaj göstermek için bir fonksiyon
@@ -230,8 +227,8 @@ export class HomeComponent {
         }));
         this.datalabels = response.data.items.map((item: any) => item.categoryName),
           this.dataResp = response.data.items.map((item: any) => item.percentage),
-          console.log(this.chartData); // Düzenlenmiş chartData
-        console.log(this.dataResp); // Yüzde değerleri
+        //  console.log(this.chartData); // Düzenlenmiş chartData
+        //console.log(this.dataResp); // Yüzde değerleri
         // console.log(this.dataResp);
         //this.chartData.a
         //  { label: 'Direct', colorClass: 'text-primary', iconClass: 'fas fa-circle' },
