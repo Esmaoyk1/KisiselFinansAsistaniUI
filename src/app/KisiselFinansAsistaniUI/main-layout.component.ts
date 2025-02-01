@@ -28,7 +28,7 @@ export class MainLayoutComponent implements OnInit {
   ngOnInit() {
     this.getHighSavingsByUser(1); // Örnek olarak 1 kullanıcı ID'si kullanıldı
     this.getTransactionPercentageByAccount(1);
-    this.getUserProfilePicture(1); // Kullanıcı ID'sine göre profil fotoğrafını al
+    this.getUserProfilePicture(); // Kullanıcı ID'sine göre profil fotoğrafını al
 
 
   }
@@ -70,13 +70,14 @@ export class MainLayoutComponent implements OnInit {
     );
   }
 
-  getUserProfilePicture(userId: number) {
+  getUserProfilePicture() {
     //this.userProfilePictureUrl = 'https://cdn.pixabay.com/photo/2012/04/11/11/53/user-27716_1280.png'; // Test URL'si
 
-    this.userApiService.getUserProfilePicture(userId).subscribe(response => {
-      if (response && response.profilePictureUrl) {
-        this.userProfilePictureUrl = response.profilePictureUrl; // Yeni formatta URL'yi alıyoruz
-        console.log('Kullanıcı profil fotoğrafı:', this.userProfilePictureUrl);
+    this.userApiService.getUserProfilePicture().subscribe(response => {
+      if (response && response) {
+        alert(response.fileUrl);
+        this.userProfilePictureUrl ='http://localhost:5177/'+ response.fileUrl; // Yeni formatta URL'yi alıyoruz
+        console.log('Kullanıcı profil fotoğrafı:', response.fileUrl);
       } else {
         console.log('Kullanıcı profil fotoğrafı veri formatı:', response);
       }

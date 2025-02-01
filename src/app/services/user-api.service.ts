@@ -49,8 +49,24 @@ export class UserapiService {
   /*'http://localhost:5177/api/User/get-profile-picture?userId=20' \*/
 
 
-  getUserProfilePicture(userId: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/get-profile-picture/${userId}`);
+  getUserProfilePicture(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/get-profile-pictures`);
   }
+
+
+  getUserDetail(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/get-user-detail`); 
+  }
+  updateUserDetail(post: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/update-user-detail`,post);
+  }
+
+  // user-api.service.ts
+  uploadProfilePicture(formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/upload-profile-picture`, formData);
+  }
+
+
+  
 
 }
