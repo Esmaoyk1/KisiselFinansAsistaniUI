@@ -28,7 +28,7 @@ declare var Chart: any;
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-
+  noDataMessageVisible: boolean = false;
   userBalance: number = 0; // Başlangıç değeri
   currency: string | undefined;
   savedAmount: number = 0; // Başlangıç değeri
@@ -200,10 +200,25 @@ export class HomeComponent {
   //  const randomIndex = Math.floor(Math.random() * this.colorClasses.length);
   //  return this.colorClasses[randomIndex];
   //}
+  showNoDataMessage() {
+    // Burada kullanıcıya veri yok mesajı gösterin
+    // Örneğin, bir HTML elementi güncelleyebilirsiniz
+    this.noDataMessageVisible = true; // Bu değişkeni HTML'de kontrol edin
+  }
   calculatePercentageRemaining() {
+
     this.transactionApiService.GetTransactionPercentageByAccount(1).subscribe(
       response => {
-        //console.log("başardık ulan", response);
+        alert(response.data.items.length);
+        if (!response.data.items || response.data.items.length === 0) {
+          alert("veri yok");
+          console.warn('Veri yok');
+          // Burada kullanıcıya bir mesaj gösterebilirsiniz
+          this.chartData = [];
+          this.showNoDataMessage(); // Mesaj göstermek için bir fonksiyon
+          return;
+        }
+
 
         this.chartData = response.data.items.map((item: any, index: number) => ({
 
@@ -464,7 +479,7 @@ export class HomeComponent {
     const frangKuru = parseFloat(frangElement?.querySelector('BanknoteSelling')?.textContent || '0');
 
 
-    return { dolarKuru, euroKuru, sterlinKuru, frangKuru};
+    return { dolarKuru, euroKuru, sterlinKuru, frangKuru };
   }
   getDovizKurlari(): Observable<any> {
     return this.http.get(this.url, { responseType: 'text' }).pipe(map((response: string) => {

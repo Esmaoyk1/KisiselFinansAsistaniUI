@@ -3,11 +3,12 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserapiService } from '../../../services/user-api.service';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, HttpClientModule, CommonModule],
+  imports: [RouterModule,ReactiveFormsModule, FormsModule, HttpClientModule, CommonModule],
   providers: [UserapiService],
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']// Burada `styleUrls` olmalı
@@ -25,7 +26,6 @@ export class SignUpComponent implements OnInit {
   password: string = '';
   confirmPassword: string = '';
   phone: string = '';
-  profilePictureUrl = '';
   previewUrl: string | ArrayBuffer | null = null;
   signUpForm: FormGroup | null = null;
 
@@ -37,7 +37,6 @@ export class SignUpComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
       phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
-      profilePictureUrl: ['', Validators.required] ,// Profil resmi için zorunlu alan,
       previewUrl: ['']
 
     }, {
@@ -62,20 +61,6 @@ export class SignUpComponent implements OnInit {
   }
 
 
-  uploadFile() {//resim yükle derken bu fonksiyon çalışıyor
-    if (!this.selectedFile) {
-      alert("Lütfen bir dosya seçin!");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('file', this.selectedFile); // API'ye gönderilecek dosya
-
-    //this.http.post(this.apiUrl, formData).subscribe({
-    //  next: (res) => alert('Dosya başarıyla yüklendi!'),
-    //  error: (err) => console.error('Hata oluştu:', err),
-    //});
-  }
   passwordMatcher(formGroup: FormGroup) {
     const password = formGroup.get('password');
     const confirmPassword = formGroup.get('confirmPassword');
@@ -113,6 +98,10 @@ export class SignUpComponent implements OnInit {
 
   onSubmit() {
     if (this.signUpForm!.invalid) {
+      return;
+    }
+    if (!this.selectedFile) {
+      alert("Lütfen bir dosya seçin!");
       return;
     }
     const formData = new FormData();

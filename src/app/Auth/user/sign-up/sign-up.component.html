@@ -13,21 +13,9 @@
 
             <form *ngIf="signUpForm" [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="signUp">
 
-              <div>
-                <label for="profilePictureUrl">Profil Resmi URL'si:</label>
-                <input id="profilePictureUrl" type="text" formControlName="profilePictureUrl" placeholder="Resim URL'si girin">
-                <div *ngIf="signUpForm?.get('profilePictureUrl')?.invalid && signUpForm?.get('profilePictureUrl')?.touched">
-                  Profil resmi URL'si gerekli.
-                </div>
-              </div>
-
-              <div class="form-group">
-                <input type="file" (change)="onFileSelected($event)" accept="image/*">
-                <img *ngIf="previewUrl" [src]="previewUrl" Name="previewUrl" alt="Seçilen Resim" width="150">
-                <button (click)="uploadFile()">Upload</button>
-              </div>
               <!-- Name Field -->
               <div class="form-group">
+                <label for="confirmPassword">Enter Name:</label>
                 <input formControlName="name" type="text" class="form-control form-control-user"
                        id="exampleInputName" placeholder="Enter Name" />
                 <div *ngIf="signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched" class="text-danger">
@@ -37,6 +25,7 @@
 
               <!-- Surname Field -->
               <div class="form-group">
+                <label for="confirmPassword">Enter Surname:</label>
                 <input formControlName="surname" type="text" class="form-control form-control-user"
                        id="exampleInputSurname" placeholder="Enter Surname" />
                 <div *ngIf="signUpForm.get('surname')?.invalid && signUpForm.get('surname')?.touched" class="text-danger">
@@ -45,6 +34,7 @@
               </div>
 
               <div class="form-group">
+                <label for="confirmPassword">Enter Email Address:</label>
                 <input formControlName="email" type="email" class="form-control form-control-user"
                        id="exampleInputEmail" placeholder="Enter Email Address..." />
                 <div *ngIf="signUpForm?.get('email')?.invalid && signUpForm?.get('email')?.touched" class="text-danger">
@@ -54,6 +44,7 @@
               </div>
 
               <div class="form-group">
+                <label for="confirmPassword">Şifreyi Girin:</label>
                 <input formControlName="password" type="password" class="form-control form-control-user"
                        id="exampleInputPassword" placeholder="Password" />
                 <div *ngIf="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched" class="text-danger">
@@ -63,6 +54,7 @@
               </div>
 
               <div class="form-group">
+                <label for="confirmPassword">Şifreyi Onaylayın:</label>
                 <input formControlName="confirmPassword" type="password" class="form-control form-control-user"
                        placeholder="Confirm Password" />
                 <div *ngIf="signUpForm.get('confirmPassword')?.invalid && signUpForm.get('confirmPassword')?.touched" class="text-danger">
@@ -72,6 +64,7 @@
               </div>
 
               <div class="form-group">
+                <label for="confirmPassword">Şifreyi Onaylayın:</label>
                 <input formControlName="phone" type="text" class="form-control form-control-user"
                        placeholder="Phone Number" />
                 <div *ngIf="signUpForm.get('phone')?.invalid && signUpForm.get('phone')?.touched" class="text-danger">
@@ -79,7 +72,13 @@
                   <small *ngIf="signUpForm.get('phone')?.errors?.['pattern']">Please enter a valid phone number.</small>
                 </div>
               </div>
+              <div class="form-group">
+                <label >Profil Resmi Seçin:</label>
+                <br/>
+                <input type="file" (change)="onFileSelected($event)" accept="image/*">
+                <img *ngIf="previewUrl" [src]="previewUrl" Name="previewUrl" alt="Seçilen Resim" width="50">
 
+              </div>
               <button class="btn btn-primary btn-user btn-block" type="submit" [disabled]="signUpForm.invalid">Kaydol</button>
 
               <hr>
@@ -96,7 +95,7 @@
               <a class="small" href="forgot-password.html">Forgot Password?</a>
             </div>
             <div class="text-center">
-              <a class="small" href="login.html">Already have an account? Login!</a>
+              <a class="small" [routerLink]="['/login']">Already have an account? Login!</a>
             </div>
           </div>
         </div>

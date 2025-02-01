@@ -4,11 +4,12 @@ import { Observable } from 'rxjs'; // Observable kullanacağız
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../auth-service.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, HttpClientModule],
+  imports: [RouterModule,ReactiveFormsModule, FormsModule, HttpClientModule],
   providers: [],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
