@@ -51,7 +51,7 @@ export class AccountComponent {
     this.loadBankNames();
   }
   GetUserBalance() {
-    this.accountapiService.getUserAccountBalance(1).subscribe(
+    this.accountapiService.getUserAccountBalance().subscribe(
       response => {
         console.log('başarılı:', response);
         this.userbalance = parseFloat(response.data.balance).toFixed(2);  

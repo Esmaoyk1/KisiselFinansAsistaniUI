@@ -96,7 +96,7 @@ export class HomeComponent {
     this.GetTrueTransactions();
   }
   GetLastFiveByUser() {
-    this.savingApiService.GetLastFiveByUser(1).subscribe(
+    this.savingApiService.GetLastFiveByUser().subscribe(
       response => {
         //console.log('five respo:', response);
         this.dataFive = response.data.items;
@@ -109,7 +109,7 @@ export class HomeComponent {
     );
   }
   GetUserBalance(): void {
-    this.accountapiService.getUserAccountBalance(1).subscribe(
+    this.accountapiService.getUserAccountBalance().subscribe(
       response => {
         this.userBalance = response.data.balance;
         this.currency = response.data.currency;
@@ -123,7 +123,7 @@ export class HomeComponent {
   }
 
   GetUserBalanceWithTotal(): void {
-    this.accountapiService.getUserAccountBalance(1).subscribe(
+    this.accountapiService.getUserAccountBalance().subscribe(
       response => {
         this.userBalance = response.data.balance + this.totalTransactions; // Toplam işlemleri ekle
         this.currency = response.data.currency;
