@@ -75,8 +75,9 @@ export class MainLayoutComponent implements OnInit {
 
     this.userApiService.getUserProfilePicture().subscribe(response => {
       if (response && response) {
-        alert(response.fileUrl);
-        this.userProfilePictureUrl ='http://localhost:5177/'+ response.fileUrl; // Yeni formatta URL'yi alıyoruz
+        //alert(response.fileUrl);
+        this.userProfilePictureUrl = 'http://localhost:5177/' + response.fileUrl; // Yeni formatta URL'yi alıyoruz
+        alert(this.userProfilePictureUrl);
         console.log('Kullanıcı profil fotoğrafı:', response.fileUrl);
       } else {
         console.log('Kullanıcı profil fotoğrafı veri formatı:', response);

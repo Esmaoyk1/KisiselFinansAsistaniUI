@@ -97,7 +97,7 @@ export class UserProfileComponent {
     if (file) {
       const formData = new FormData();
       formData.append('file', file);
-
+      console.log(formData);
       this.userApiService.uploadProfilePicture(formData).subscribe(
         (response: any) => {
           this.personForm.patchValue({
