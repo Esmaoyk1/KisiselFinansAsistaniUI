@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { UserapiService } from '../services/user-api.service';
+import { jwtDecode } from 'jwt-decode';  // Named import
+
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +51,27 @@ export class AuthService {
       return localStorage.getItem('authToken');
     }
     return null; // veya uygun bir varsayılan değer
+  }
+
+
+  getRoles(): string[] {
+    const token = this.getToken();
+    if (token) {
+      const decodedToken: any = jwtDecode(token);  // Doğru kullanım
+      console.log("decodedToken");
+      console.log(decodedToken);
+      //alert("roles : " + decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || []);
+      return decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || [];
+    }
+    return [];
+  }
+
+  //isAuthenticated(): boolean {
+  //  return !!this.getToken();
+  //}
+
+  hasRole(role: string): boolean {
+    const roles = this.getRoles();
+    return roles.includes(role);
   }
 }
