@@ -19,6 +19,7 @@ export class TransactionComponent {
   isUpdateFormVisible: boolean = false; // Güncelleme formunun görünürlüğü
   accounts: any[] = [];
   categories: any[] = [];
+  targetDate: string = ''; // Tamamlanma tarihi
   constructor(
     private transactionApiService: TransactionApiService,
     private router: Router,
@@ -36,10 +37,12 @@ export class TransactionComponent {
     this.loadCss('assets/vendor/datatables/dataTables.bootstrap4.min.css');
   }
 
-  loadAccounts() {
+  loadAccounts() {//kullanıcını banka bilgilerini getiryor dropdown için
     this.accountService.getPosts().subscribe(
-      data => {
-        this.accounts = data.items; // Hesapları al
+      resns => {
+        this.accounts = resns.data.items; // Hesapları al
+        console.log('this.accounts');
+        console.log(this.accounts);
       },
       error => {
         console.error('Hesapları yüklerken hata:', error);
@@ -105,12 +108,12 @@ export class TransactionComponent {
     console.log(form.value);
     if (form.valid) {
       const transactionData = {
-        accountID: 9, // Kullanıcının seçtiği hesap ID'si
+        accountID: form.value.accountBankId, // Kullanıcının seçtiği hesap ID'si
         userID: 1,       // Geçerli kullanıcı ID'si
         transactionType: form.value.transactionType, // Gelir veya gider
         categoryID: form.value.categoryID, // Seçilen kategori ID'si
         amount: form.value.amount,         // Miktar
-        date: new Date().toISOString(),    // Tarih
+        date: new Date(form.value.targetDate).toISOString().split('T')[0],
         description: form.value.description // Açıklama
       };
 

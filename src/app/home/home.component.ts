@@ -156,7 +156,7 @@ export class HomeComponent {
     );
   }
   SavedAmount() {
-    this.savingApiService.getSavedAmount(1).subscribe(
+    this.savingApiService.getSavedAmount().subscribe(
       response => {
         //console.log("başarılı", response);
         this.savedAmount = response.data.savedAmount;
@@ -494,7 +494,7 @@ export class HomeComponent {
 
 
     });
-    console.log("getirildiiiiii" + this.frangKuru, "dfsghja", this.sterlinKuru);
+ 
 
   }
 }

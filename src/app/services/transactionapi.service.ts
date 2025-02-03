@@ -40,8 +40,9 @@ export class TransactionApiService {
   GetTransactionPercentageByAccount(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/GetTransactionPercentageByAccount`);
   }
+
   GetTransactionAreaChartByAccount(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/GetTransactionAreaChartByAccount/${id}`);
+    return this.http.get<any>(`${this.apiUrl}/GetTransactionAreaChartByAccount`);
   }
 
   GetTrueTransactions(): Observable<any> {

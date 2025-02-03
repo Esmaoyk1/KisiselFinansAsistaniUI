@@ -9,16 +9,34 @@
     <form (ngSubmit)="onSubmit(transactionForm)" #transactionForm="ngForm">
       <div class="form-row">
         <div class="form-group col-md-6">
+          <label for="accountBankId">Hesap Seçin:</label>
+          <select id="accountBankId" name="accountBankId" class="form-control" ngModel required>
+            <option *ngFor="let account of accounts" [value]="account.accountID">
+              {{ account.bankName }}
+              ({{ account.balance }}
+              {{ account.currency }} -
+              {{ account.accountTypeName }}
+              )
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
           <label for="amount">Miktar:</label>
           <input type="number" id="amount" name="amount" class="form-control" ngModel required>
         </div>
-
+      </div>
+     
+      <div class="form-row">
+      
+        <div class="form-group col-md-6">
+          <label for="targetDate">İşlem Tarihi</label>
+          <input type="date" class="form-control" id="targetDate" [(ngModel)]="targetDate" name="targetDate" required>
+        </div>
         <div class="form-group col-md-6">
           <label for="description">Açıklama:</label>
           <input type="text" id="description" name="description" class="form-control" ngModel required>
         </div>
       </div>
-
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="transactionType">İşlem Türü:</label>
