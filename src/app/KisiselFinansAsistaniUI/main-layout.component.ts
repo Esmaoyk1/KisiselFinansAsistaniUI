@@ -26,15 +26,14 @@ export class MainLayoutComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getHighSavingsByUser(1); // Örnek olarak 1 kullanıcı ID'si kullanıldı
+    this.getHighSavingsByUser(); // Örnek olarak 1 kullanıcı ID'si kullanıldı
     this.getTransactionPercentageByAccount(1);
     this.getUserProfilePicture(); // Kullanıcı ID'sine göre profil fotoğrafını al
 
 
   }
-  getHighSavingsByUser(userId: number) {
-    this.savingApiService.GetHighSavingsByUser(userId).subscribe(response => {
-      console.log("metod calıştııı");
+  getHighSavingsByUser() {
+    this.savingApiService.GetHighSavingsByUser().subscribe(response => {
       if (response && response.data && Array.isArray(response.data.items)) {
         this.hedefler = response.data.items; // Gelen veriyi hedefler dizisine ata
         console.log('Yüksek tasarruflar:', this.hedefler);
@@ -42,7 +41,7 @@ export class MainLayoutComponent implements OnInit {
         console.log('Geçersiz veri formatı:', response);
       }
     }, error => {
-      console.error('Veri alma hatası:', error);
+      //alert(error.error.message);
     });
   }
   
@@ -77,7 +76,7 @@ export class MainLayoutComponent implements OnInit {
       if (response && response) {
         //alert(response.fileUrl);
         this.userProfilePictureUrl = 'http://localhost:5177/' + response.fileUrl; // Yeni formatta URL'yi alıyoruz
-        alert(this.userProfilePictureUrl);
+       /* alert(this.userProfilePictureUrl);*/
         console.log('Kullanıcı profil fotoğrafı:', response.fileUrl);
       } else {
         console.log('Kullanıcı profil fotoğrafı veri formatı:', response);

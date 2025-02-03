@@ -58,8 +58,9 @@ export class AccountComponent {
 
       },
       error => {
-        console.error(' hata:', error);
-        alert(' hatası:' + error.message);
+
+        //console.error(' hata:', error);
+        //alert(' hatası:' + error.error.message);
       }
     );
   }
@@ -67,10 +68,12 @@ export class AccountComponent {
   onSubmit() {
     this.accountapiService.createPost(this.account).subscribe(
       response => {
-        console.log('Hesap başarıyla eklendi:', response);
-        // Formu temizle
-        this.account = { bankID: 0 ,accountName: '', accountType: '', balance: 0, createdDate: '', currency: 'TL', status :true};
-        this.GetUserBalance(); // Güncel bakiye bilgilerini al
+        alert( response.message);
+       
+        this.router.navigate(['/account']).then(() => {
+          window.location.reload();
+        });
+
       },
       error => {
         console.error('Hata:', error);

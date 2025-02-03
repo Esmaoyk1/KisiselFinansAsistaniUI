@@ -58,8 +58,8 @@ export class AuthService {
     const token = this.getToken();
     if (token) {
       const decodedToken: any = jwtDecode(token);  // Doğru kullanım
-      console.log("decodedToken");
-      console.log(decodedToken);
+      //console.log("decodedToken");
+      //console.log(decodedToken);
       //alert("roles : " + decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || []);
       return decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || [];
     }

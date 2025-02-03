@@ -68,8 +68,8 @@ export class SavingApiService {
     return this.http.get<any>(`${this.apiUrl}`);
   }
 
-  getSavedAmount(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/UserAmount/${id}`);
+  getSavedAmount(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/UserAmount`);
   }
 
   createPost(post: any): Observable<any> {
@@ -90,7 +90,7 @@ export class SavingApiService {
     return this.http.get<any>(`${this.apiUrl}/saving/${id}`); // API URL'sini güncelleyin
   }
 
-  GetHighSavingsByUser(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/HighSavings/${id}`); 
+  GetHighSavingsByUser(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/HighSavings`); 
   }
 }
