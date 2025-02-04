@@ -45,16 +45,16 @@
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-bell fa-fw"></i>
               <!-- Counter - Alerts -->
-              <span *ngIf="hedefler.length > 0"
-                    class="badge badge-danger badge-counter">
-                {{ hedefler.length }}+
+              <span *ngIf="hedefler.length > 0" class="badge badge-danger badge-counter">
+                {{ hedefler.length + tarih.length }}+
               </span>
-
             </a>
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-              <h6 class="dropdown-header">Tasarruf Bildirimleri</h6>
+              <h6 class="dropdown-header">Bildirimler</h6>
+
+              <!-- Tasarruf Bildirimleri -->
               <div *ngFor="let hedef of hedefler">
-                <a class="dropdown-item d-flex align-items-center" href="#">
+                <a class="dropdown-item d-flex align-items-center" [routerLink]="['/saving']">
                   <div class="mr-3">
                     <div class="icon-circle bg-success">
                       <span class="text-white" style="font-size: 24px;">🥳</span>
@@ -66,7 +66,26 @@
                   </div>
                 </a>
               </div>
-              <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+
+              <!-- Tarih Bildirimleri -->
+              <div *ngFor="let tt of tarih">
+                <a class="dropdown-item d-flex align-items-center" [routerLink]="['/budget']">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-success">
+                      <span class="text-white" style="font-size: 24px;">🎯</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-500" style="color: #FF6347; font-weight: bold;">
+                      Ayrılan Bütçe Miktarı: ₺{{ tt.amount }}
+                    </div>
+                    <span class="font-weight-bold">
+                      Bu tarih için {{ tt.amount }}₺ bütçe ayırmıştınız: {{ tt.endDate | date: 'dd/MM/yyyy'  }} tarihi geldi!
+                    </span>
+                  </div>
+                </a>
+              </div>
+              <a class="dropdown-item text-center small text-gray-500" href="#">Tüm Bildirimleri Göster</a>
             </div>
           </li>
 

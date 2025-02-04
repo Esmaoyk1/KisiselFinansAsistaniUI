@@ -1,15 +1,15 @@
 import { Component, Renderer2 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { TransactionApiService } from '../../services/transactionapi.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { AccountApiService } from '../../services/account-api.service';
 import { CategoryApiService } from '../../services/category-api.service';
 
 @Component({
   selector: 'app-transaction',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule],
+  imports: [FormsModule, CommonModule, RouterModule, ReactiveFormsModule, NgFor, NgIf],
   templateUrl: './transaction.component.html',
   styleUrl: './transaction.component.css'
 })
@@ -19,6 +19,14 @@ export class TransactionComponent {
   isUpdateFormVisible: boolean = false; // Güncelleme formunun görünürlüğü
   accounts: any[] = [];
   categories: any[] = [];
+  selectedTransactionType: boolean | null = null;
+  selectedCategory: number | null = null;
+
+  filteredCategories() {
+    //console.log(this.selectedTransactionType);
+    //console.log(this.categories);                           
+    return this.categories.filter(category => category.categoryType == this.selectedTransactionType);
+  }
   targetDate: string = ''; // Tamamlanma tarihi
   constructor(
     private transactionApiService: TransactionApiService,
@@ -84,14 +92,14 @@ export class TransactionComponent {
   loadTransactions(): void {
     this.transactionApiService.getPosts().subscribe(
       response => {
-        console.log("*****API den gelen GETİRİLDİ***", response);
+        //console.log("*****API den gelen GETİRİLDİ***", response);
         if (response && response.data && Array.isArray(response.data.items)) {
           this.transactions = response.data.items; // İşlemleri al
-          console.log('İşlemler:', this.transactions);
+          //console.log('İşlemler:', this.transactions);
 
           // transactionType değerlerini kontrol et
           this.transactions.forEach(transaction => {
-            console.log('Transaction Type:', transaction.transactionType);
+            //console.log('Transaction Type:', transaction.transactionType);
           });
         } else {
           console.error('İşlemler dizisi alınamadı:', response.data.items);
@@ -122,11 +130,12 @@ export class TransactionComponent {
           console.log('İşlem başarıyla eklendi:', response);
           alert('Ekleme başarılı!'); // Başarı mesajı
           this.loadTransactions(); // İşlemleri yenile
+          this.loadAccounts();
           form.resetForm(); // Formu sıfırla
         },
         error => {
           console.error('İşlem eklenirken hata:', error);
-          alert('Hata oluştu: ' + error.message);
+          alert('Hata oluştu: ' + error.error.message);
         }
       );
     } else {
