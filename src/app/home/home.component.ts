@@ -491,10 +491,7 @@ export class HomeComponent {
       this.euroKuru = data.euroKuru;
       this.sterlinKuru = data.sterlinKuru;
       this.frangKuru = data.frangKuru;
-
-
     });
- 
 
   }
 }

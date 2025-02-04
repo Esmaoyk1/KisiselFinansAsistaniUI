@@ -40,7 +40,7 @@
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="transactionType">İşlem Türü:</label>
-          <select id="transactionType" name="transactionType" class="form-control" ngModel required>
+          <select id="transactionType" name="transactionType" class="form-control" [(ngModel)]="selectedTransactionType" required>
             <option [ngValue]="true">Gelir</option>
             <option [ngValue]="false">Gider</option>
           </select>
@@ -48,8 +48,8 @@
 
         <div class="form-group col-md-6">
           <label for="categoryID">Kategori Seçin:</label>
-          <select id="categoryID" name="categoryID" class="form-control" ngModel required>
-            <option *ngFor="let category of categories" [value]="category.id">{{ category.categoryName }}</option>
+          <select id="categoryID" name="categoryID" class="form-control" [(ngModel)]="selectedCategory"  required>
+            <option *ngFor="let category of filteredCategories()" [value]="category.id">{{ category.categoryName }}</option>
           </select>
         </div>
       </div>

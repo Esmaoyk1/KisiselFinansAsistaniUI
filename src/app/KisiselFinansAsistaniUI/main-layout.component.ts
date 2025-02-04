@@ -1,4 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component,  OnInit,  inject } from '@angular/core';
+
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { MenuComponent } from '../menu/menu.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
@@ -6,32 +7,38 @@ import { SavingApiService } from '../services/saving.service';
 import { CommonModule } from '@angular/common';
 import { TransactionApiService } from '../services/transactionapi.service';
 import { UserapiService } from '../services/user-api.service';
-//import { HttpClient } from '@angular/common/http';
-//import { AuthService } from '../Auth/auth-service.service';
+import { BudgetService } from '../services/budget.service';
+import { response } from 'express';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
   templateUrl: './main-layout.component.html',
-  imports: [RouterModule,RouterOutlet, MenuComponent, SearchBarComponent, CommonModule],
+  imports: [RouterModule, FormsModule,RouterOutlet, MenuComponent, SearchBarComponent, CommonModule],
 })
 export class MainLayoutComponent implements OnInit {
   hedefler: any[] = [];
   categories: any[] = [];
   userProfilePictureUrl: string = ''; // Profil fotoğrafı URL'si için değişken
+  tarih: any[] = [];
 
   constructor(private savingApiService: SavingApiService,
     private transactionApiService: TransactionApiService,
-    private userApiService : UserapiService) { }
+    private userApiService: UserapiService,
+    private budgetApiService: BudgetService,
+   ) { }
 
 
-  ngOnInit() {
+   async ngOnInit() {
     this.getHighSavingsByUser(); // Örnek olarak 1 kullanıcı ID'si kullanıldı
     this.getTransactionPercentageByAccount(1);
     this.getUserProfilePicture(); // Kullanıcı ID'sine göre profil fotoğrafını al
-
-
+    this.getBudgetEndDate();
+  
   }
+
+
   getHighSavingsByUser() {
     this.savingApiService.GetHighSavingsByUser().subscribe(response => {
       if (response && response.data && Array.isArray(response.data.items)) {
@@ -86,4 +93,20 @@ export class MainLayoutComponent implements OnInit {
     });
   }
 
+  getBudgetEndDate() {
+    this.budgetApiService.getPosts().subscribe(response => {
+      if (response.success && response.data.items) {
+        const today = new Date(); // Bugünün tarihi
+
+        // Filtreleme işlemi
+        const filteredItems = response.data.items.filter((item: any) => {
+          const endDate = new Date(item.endDate); // endDate'i Date objesine çevir
+          return endDate <= today; // Bugün veya daha sonrası
+        });
+
+        this.tarih = filteredItems; // Filtrelenmiş veriyi tarih dizisine ata
+        console.log(this.tarih); // Filtrelenmiş veriyi görmek için
+      }
+    });
+  }
 }
