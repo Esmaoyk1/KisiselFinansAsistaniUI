@@ -16,12 +16,23 @@ export /*const authGuard: CanActivateFn = (route, state) => {*/
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean {
-    if (this.authService.isLoggedIn()) {
-      return true; // Kullanıcı giriş yaptıysa erişime izin ver
+    state: RouterStateSnapshot): boolean {
+
+    if (!this.authService.isLoggedIn()) {
+     
+      this.router.navigate(['/login']); // Giriş yapılmadıysa login sayfasına yönlendir
+      return false;
     }
-    this.router.navigate(['/login']); // Giriş yapılmadıysa login sayfasına yönlendir
-    return false;
+
+    // Eğer rota bir role gerektiriyorsa ve kullanıcı bu role sahip değilse
+    const expectedRole = route.data['role'];
+    if (expectedRole && !this.authService.hasRole(expectedRole)) {
+      // Yetkisiz erişim için anasayfaya yönlendir
+      alert("Bu sayfaya erişim yetkiniz yoktur");
+      this.router.navigate(['/unauthorized']);
+      return false;
+    }
+    return true;
   }
+
 }

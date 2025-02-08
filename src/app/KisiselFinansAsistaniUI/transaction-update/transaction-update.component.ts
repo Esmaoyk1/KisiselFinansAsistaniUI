@@ -91,11 +91,12 @@ export class TransactionUpdateComponent implements OnInit {
     //  console.log('Geçerli mi:', control.valid);
     //  console.log('Hatalar:', control.errors);
     //});
-    console.log("this.post.id" + this.post.id);
-    if (form.valid && this.post.id) {
+    console.log("this.post");
+    console.log(this.post);
+    if (form.valid && this.post.transactionID) {
 
-      const updatedData = {                                          //{
-        TransactionID: this.post.id,                                 //  "transactionID": 0,
+      const updatedData = {                                   //{
+        TransactionID: this.post.transactionID,                                 //  "transactionID": 0,
         userID: 1,                                                   //  "accountID": 0,
         accountID: 9,                                                //  "userID": 0,
         transactionType: this.post.transactionType,                  //  "transactionType": true,
@@ -106,7 +107,7 @@ export class TransactionUpdateComponent implements OnInit {
                                                                      //}
       };
      
-      this.transactionApiService.updatePost(this.post.id, updatedData).subscribe(
+      this.transactionApiService.updatePost(this.post.transactionID, updatedData).subscribe(
         response => {
           console.log('Başarıyla güncellendi:', response);
           alert('Güncelleme işlemi başarıyla tamamlandı!');
@@ -119,6 +120,19 @@ export class TransactionUpdateComponent implements OnInit {
       );
     } else {
       console.log('Form geçersiz.');
+      /*Object.keys(form.controls).forEach(field => {
+        const control = form.controls[field];
+        if (control.invalid) {
+          console.log(`Hata: ${field} ->`, control.errors);
+        }
+      });*/
+
+      Object.keys(form.controls).forEach(field => {
+        const control = form.form.get(field);
+        if (control?.invalid) {
+          console.log(`Hata: ${field} ->`, control.errors);
+        }
+      });
     }
     console.log('Form Geçerli mi:', form.valid);
     console.log('Form Değerleri:', form.value);

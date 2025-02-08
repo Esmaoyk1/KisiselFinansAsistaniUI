@@ -82,7 +82,7 @@
               <td>{{ transaction.amount }}</td>
               <td>{{ transaction.transactionType ? 'Gelir' : 'Gider' }}</td>
               <td>
-                <a class="badge badge-success" (click)="transactionUpdate(transaction.id, transaction)">Güncelle</a>
+                <a class="badge badge-success" (click)="transactionUpdate(transaction.transactionID, transaction)">Güncelle</a>
                 <a class="badge badge-danger" [routerLink]="['/transactionDelete', transaction.transactionID]"> Sil </a>
               </td>
             </tr>

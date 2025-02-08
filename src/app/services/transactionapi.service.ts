@@ -22,7 +22,7 @@ export class TransactionApiService {
   }
 
   getTransactionAmount(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/TransactionAmount/${id}`);
+    return this.http.get<any>(`${this.apiUrl}/TransactionAmount`);
   }
 
   createPost(post: any): Observable<any> {
@@ -30,7 +30,7 @@ export class TransactionApiService {
   }
 
   updatePost(id: number, post: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/TransactionUpdate/${id}`, post);
+    return this.http.put<any>(`${this.apiUrl}/${id}`, post);
   }
 
   deletePost(id: number): Observable<any> {

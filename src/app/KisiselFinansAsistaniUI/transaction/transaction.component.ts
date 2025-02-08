@@ -149,6 +149,7 @@ export class TransactionComponent {
   }
   transactionUpdate(sid: number, post: any) {
     this.router.navigate(['transactionUpdate', sid], { state: { post: post } });
+    //console.log(sid, post);
 
   }
 

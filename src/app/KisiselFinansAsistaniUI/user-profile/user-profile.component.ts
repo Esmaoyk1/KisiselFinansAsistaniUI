@@ -12,7 +12,8 @@ import { CommonModule } from '@angular/common';
 })
 export class UserProfileComponent {
   personForm: FormGroup;
-
+  selectedFile!: File;
+  previewUrl: string | ArrayBuffer | null = null;
   constructor(private fb: FormBuilder, private userApiService: UserapiService) {
     this.personForm = this.fb.group({
       name: ['', Validators.required],
@@ -27,12 +28,6 @@ export class UserProfileComponent {
       { validators: this.passwordMatchValidator });
   }
 
-  //passwordMatchValidator(form: FormGroup) {
-  //  return form.get('password')?.value === form.get('confirmPassword')?.value
-  //    ? null : { mismatchedPasswords: true };
-  //}
-
-
   passwordMatchValidator(form: FormGroup) {
     const password = form.get('password')?.value;
     const confirmPassword = form.get('confirmPassword')?.value;
@@ -43,22 +38,37 @@ export class UserProfileComponent {
     return null;
   }
 
+  onFileSelected(event: any) {//resim seçerken bu fonksiyon çalışıyor
+    alert("onFileSelected");
+    const file = event.target.files[0];
+
+    if (file) {
+      this.selectedFile = file;
+
+      // Resmi önizleme için FileReader kullanıyoruz
+      const reader = new FileReader();
+      reader.onload = (e) => (this.previewUrl = reader.result);
+      reader.readAsDataURL(file);
+    }
+  }
+
   onSubmit() {
     if (this.personForm.valid) {
-      const userDetails = {
-        name: this.personForm.value.name,
-        surname: this.personForm.value.surname,
-        email: this.personForm.value.email,
-        phoneNumber: this.personForm.value.phone,
-        profilePictureUrl: this.personForm.value.profilePicture
-      };
+      const userDetails = new FormData();
+      userDetails.append('name', this.personForm!.get('name')?.value);
+      userDetails.append('surname', this.personForm!.get('surname')?.value);
+      userDetails.append('email', this.personForm!.get('email')?.value);
+      userDetails.append('phoneNumber', this.personForm!.get('phone')?.value);
+      userDetails.append('profilePicture', this.selectedFile); // Resmi ekl
+
 
       this.userApiService.updateUserDetail(userDetails).subscribe(
         response => {
+          this.getUserDetail();
           console.log('✅ Kullanıcı bilgileri başarıyla güncellendi!', response);
         },
         error => {
-          console.error('❌ Kullanıcı bilgileri güncellenirken hata oluştu:', error);
+          console.log(error);
         }
       );
     } else {

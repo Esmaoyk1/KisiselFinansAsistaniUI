@@ -54,7 +54,7 @@ export class AuthService {
   }
 
 
-  getRoles(): string[] {
+  getRoles(): string {
     const token = this.getToken();
     if (token) {
       const decodedToken: any = jwtDecode(token);  // Doğru kullanım
@@ -63,15 +63,19 @@ export class AuthService {
       //alert("roles : " + decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || []);
       return decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || [];
     }
-    return [];
+    return "";
+  }
+  isUser(): boolean {
+    return this.getRoles() === 'User';
   }
 
-  //isAuthenticated(): boolean {
-  //  return !!this.getToken();
-  //}
+  isAdmin(): boolean {
+    return this.getRoles() === 'Admin';
+  }
 
   hasRole(role: string): boolean {
     const roles = this.getRoles();
+    //alert(roles);
     return roles.includes(role);
   }
 }
