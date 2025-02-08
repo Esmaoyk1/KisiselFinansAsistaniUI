@@ -28,7 +28,7 @@ export const routes: Route[] = [
     component: MainLayoutComponent,
     children: [
       { path: '', component: HomeComponent, canActivate: [AuthGuard] }, // Ana sayfa
-      { path: 'account', component: AccountComponent, canActivate: [AuthGuard] , data: { role: 'admin' } },
+      { path: 'account', component: AccountComponent, canActivate: [AuthGuard] , data: { role: 'Admin' } },
       { path: 'budget', component: BudgetComponent, canActivate: [AuthGuard] },
       { path: 'saving', component: SavingComponent, canActivate: [AuthGuard] },
       { path: 'transaction', component: TransactionComponent, canActivate: [AuthGuard] },

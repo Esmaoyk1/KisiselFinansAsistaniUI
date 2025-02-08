@@ -18,7 +18,7 @@ export class AuthService {
 
     this.userapiService.loginPost(post).subscribe(
       response => {
-        console.log('Giriş başarılı:', response);
+        //console.log('Giriş başarılı:', response);
         this.isAuthenticated = true;
         localStorage.setItem('authToken', response.token); // Örnek token kaydı
         this.router.navigate(['/']); // Admin sayfasına yönlendirme
@@ -43,9 +43,6 @@ export class AuthService {
     }
     return false;
   }
-  //getToken(): string | null {
-  //  return localStorage.getItem('authToken'); // Token alınır
-  //}
   getToken(): string | null {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('authToken');

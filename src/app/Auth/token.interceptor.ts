@@ -14,7 +14,7 @@ export const TokenInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next:
   const token = authService.getToken();
   //alert("Interceptor çalıştı" + token);
   if (token) {
-    authService.getRoles();
+    //authService.getRoles();
     //alert("token : " + token);
     req = req.clone({
       setHeaders: {
