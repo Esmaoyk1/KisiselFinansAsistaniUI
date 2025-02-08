@@ -90,7 +90,7 @@
           </li>
 
           <!-- Nav Item - Messages -->
-          <li class="nav-item dropdown no-arrow mx-1">
+          <li *ngIf="authService.isAdmin()"  class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-envelope fa-fw"></i>
               <!-- Counter - Messages -->
@@ -138,9 +138,12 @@
   </a>-->
 
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small">Esmanur OYANIK</span>
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                {{userProfileDetail.name}} 
+                {{userProfileDetail.surname}}
+              </span>
               <!-- Profil fotoğrafını dinamik olarak bağlayacağız -->
-              <img class="img-profile rounded-circle" [src]="userProfilePictureUrl" alt="User Profile Picture">
+              <img class="img-profile rounded-circle" [src]="userProfileDetail.profilePictureUrl" alt="User Profile Picture">
             </a>
 
             <!-- Dropdown - User Information -->

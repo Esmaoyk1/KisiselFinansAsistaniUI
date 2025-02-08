@@ -104,28 +104,26 @@ export class BudgetComponent implements OnInit {
       response => {
         //alert("Bütçe kullanımı başarıyla kaydedildi.");
         // İlgili işlemleri gerçekleştirin (örneğin, listeyi güncelleyin)
+
+        this.budgetService.deletePost(selectedBudget.budgetId).subscribe(
+
+          response => {
+            this.closeModal();
+            alert("İşlem Başarılı");
+            //alert("Bütçe kullanımı başarıyla kaydedildi.");
+            // İlgili işlemleri gerçekleştirin (örneğin, listeyi güncelleyin)
+          },
+          error => {
+            console.error("Hata:", error.error.message);
+            alert("Bir hata oluştu.");
+          }
+        );
       },
       error => {
-        console.error("Hata:", error);
-        alert("Bir hata oluştu.");
+        console.error("Hata:", error.error.message);
+        alert(error.error.message);
       }
     );
-
-    this.budgetService.deletePost(selectedBudget.budgetId).subscribe(
-
-      response => {
-        //alert("Bütçe kullanımı başarıyla kaydedildi.");
-        // İlgili işlemleri gerçekleştirin (örneğin, listeyi güncelleyin)
-      },
-      error => {
-        console.error("Hata:", error);
-        alert("Bir hata oluştu.");
-      }
-    );
-    console.log(transaction);
-    console.log("transaction");
-
-    //budget delete işlemi yapılcak
   }
   loadAccounts() {//kullanıcını banka bilgilerini getiryor dropdown için
     this.accountService.getPosts().subscribe(

@@ -1,4 +1,4 @@
-import { Component,  OnInit,  inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { MenuComponent } from '../menu/menu.component';
@@ -10,35 +10,51 @@ import { UserapiService } from '../services/user-api.service';
 import { BudgetService } from '../services/budget.service';
 import { response } from 'express';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../Auth/auth-service.service';
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
   templateUrl: './main-layout.component.html',
-  imports: [RouterModule, FormsModule,RouterOutlet, MenuComponent, SearchBarComponent, CommonModule],
+  imports: [RouterModule, FormsModule, RouterOutlet, MenuComponent, SearchBarComponent, CommonModule],
 })
 export class MainLayoutComponent implements OnInit {
   hedefler: any[] = [];
   categories: any[] = [];
-  userProfilePictureUrl: string = ''; // Profil fotoğrafı URL'si için değişken
+  userProfileDetail: any;
   tarih: any[] = [];
 
-  constructor(private savingApiService: SavingApiService,
+  constructor(
+    public authService: AuthService,
+    private savingApiService: SavingApiService,
     private transactionApiService: TransactionApiService,
     private userApiService: UserapiService,
     private budgetApiService: BudgetService,
-   ) { }
+  ) { }
 
 
-   async ngOnInit() {
+  async ngOnInit() {
     this.getHighSavingsByUser(); // Örnek olarak 1 kullanıcı ID'si kullanıldı
     this.getTransactionPercentageByAccount(1);
-    this.getUserProfilePicture(); // Kullanıcı ID'sine göre profil fotoğrafını al
+    this.getUserProfileDetail(); // Kullanıcı ID'sine göre profil fotoğrafını al
     this.getBudgetEndDate();
-  
+
   }
 
 
+  getUserProfileDetail() {
+    this.userApiService.getUserDetail().subscribe(response => {
+      if (response && response) {
+        this.userProfileDetail = response;
+        this.userProfileDetail.profilePictureUrl = 'http://localhost:5177/uploads/' + response.profilePictureUrl;
+        console.log('Kullanıcı Bilgileri:', this.userProfileDetail);
+      } else {
+        console.log('Kullanıcı profil fotoğrafı veri formatı:', response);
+      }
+    }, error => {
+      console.error('Kullanıcı profil fotoğrafı alma hatası:', error);
+    });
+  }
   getHighSavingsByUser() {
     this.savingApiService.GetHighSavingsByUser().subscribe(response => {
       if (response && response.data && Array.isArray(response.data.items)) {
@@ -51,7 +67,7 @@ export class MainLayoutComponent implements OnInit {
       //alert(error.error.message);
     });
   }
-  
+
   getTransactionPercentageByAccount(id: number) {
     this.transactionApiService.GetTransactionPercentageByAccount(id).subscribe(
       (response) => {
@@ -76,22 +92,6 @@ export class MainLayoutComponent implements OnInit {
     );
   }
 
-  getUserProfilePicture() {
-    //this.userProfilePictureUrl = 'https://cdn.pixabay.com/photo/2012/04/11/11/53/user-27716_1280.png'; // Test URL'si
-
-    this.userApiService.getUserProfilePicture().subscribe(response => {
-      if (response && response) {
-        //alert(response.fileUrl);
-        this.userProfilePictureUrl = 'http://localhost:5177/' + response.fileUrl; // Yeni formatta URL'yi alıyoruz
-       /* alert(this.userProfilePictureUrl);*/
-        console.log('Kullanıcı profil fotoğrafı:', response.fileUrl);
-      } else {
-        console.log('Kullanıcı profil fotoğrafı veri formatı:', response);
-      }
-    }, error => {
-      console.error('Kullanıcı profil fotoğrafı alma hatası:', error);
-    });
-  }
 
   getBudgetEndDate() {
     this.budgetApiService.getPosts().subscribe(response => {

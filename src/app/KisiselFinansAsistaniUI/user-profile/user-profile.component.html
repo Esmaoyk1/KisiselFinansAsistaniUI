@@ -2,17 +2,18 @@
   <h2 class="mt-4 text-center">Kişisel Bilgiler</h2>
   <div class="card mb-4 shadow">
     <div class="card-body">
-      <div class="text-center mb-3">
-        <label for="profilePicture">Profil Resmi</label><br />
-        <img *ngIf="personForm.get('profilePicture')?.value"
-             [src]="personForm.get('profilePicture')?.value"
-             alt="Profil Resmi"
-             class="img-thumbnail mb-3"
-             style="width: 150px; height: 150px;" />
 
-        <input type="file" id="profilePicture" (change)="onFileChange($event)" class="form-control-file" />
-      </div>
       <form [formGroup]="personForm" (ngSubmit)="onSubmit()">
+        <div class="text-center mb-3">
+          <label for="profilePicture">Profil Resmi</label><br />
+          <img *ngIf="personForm.get('profilePicture')?.value"
+               [src]="personForm.get('profilePicture')?.value"
+               alt="Profil Resmi"
+               class="img-thumbnail mb-3"
+               style="width: 150px; height: 150px;" />
+
+          <input type="file" id="profilePicture" (change)="onFileSelected($event)" class="form-control-file" />
+        </div>
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="name">İsim</label>

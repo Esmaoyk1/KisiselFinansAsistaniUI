@@ -58,7 +58,7 @@ export class UserapiService {
     return this.http.get<any>(`${this.apiUrl}/get-user-detail`); 
   }
   updateUserDetail(post: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/update-user-detail`,post);
+    return this.http.put<any>(`${this.apiUrl}/update-user-profile`,post);
   }
 
   // user-api.service.ts
