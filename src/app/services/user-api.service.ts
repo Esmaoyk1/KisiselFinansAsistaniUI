@@ -66,7 +66,8 @@ export class UserapiService {
     return this.http.post<any>(`${this.apiUrl}/upload-profile-picture`, formData);
   }
 
-
-  
+  getUsers(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/get-users`);
+  }
 
 }
