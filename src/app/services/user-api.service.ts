@@ -70,4 +70,12 @@ export class UserapiService {
     return this.http.get<any>(`${this.apiUrl}/get-users`);
   }
 
+  updateRating(post: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/update-rating`, post);
+  }
+
+  getRating(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/get-rating`);
+  }
+
 }

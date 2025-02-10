@@ -20,8 +20,9 @@ import { TransactionUpdateComponent } from './KisiselFinansAsistaniUI/transactio
 import { TransactionDeleteComponent } from './KisiselFinansAsistaniUI/transaction-delete/transaction-delete.component';
 import { TransactionComponent } from './KisiselFinansAsistaniUI/transaction/transaction.component';
 import { UserProfileComponent } from './KisiselFinansAsistaniUI/user-profile/user-profile.component';
-import { UserComponent } from './KisiselFinansAsistaniUI/admin/user/user.component';
 import { HomeLayoutComponent } from './KisiselFinansAsistaniUI/admin/home-layout/home-layout.component';
+import { UserComponent } from './KisiselFinansAsistaniUI/admin/user-menu/user.component';
+import { AdminMenuComponent } from './KisiselFinansAsistaniUI/admin/admin-menu/admin-menu.component';
 
 export const routes: Route[] = [
 
@@ -30,7 +31,7 @@ export const routes: Route[] = [
     component: MainLayoutComponent,
     children: [
       { path: '', component: HomeComponent, canActivate: [AuthGuard], data: { role: 'User' } }, // Ana sayfa
-      { path: 'account', component: AccountComponent, canActivate: [AuthGuard] , data: { role: 'Admin' } },
+      { path: 'account', component: AccountComponent, canActivate: [AuthGuard] , data: { role: 'User' } },
       { path: 'budget', component: BudgetComponent, canActivate: [AuthGuard] },
       { path: 'saving', component: SavingComponent, canActivate: [AuthGuard] },
       { path: 'transaction', component: TransactionComponent, canActivate: [AuthGuard] },
@@ -43,7 +44,8 @@ export const routes: Route[] = [
       { path: 'transactionDelete/:sid', component: TransactionDeleteComponent, canActivate: [AuthGuard] },
       { path: 'transactionUpdate/:sid', component: TransactionUpdateComponent, canActivate: [AuthGuard] },
       { path: 'userProfile', component: UserProfileComponent, canActivate: [AuthGuard] },
-      { path: 'user', component: UserComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
+      { path: 'userMenu', component: UserComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
+      { path: 'adminMenu', component: AdminMenuComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
       { path: 'homeLayout', component: HomeLayoutComponent, canActivate: [AuthGuard], data: { role: 'Admin' } }
     
     ],
