@@ -13,6 +13,7 @@ import { SavingApiService } from '../services/saving.service';
 import { TransactionApiService } from '../services/transactionapi.service';
 import { parse } from 'node:path/posix';
 import { map } from 'rxjs/operators';
+import { UserapiService } from '../services/user-api.service';
 
 
 
@@ -36,6 +37,8 @@ export class HomeComponent {
   remainingBudget: number = 0; // Başlangıç değeri
   percentageRemaining: number = 0;
   totalTransactions: number = 0;
+  rating: number = 0; // Kullanıcının puanı
+  thankYouMessage: boolean = false; // Mesaj kontrol değişkeni
 
   //PieChart değişkenleri
   //chartData: { label: any; colorClass: string; iconClass: string }[] = [];
@@ -61,6 +64,7 @@ export class HomeComponent {
     private accountapiService: AccountApiService,
     private savingApiService: SavingApiService,
     private transactionApiService: TransactionApiService,
+    private userApiService : UserapiService,
     private http: HttpClient
   ) { };
 
@@ -493,5 +497,21 @@ export class HomeComponent {
       this.frangKuru = data.frangKuru;
     });
 
+  }
+
+  updateRating() {
+    const post = { rating: this.rating };
+    this.userApiService.updateRating(post).subscribe(
+      response => {
+        console.log('Puan güncelleme başarılı:', response);
+        this.thankYouMessage = true; // Mesajı göster
+        setTimeout(() => {
+          this.thankYouMessage = false; // 3 saniye sonra mesajı gizle
+        }, 3000);
+      },
+      error => {
+        console.error('Puan güncelleme hatası:', error);
+      }
+    );
   }
 }

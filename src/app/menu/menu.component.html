@@ -52,9 +52,17 @@
   </li>
 
   <li *ngIf="authService.isAdmin()" class="nav-item active">
-    <a class="nav-link" [routerLink]="['/user']">
+    <a class="nav-link" [routerLink]="['/userMenu']">
       <i class="fas fa-fw fa-user"></i>
       <span>Kullanıcı Bilgileri</span>
+
+    </a>
+  </li>
+
+  <li *ngIf="authService.isAdmin()" class="nav-item active">
+    <a class="nav-link" [routerLink]="['/adminMenu']">
+      <i class="fas fa-fw fa-user"></i>
+      <span>Admin Bilgileri</span>
 
     </a>
   </li>

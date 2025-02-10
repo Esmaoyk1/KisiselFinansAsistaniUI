@@ -16,11 +16,11 @@
     font-size: 0.9rem;
   }
 
-  .user-list {
+  .admin-list {
     margin-top: 20px;
   }
 
-    .user-list img {
+    .admin-list img {
       width: 50px;
       height: 50px;
       border-radius: 50%;
@@ -31,12 +31,12 @@
   }
 </style>
 
-<div class="container-fluid user-list">
-  <h2 class="mt-4">Kullanıcı Listesi</h2>
+<div class="container-fluid admin-list">
+  <h2 class="mt-4">Admin Listesi</h2>
 
   <div class="card mb-4">
     <div class="card-header">
-      <h6 class="m-0 font-weight-bold">Kullanıcılar</h6>
+      <h6 class="m-0 font-weight-bold">Adminler</h6>
     </div>
     <div class="card-body">
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -52,18 +52,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let user of users">
-            <td>{{ user.id }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.phoneNumber }}</td>
-            <td>{{ user.name }}</td>
-            <td>{{ user.surname }}</td>
+          <tr *ngFor="let admin of admins">
+            <td>{{ admin.id }}</td>
+            <td>{{ admin.email }}</td>
+            <td>{{ admin.phoneNumber }}</td>
+            <td>{{ admin.name }}</td>
+            <td>{{ admin.surname }}</td>
             <td>
-              <img [src]="pictureUrl + user.profilePictureUrl" alt="{{ user.name }}" />
+              <img [src]="pictureUrl + admin.profilePictureUrl" alt="{{ admin.name }}" />
             </td>
             <td>
-              <a class="badge badge-success" >Düzenle</a>
-              <a class="badge badge-danger" >Sil</a>
+              <a class="badge badge-success">Düzenle</a>
+              <a class="badge badge-danger">Sil</a>
             </td>
           </tr>
         </tbody>

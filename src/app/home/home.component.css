@@ -33,7 +33,27 @@
 
 
 
+.rating {
+  font-size: 2rem; /* Yıldız boyutu */
+  cursor: pointer;
+}
 
+  .rating span {
+    color: gray; /* Varsayılan renk */
+    transition: color 0.3s; /* Geçiş efekti */
+  }
+
+    .rating span.selected {
+      color: gold; /* Seçili yıldız rengi */
+    }
+
+    .rating span:hover {
+      color: gold; /* Üzerine gelindiğinde yıldız rengi */
+    }
+
+.btn-primary {
+  margin-top: 10px; /* Butonun üst kısmında boşluk */
+}
 
 
 

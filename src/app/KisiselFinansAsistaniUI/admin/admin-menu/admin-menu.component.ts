@@ -1,43 +1,44 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { UserapiService } from '../../../services/user-api.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-user',
+  selector: 'app-admin-menu',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  templateUrl: './admin-menu.component.html',
+  styleUrl: './admin-menu.component.css'
 })
-export class UserComponent implements OnInit {
+export class AdminMenuComponent {
   pictureUrl: string = 'http://localhost:5177/uploads/';
-  users: any[] = []; // Kullanıcı verilerini tutmak için bir dizi
+  admins: any[] = [];
 
   constructor(private userApiService: UserapiService,
     private renderer: Renderer2,) { }
 
+
   ngOnInit(): void {
-    this.getUsers(); // bileşen yüklendiğinde kullanıcıları al
+    this.getAdmins(); // bileşen yüklendiğinde kullanıcıları al
     this.loadScriptsSequentially();
-
     this.loadCss('assets/vendor/datatables/dataTables.bootstrap4.min.css');
-   
 
-   
   }
 
-  getUsers(): void {
+  getAdmins(): void {
     this.userApiService.getUsers().subscribe(
       (data) => {
-        console.log(data);
-        this.users = data; // API'den gelen kullanıcı verilerini diziye ata
+        console.log("admin bilgileri");
+        console.log(data.adminUsers);
      
+        this.admins = [...data.adminUsers];
+        //this.admins = data.adminUsers || []; // adminUsers dizisi olup olmadığını kontrol et
       },
       (error) => {
         console.error('Kullanıcı verileri alınamadı:', error); // Hata durumunu yönet
       }
     );
   }
+
 
   async loadScriptsSequentially() {
     try {
@@ -74,5 +75,6 @@ export class UserComponent implements OnInit {
     link.href = url;
     this.renderer.appendChild(document.head, link);
   }
+
 
 }

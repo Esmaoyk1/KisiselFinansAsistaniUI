@@ -169,14 +169,12 @@
 </div>
 <!-- Content Row -->
 <div class="row">
-  <!-- Content Column -->
   <div class="col-lg-6 mb-4">
-    <!-- Project Card Example -->
+    <!-- Tasarruf Hedefleri Kartı -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Tasarruf Hedefleri</h6>
       </div>
-
       <div class="card-body">
         <div *ngFor="let item of dataFive; let i = index">
           <h4 class="small font-weight-bold">
@@ -202,132 +200,55 @@
           </div>
         </div>
       </div>
-
-
-
     </div>
-    <!-- Color System -->
-    <div class="row">
-      <div class="col-lg-6 mb-4">
-        <div class="card bg-primary text-white shadow">
-          <div class="card-body">
-            Primary
-            <div class="text-white-50 small">#4e73df</div>
-          </div>
-        </div>
+
+    <!-- Puanlama Kartı -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Puanlama</h6>
       </div>
-      <div class="col-lg-6 mb-4">
-        <div class="card bg-success text-white shadow">
-          <div class="card-body">
-            Success
-            <div class="text-white-50 small">#1cc88a</div>
-          </div>
+      <div class="card-body text-center">
+        <div class="rating">
+          <span (click)="rating = 1" [ngClass]="{'selected': rating >= 1}">★</span>
+          <span (click)="rating = 2" [ngClass]="{'selected': rating >= 2}">★</span>
+          <span (click)="rating = 3" [ngClass]="{'selected': rating >= 3}">★</span>
+          <span (click)="rating = 4" [ngClass]="{'selected': rating >= 4}">★</span>
+          <span (click)="rating = 5" [ngClass]="{'selected': rating >= 5}">★</span>
         </div>
-      </div>
-      <div class="col-lg-6 mb-4">
-        <div class="card bg-info text-white shadow">
-          <div class="card-body">
-            Info
-            <div class="text-white-50 small">#36b9cc</div>
-          </div>
+        <div class="mt-2">
+          <button class="btn btn-primary" (click)="updateRating()">Puanı Güncelle</button>
         </div>
-      </div>
-      <div class="col-lg-6 mb-4">
-        <div class="card bg-warning text-white shadow">
-          <div class="card-body">
-            Warning
-            <div class="text-white-50 small">#f6c23e</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6 mb-4">
-        <div class="card bg-danger text-white shadow">
-          <div class="card-body">
-            Danger
-            <div class="text-white-50 small">#e74a3b</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6 mb-4">
-        <div class="card bg-secondary text-white shadow">
-          <div class="card-body">
-            Secondary
-            <div class="text-white-50 small">#858796</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6 mb-4">
-        <div class="card bg-light text-black shadow">
-          <div class="card-body">
-            Light
-            <div class="text-black-50 small">#f8f9fc</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6 mb-4">
-        <div class="card bg-dark text-white shadow">
-          <div class="card-body">
-            Dark
-            <div class="text-white-50 small">#5a5c69</div>
-          </div>
+        <div *ngIf="thankYouMessage" class="mt-2 text-success">
+          Puanlama için teşekkürler!
         </div>
       </div>
     </div>
   </div>
+
+
   <div class="col-lg-6 mb-4">
+    <!-- Döviz Kurları Kartı -->
     <div class="card shadow mb-4">
       <div class="card-header py-3 d-flex align-items-center">
         <i class="fas fa-coins text-warning mr-2"></i>
-        <h6 class="m-0 font-weight-bold text-dark">  Döviz Kurları</h6>
+        <h6 class="m-0 font-weight-bold text-dark">Döviz Kurları</h6>
       </div>
-
       <div class="card-body">
-        Amerikan Doları
-        <div class="d-flex align-items-center mb-3">
-          <div class="mr-3">
-            <i class="fas fa-dollar-sign fa-2x text-success"></i>
-          </div>
-          <div>
-            <h6 class="font-weight-bold">Amerikan Doları (USD):</h6>
-            <span class="text-success font-weight-bold">{{ dolarKuru }} Türk Lirası</span>
-          </div>
-        </div>
-        Euro
-        <div class="d-flex align-items-center mb-3">
-          <div class="mr-3">
-            <i class="fas fa-euro-sign fa-2x text-primary"></i>
-          </div>
-          <div>
-            <h6 class="font-weight-bold">Euro (EUR):</h6>
-            <span class="text-primary font-weight-bold">{{ euroKuru }} Türk Lirası</span>
+        <div *ngFor="let currency of [{name: 'Amerikan Doları (USD)', value: dolarKuru, icon: 'fas fa-dollar-sign text-success'}, {name: 'Euro (EUR)', value: euroKuru, icon: 'fas fa-euro-sign text-primary'}, {name: 'İngiliz Sterlin (GBP)', value: sterlinKuru, icon: 'fas fa-pound-sign text-warning'}, {name: 'İsviçre Frangı (CHF)', value: frangKuru, icon: 'fas fa-money-bill-wave text-danger'}]">
+          <div class="d-flex align-items-center mb-3">
+            <div class="mr-3">
+              <i [class]="currency.icon + ' fa-2x'"></i>
+            </div>
+            <div>
+              <h6 class="font-weight-bold">{{ currency.name }}:</h6>
+              <span class="font-weight-bold">{{ currency.value }} Türk Lirası</span>
+            </div>
           </div>
         </div>
-        İngiliz Sterlin
-        <div class="d-flex align-items-center mb-3">
-          <div class="mr-3">
-            <i class="fas fa-pound-sign fa-2x text-warning"></i>
-
-          </div>
-          <div>
-            <h6 class="font-weight-bold">Strelin (GBP):</h6>
-            <span class="text-warning font-weight-bold">{{ sterlinKuru }} Türk Lirası</span>
-          </div>
-        </div>
-        İsviçre Frangı
-        <div class="d-flex align-items-center mb-3">
-          <div class="mr-3">
-            <i class="fas fa-money-bill-wave fa-2x text-danger"></i>
-          </div>
-          <div>
-            <h6 class="font-weight-bold">İsviçre Frangı (CHF):</h6>
-            <span class="text-secondary font-weight-bold">{{ frangKuru }} Türk Lirası</span>
-          </div>
-        </div>
-       
       </div>
     </div>
   </div>
-
- 
 </div>
+
+
 
