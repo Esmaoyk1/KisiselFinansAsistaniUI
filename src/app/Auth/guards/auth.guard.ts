@@ -23,15 +23,26 @@ export /*const authGuard: CanActivateFn = (route, state) => {*/
       this.router.navigate(['/login']); // Giriş yapılmadıysa login sayfasına yönlendir
       return false;
     }
-
+    const userRole = this.authService.getRoles(); // Kullanıcının rolünü al
     // Eğer rota bir role gerektiriyorsa ve kullanıcı bu role sahip değilse
     const expectedRole = route.data['role'];
-    if (expectedRole && !this.authService.hasRole(expectedRole)) {
+
+    if (expectedRole && userRole !== expectedRole) {
+    //if (expectedRole && !this.authService.hasRole(expectedRole)) {
       // Yetkisiz erişim için anasayfaya yönlendir
-      alert("Bu sayfaya erişim yetkiniz yoktur");
-      this.router.navigate(['/unauthorized']);
+      //alert("Bu sayfaya erişim yetkiniz yoktur");
+
+      if (userRole === 'Admin') {
+        this.router.navigate(['/homeLayout']); // Admin ise homeLayout'a yönlendir
+      } else {
+        this.router.navigate(['/']); // Kullanıcı ise ana sayfaya yönlendir
+      }
+
+
+      //this.router.navigate(['/']);
       return false;
     }
+
     return true;
   }
 
