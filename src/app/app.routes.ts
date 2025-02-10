@@ -23,6 +23,7 @@ import { UserProfileComponent } from './KisiselFinansAsistaniUI/user-profile/use
 import { HomeLayoutComponent } from './KisiselFinansAsistaniUI/admin/home-layout/home-layout.component';
 import { UserComponent } from './KisiselFinansAsistaniUI/admin/user-menu/user.component';
 import { AdminMenuComponent } from './KisiselFinansAsistaniUI/admin/admin-menu/admin-menu.component';
+import { UserUpdateComponent } from './KisiselFinansAsistaniUI/admin/user-update/user-update.component';
 
 export const routes: Route[] = [
 
@@ -32,22 +33,28 @@ export const routes: Route[] = [
     children: [
       { path: '', component: HomeComponent, canActivate: [AuthGuard], data: { role: 'User' } }, // Ana sayfa
       { path: 'account', component: AccountComponent, canActivate: [AuthGuard] , data: { role: 'User' } },
-      { path: 'budget', component: BudgetComponent, canActivate: [AuthGuard] },
-      { path: 'saving', component: SavingComponent, canActivate: [AuthGuard] },
-      { path: 'transaction', component: TransactionComponent, canActivate: [AuthGuard] },
-      { path: 'savingUpdate/:sid', component: SavingUpdateComponent, canActivate: [AuthGuard] },
-      { path: 'savingDelete/:sid', component: SavingDeleteComponent, canActivate: [AuthGuard] },
-      { path: 'budgetDelete/:sid', component: BudgetDeleteComponent, canActivate: [AuthGuard] },
-      { path: 'budgetUpdate/:sid', component: BudgetUpdateComponent, canActivate: [AuthGuard] },
       { path: 'accountUpdate/:sid', component: AccountUpdateComponent, canActivate: [AuthGuard] },
       { path: 'accountDelete/:sid', component: AccountDeleteComponent, canActivate: [AuthGuard] },
+
+      { path: 'budget', component: BudgetComponent, canActivate: [AuthGuard] },
+      { path: 'budgetDelete/:sid', component: BudgetDeleteComponent, canActivate: [AuthGuard] },
+      { path: 'budgetUpdate/:sid', component: BudgetUpdateComponent, canActivate: [AuthGuard] },
+
+      { path: 'saving', component: SavingComponent, canActivate: [AuthGuard] },
+      { path: 'savingUpdate/:sid', component: SavingUpdateComponent, canActivate: [AuthGuard] },
+      { path: 'savingDelete/:sid', component: SavingDeleteComponent, canActivate: [AuthGuard] },
+
+      { path: 'transaction', component: TransactionComponent, canActivate: [AuthGuard] },
       { path: 'transactionDelete/:sid', component: TransactionDeleteComponent, canActivate: [AuthGuard] },
       { path: 'transactionUpdate/:sid', component: TransactionUpdateComponent, canActivate: [AuthGuard] },
+
       { path: 'userProfile', component: UserProfileComponent, canActivate: [AuthGuard] },
       { path: 'userMenu', component: UserComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
       { path: 'adminMenu', component: AdminMenuComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
-      { path: 'homeLayout', component: HomeLayoutComponent, canActivate: [AuthGuard], data: { role: 'Admin' } }
-    
+      { path: 'homeLayout', component: HomeLayoutComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
+      /*    { path: 'userUpdate', component: UserUpdateComponent, canActivate: [AuthGuard], data: { role: 'Admin' } }*/
+
+      { path: 'users/update/:id', component: UserUpdateComponent, canActivate: [AuthGuard], data: { role: 'Admin' } }
     ],
   },
 

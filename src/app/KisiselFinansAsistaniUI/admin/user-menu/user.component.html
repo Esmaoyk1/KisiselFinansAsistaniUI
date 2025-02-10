@@ -95,7 +95,8 @@
               <img [src]="pictureUrl + user.profilePictureUrl" alt="{{ user.name }}" />
             </td>
             <td>
-              <a class="badge badge-success">Güncelle</a>
+              <a [routerLink]="['/users/update', user.id]" class="badge badge-success">Güncelle</a>
+              <!--<a class="badge badge-success">Güncelle</a>-->
               <a class="badge badge-danger">Sil</a>
             </td>
           </tr>
