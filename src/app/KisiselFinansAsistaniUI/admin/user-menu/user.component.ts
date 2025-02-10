@@ -2,11 +2,12 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { UserapiService } from '../../../services/user-api.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule], 
+  imports: [CommonModule, ReactiveFormsModule, RouterModule], 
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
