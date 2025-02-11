@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserapiService } from '../../services/user-api.service';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
@@ -14,7 +15,7 @@ export class UserProfileComponent {
   personForm: FormGroup;
   selectedFile!: File;
   previewUrl: string | ArrayBuffer | null = null;
-  constructor(private fb: FormBuilder, private userApiService: UserapiService) {
+  constructor(private fb: FormBuilder, private userApiService: UserapiService, private router: Router) {
     this.personForm = this.fb.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
@@ -65,10 +66,12 @@ export class UserProfileComponent {
       this.userApiService.updateUserDetail(userDetails).subscribe(
         response => {
           this.getUserDetail();
-          console.log('✅ Kullanıcı bilgileri başarıyla güncellendi!', response);
+          alert(response.message);
+          this.router.navigate(['/budget']); // İptal edildiğinde yönlendirme
+
         },
         error => {
-          console.log(error);
+          console.log(error.error);
         }
       );
     } else {

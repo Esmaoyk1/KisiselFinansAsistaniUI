@@ -2,7 +2,7 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { UserapiService } from '../../../services/user-api.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -31,7 +31,7 @@ export class UserComponent implements OnInit {
 
   }
 
-  constructor(private renderer: Renderer2,private fb: FormBuilder, private userApiService: UserapiService) {
+  constructor(private router: Router, private renderer: Renderer2,private fb: FormBuilder, private userApiService: UserapiService) {
     this.personForm = this.fb.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
@@ -71,15 +71,14 @@ export class UserComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("this.personForm");
-    console.log(this.personForm);
+    console.log("Form verileri:", this.personForm.value);
     if (this.personForm.valid) {
       const userDetails = new FormData();
       userDetails.append('name', this.personForm.get('name')?.value);
       userDetails.append('surname', this.personForm.get('surname')?.value);
       userDetails.append('email', this.personForm.get('email')?.value);
       userDetails.append('phone', this.personForm.get('phone')?.value);
-      userDetails.append('password', this.personForm.get('password')?.value); // Şifre ekleniyor
+      userDetails.append('password', this.personForm.get('password')?.value);
       userDetails.append('confirmPassword', this.personForm.get('confirmPassword')?.value);
       userDetails.append('profilePicture', this.selectedFile);
 
@@ -93,7 +92,7 @@ export class UserComponent implements OnInit {
             console.log('✅ Kullanıcı bilgileri başarıyla güncellendi!', response);
           },
           error => {
-            console.log(error);
+            console.error('❌ Güncelleme hatası:', error);
           }
         );
       } else {
@@ -105,11 +104,17 @@ export class UserComponent implements OnInit {
             console.log('✅ Kullanıcı başarıyla eklendi!', response);
           },
           error => {
-            console.log(error);
+            console.error('❌ Kullanıcı eklenirken hata:', error); // Hata mesajını kontrol edin
           }
         );
       }
     } else {
+      Object.keys(this.personForm.controls).forEach(field => {
+        const control = this.personForm.get(field);
+        if (control?.invalid) {
+          console.log(`Hata: ${field} ->`, control.errors);
+        }
+      });
       console.log('🚨 Form geçersiz! Hatalar:', this.personForm.errors);
     }
   }
@@ -197,6 +202,12 @@ export class UserComponent implements OnInit {
         console.error('Kullanıcı verileri alınamadı:', error); // Hata durumunu yönet
       }
     );
+  }
+
+
+  userUpdate(sid: number, post: any) {
+    //[routerLink]="['/users/update', user.id]" 
+    this.router.navigate(['/users/update', sid], { state: { post: post } });
   }
 
   

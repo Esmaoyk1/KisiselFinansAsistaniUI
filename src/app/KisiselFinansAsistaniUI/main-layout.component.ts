@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { MenuComponent } from '../menu/menu.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { SavingApiService } from '../services/saving.service';
@@ -30,6 +30,7 @@ export class MainLayoutComponent implements OnInit {
     private transactionApiService: TransactionApiService,
     private userApiService: UserapiService,
     private budgetApiService: BudgetService,
+    private router: Router
   ) { }
 
 
@@ -40,7 +41,20 @@ export class MainLayoutComponent implements OnInit {
     this.getBudgetEndDate();
 
   }
-
+  logout() {
+    // Modal'ı kapatma
+    const modal = document.querySelector('.modal') as HTMLElement;
+    if (modal) {
+      modal.style.display = 'none';
+    }
+    // Modal backdrop'ı kaldırma
+    const modalBackdrop = document.querySelector('.modal-backdrop');
+    if (modalBackdrop) {
+      modalBackdrop.remove();
+    }
+    this.authService.logout();
+    this.router.navigate(['/login']); 
+  }
 
   getUserProfileDetail() {
     this.userApiService.getUserDetail().subscribe(response => {
