@@ -37,7 +37,7 @@
   <form [formGroup]="personForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="name">Ad</label>
-      <input  formControlName="surname" type="text" id="name"  class="form-control" required>
+      <input  formControlName="name" type="text" id="name"  class="form-control" required>
     </div>
     <div class="form-group">
       <label for="surname">Soyad</label>
@@ -95,7 +95,7 @@
               <img [src]="pictureUrl + user.profilePictureUrl" alt="{{ user.name }}" />
             </td>
             <td>
-              <a [routerLink]="['/users/update', user.id]" class="badge badge-success">Güncelle</a>
+              <a class="badge badge-success" (click)="userUpdate(user.id, user)">Güncelle</a>
               <!--<a class="badge badge-success">Güncelle</a>-->
               <a class="badge badge-danger">Sil</a>
             </td>

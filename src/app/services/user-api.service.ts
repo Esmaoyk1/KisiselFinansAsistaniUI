@@ -57,8 +57,13 @@ export class UserapiService {
   getUserDetail(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/get-user-detail`); 
   }
-  updateUserDetail(post: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/update-user-profile`,post);
+  updateUserDetail(post: any, userId?: number): Observable<any> {
+
+    const url = userId
+      ? `${this.apiUrl}/update-user-profile?targetUserId=${userId}`
+      : `${this.apiUrl}/update-user-profile`; // ID yoksa sadece temel URL
+
+    return this.http.put<any>(url,post);
   }
 
   // user-api.service.ts
