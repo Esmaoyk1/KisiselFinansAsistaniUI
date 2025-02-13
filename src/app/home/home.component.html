@@ -95,39 +95,44 @@
 <!-- Content Row -->
 <div class="row">
   <!-- Area Chart -->
-  <div *ngIf="noDataMessageVisible; else noDataTemplate">
-    <!--<p>Veri yok. Lütfen daha sonra tekrar deneyin.</p>-->
-  </div>
-  <ng-template #noDataTemplate>
-    <div class="col-xl-7 col-lg-6">
-      <div class="card shadow mb-4">
-        <!-- Card Header - Dropdown -->
-        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          <h6 class="m-0 font-weight-bold text-primary">Yıllık Harcamalar</h6>
-          <div class="dropdown no-arrow">
-            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                 aria-labelledby="dropdownMenuLink">
-              <div class="dropdown-header">Dropdown Header:</div>
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
+
+  <div class="col-xl-7 col-lg-6">
+    <div class="card shadow mb-4">
+      <!-- Card Header - Dropdown -->
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Yıllık Harcamalar</h6>
+        <div class="dropdown no-arrow">
+          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+               aria-labelledby="dropdownMenuLink">
+            <div class="dropdown-header">Dropdown Header:</div>
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
           </div>
         </div>
+      </div>
+      <div *ngIf="noDataMessageVisible2; else noDataTemplate2">
+        <h3 style="height:350px" class="text-center text-danger  font-weight-bold  full-height d-flex justify-content-center align-items-center">
+          Yaptığınız Yıllık Harcamalar Grafikte Görünür.
+        </h3>
+      </div>
+      <ng-template #noDataTemplate2>
         <!-- Card Body -->
         <div class="card-body">
           <div class="chart-area">
             <canvas id="myAreaChart"></canvas>
           </div>
         </div>
-      </div>
+      </ng-template>
+
     </div>
-  </ng-template>
+  </div>
+
   <!-- Pie Chart -->
   <div class="col-xl-5 col-lg-6">
     <div class="card shadow mb-4">
@@ -149,21 +154,28 @@
           </div>
         </div>
       </div>
-      <!-- Card Body -->
-      <div class="card-body">
-        <div class="chart-pie pt-5 pb-5">
-          <canvas id="myPieChart"></canvas>
-        </div>
-        <div class="mt-6 text-center small">
-          <br>
-          <span *ngFor="let data of chartData" class="mr-2.5">
-            <!-- Dinamik olarak icon ve metni göstereceğiz -->
-            <!--<i [class]="data.iconClass + ' ' + data.colorClass"></i> {{ data.label }}-->
-            <i [class]="data.iconClass" [style.color]="data.color"></i> {{ data.label }}
-          </span>
-
-        </div>
+      <div *ngIf="noDataMessageVisible; else noDataTemplate">
+        <h4 style="height:350px" class="text-center text-danger  font-weight-bold  full-height d-flex justify-content-center align-items-center">
+          Kategorilere Göre Yaptığınız Yıllık Harcamalar Grafikte Görünür.
+        </h4>
       </div>
+      <ng-template #noDataTemplate>
+        <!-- Card Body -->
+        <div class="card-body">
+          <div class="chart-pie pt-5 pb-5">
+            <canvas id="myPieChart"></canvas>
+          </div>
+          <div class="mt-6 text-center small">
+            <br>
+            <span *ngFor="let data of chartData" class="mr-2.5">
+              <!-- Dinamik olarak icon ve metni göstereceğiz -->
+              <!--<i [class]="data.iconClass + ' ' + data.colorClass"></i> {{ data.label }}-->
+              <i [class]="data.iconClass" [style.color]="data.color"></i> {{ data.label }}
+            </span>
+
+          </div>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>
@@ -175,31 +187,38 @@
       <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Tasarruf Hedefleri</h6>
       </div>
-      <div class="card-body">
-        <div *ngFor="let item of dataFive; let i = index">
-          <h4 class="small font-weight-bold">
-            {{ item.goalName }}
-            <span class="float-right">
-              {{ calculatePercentage(item.savedAmount, item.goalAmount) }}
-            </span>
-          </h4>
-          <div class="progress mb-4" style="position: relative;">
-            <div class="progress-bar"
-                 [ngClass]="getProgressBarClass(i)"
-                 role="progressbar"
-                 [style.width]="calculateProgressBarWidth(item.savedAmount, item.goalAmount) + '%'"
-                 [attr.aria-valuenow]="calculateProgressBarWidth(item.savedAmount, item.goalAmount)"
-                 aria-valuemin="0"
-                 aria-valuemax="100">
-              {{ item.savedAmount }} TL
-            </div>
-            <!-- Hedef Değer -->
-            <div class="prbar-hedef">
-              {{ item.goalAmount }} TL
+      <div *ngIf="noDataMessageVisible3; else noDataTemplate3">
+        <h4 style="height:350px" class="text-center text-danger  font-weight-bold  full-height d-flex justify-content-center align-items-center">
+          Tassarruf Değerleri Grafikte Görünür.
+        </h4>
+      </div>
+      <ng-template #noDataTemplate3>
+        <div class="card-body">
+          <div *ngFor="let item of dataFive; let i = index">
+            <h4 class="small font-weight-bold">
+              {{ item.goalName }}
+              <span class="float-right">
+                {{ calculatePercentage(item.savedAmount, item.goalAmount) }}
+              </span>
+            </h4>
+            <div class="progress mb-4" style="position: relative;">
+              <div class="progress-bar"
+                   [ngClass]="getProgressBarClass(i)"
+                   role="progressbar"
+                   [style.width]="calculateProgressBarWidth(item.savedAmount, item.goalAmount) + '%'"
+                   [attr.aria-valuenow]="calculateProgressBarWidth(item.savedAmount, item.goalAmount)"
+                   aria-valuemin="0"
+                   aria-valuemax="100">
+                {{ item.savedAmount }} TL
+              </div>
+              <!-- Hedef Değer -->
+              <div class="prbar-hedef">
+                {{ item.goalAmount }} TL
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </ng-template>
     </div>
 
     <!-- Puanlama Kartı -->
