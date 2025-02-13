@@ -24,6 +24,7 @@ import { HomeLayoutComponent } from './KisiselFinansAsistaniUI/admin/home-layout
 import { UserComponent } from './KisiselFinansAsistaniUI/admin/user-menu/user.component';
 import { AdminMenuComponent } from './KisiselFinansAsistaniUI/admin/admin-menu/admin-menu.component';
 import { UserUpdateComponent } from './KisiselFinansAsistaniUI/admin/user-update/user-update.component';
+import { UserDeleteComponent } from './KisiselFinansAsistaniUI/admin/user-delete/user-delete.component';
 
 export const routes: Route[] = [
 
@@ -32,7 +33,7 @@ export const routes: Route[] = [
     component: MainLayoutComponent,
     children: [
       { path: '', component: HomeComponent, canActivate: [AuthGuard], data: { role: 'User' } }, // Ana sayfa
-      { path: 'account', component: AccountComponent, canActivate: [AuthGuard] , data: { role: 'User' } },
+      { path: 'account', component: AccountComponent, canActivate: [AuthGuard], data: { role: 'User' } },
       { path: 'accountUpdate/:sid', component: AccountUpdateComponent, canActivate: [AuthGuard] },
       { path: 'accountDelete/:sid', component: AccountDeleteComponent, canActivate: [AuthGuard] },
 
@@ -54,7 +55,8 @@ export const routes: Route[] = [
       { path: 'homeLayout', component: HomeLayoutComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
       /*    { path: 'userUpdate', component: UserUpdateComponent, canActivate: [AuthGuard], data: { role: 'Admin' } }*/
 
-      { path: 'users/update/:id', component: UserUpdateComponent, canActivate: [AuthGuard], data: { role: 'Admin' } }
+      { path: 'users/update/:id', component: UserUpdateComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
+      { path: 'userDelete/:id', component: UserDeleteComponent, canActivate: [AuthGuard], data: { role: 'Admin' } }
     ],
   },
 
@@ -65,8 +67,8 @@ export const routes: Route[] = [
       { path: '', component: LoginComponent },
     ],
   },
- 
- 
+
+
   { path: 'signUp', component: SignUpComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },    // Geçersiz yollar için ana sayfaya yönlendirme
 

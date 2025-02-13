@@ -43,7 +43,7 @@ export class UserapiService {
   }
 
   deletePost(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+    return this.http.delete<any>(`${this.apiUrl}/Delete/${id}`);
   }
 
   /*'http://localhost:5177/api/User/get-profile-picture?userId=20' \*/
@@ -83,4 +83,6 @@ export class UserapiService {
     return this.http.get<any>(`${this.apiUrl}/get-rating`);
   }
 
+ 
+ 
 }

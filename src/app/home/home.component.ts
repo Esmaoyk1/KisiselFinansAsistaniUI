@@ -30,6 +30,8 @@ declare var Chart: any;
 })
 export class HomeComponent {
   noDataMessageVisible: boolean = false;//yıllık grafik verisi yoksa divi gizlemek için
+  noDataMessageVisible2: boolean = false;//yıllık grafik verisi yoksa divi gizlemek için
+  noDataMessageVisible3: boolean = false;//yıllık grafik verisi yoksa divi gizlemek için
   userBalance: number = 0; // Başlangıç değeri
   currency: string | undefined;
   savedAmount: number = 0; // Başlangıç değeri
@@ -64,7 +66,7 @@ export class HomeComponent {
     private accountapiService: AccountApiService,
     private savingApiService: SavingApiService,
     private transactionApiService: TransactionApiService,
-    private userApiService : UserapiService,
+    private userApiService: UserapiService,
     private http: HttpClient
   ) { };
 
@@ -99,9 +101,15 @@ export class HomeComponent {
     this.getKurlaar();
     this.GetTrueTransactions();
   }
+
   GetLastFiveByUser() {
+    //bu metod : son girilen 5 tassaruf değerini getirir.
     this.savingApiService.GetLastFiveByUser().subscribe(
       response => {
+        if (!response.data.items || response.data.items.length === 0) {
+          this.noDataMessageVisible3 = true;
+          return;
+        }
         //console.log('five respo:', response);
         this.dataFive = response.data.items;
 
@@ -199,24 +207,15 @@ export class HomeComponent {
     //console.log(this.userBalance + "Kalan bütçe: " + this.remainingBudget);
   }
 
-  //getRandomColorClass(): string {
-  //  // Rastgele bir renk sınıfı seçer
-  //  const randomIndex = Math.floor(Math.random() * this.colorClasses.length);
-  //  return this.colorClasses[randomIndex];
-  //}
-  showNoDataMessage() {
-    // Burada kullanıcıya veri yok mesajı gösterin
-    // Örneğin, bir HTML elementi güncelleyebilirsiniz
-    this.noDataMessageVisible = true; // Bu değişkeni HTML'de kontrol edin
-  }
-  calculatePercentageRemaining() {
 
+  calculatePercentageRemaining() {
+    //Bu metod : Kategorilere gore yıllık harcama grafiği.
     this.transactionApiService.GetTransactionPercentageByAccount(1).subscribe(
       response => {
         if (!response.data.items || response.data.items.length === 0) {
           // Burada kullanıcıya bir mesaj gösterebilirsiniz
           this.chartData = [];
-          this.showNoDataMessage(); // Mesaj göstermek için bir fonksiyon
+          this.noDataMessageVisible = true; // Bu değişkeni HTML'de kontrol edin
           return;
         }
 
@@ -231,13 +230,7 @@ export class HomeComponent {
         }));
         this.datalabels = response.data.items.map((item: any) => item.categoryName),
           this.dataResp = response.data.items.map((item: any) => item.percentage),
-        //  console.log(this.chartData); // Düzenlenmiş chartData
-        //console.log(this.dataResp); // Yüzde değerleri
-        // console.log(this.dataResp);
-        //this.chartData.a
-        //  { label: 'Direct', colorClass: 'text-primary', iconClass: 'fas fa-circle' },
-        //  response.data.items;
-        this.KalanButce();
+          this.KalanButce();
         this.pieChart();
       },
       error => {
@@ -250,7 +243,11 @@ export class HomeComponent {
   getAreaChartByAccount() {
     this.transactionApiService.GetTransactionAreaChartByAccount(1).subscribe(
       response => {
-        console.log("Aylar", response);
+        //if (!response.data.items || response.data.items.length === 0) {
+        //  dataArea : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        //  this.noDataMessageVisible2 = true; // Bu değişkeni HTML'de kontrol edin
+        //  return;
+        //}
 
         //const allMonths = Array.from({ length: 12 }, (_, i) => i + 1);
 
