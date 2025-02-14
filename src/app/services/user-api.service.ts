@@ -34,6 +34,13 @@ export class UserapiService {
   signupPost(post: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/signup`, post);
   }
+
+  resetPassword(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/reset-password`, data);
+  }
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/forgot-password`, { email });
+  }
   createPost(post: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}`, post);
   }
@@ -45,8 +52,6 @@ export class UserapiService {
   deletePost(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/Delete/${id}`);
   }
-
-  /*'http://localhost:5177/api/User/get-profile-picture?userId=20' \*/
 
 
   getUserProfilePicture(): Observable<any> {
