@@ -25,6 +25,8 @@ import { UserComponent } from './KisiselFinansAsistaniUI/admin/user-menu/user.co
 import { AdminMenuComponent } from './KisiselFinansAsistaniUI/admin/admin-menu/admin-menu.component';
 import { UserUpdateComponent } from './KisiselFinansAsistaniUI/admin/user-update/user-update.component';
 import { UserDeleteComponent } from './KisiselFinansAsistaniUI/admin/user-delete/user-delete.component';
+import { ResetPasswordComponent } from './Auth/user/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './Auth/user/forgot-password/forgot-password.component';
 
 export const routes: Route[] = [
 
@@ -67,8 +69,8 @@ export const routes: Route[] = [
       { path: '', component: LoginComponent },
     ],
   },
-
-
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'signUp', component: SignUpComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },    // Geçersiz yollar için ana sayfaya yönlendirme
 
