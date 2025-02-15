@@ -34,7 +34,15 @@ export class LoginComponent {
     };
     //{ email: "qwgg",password :"1231165"}
     //auth service in loginine aatcak
-    this.authService.login(post);
-   
+    //this.authService.login(post);
+    this.authService.login(post).subscribe({
+      next: (response) => {
+        alert("Login successful: " + JSON.stringify(response));
+      },
+      error: (err) => {
+        alert("Login failed: " + err.error?.message || err.message);
+      }
+    });
+
   }
 }

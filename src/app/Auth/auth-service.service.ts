@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { UserapiService } from '../services/user-api.service';
 import { jwtDecode } from 'jwt-decode';  // Named import
+import { Observable, catchError, tap, throwError } from 'rxjs';
 
 
 @Injectable({
@@ -14,20 +15,34 @@ export class AuthService {
     private userapiService: UserapiService,
     private router: Router,
     private http: HttpClient) { }
-  login(post: any) {
+  //login(post: any):  {
 
-    this.userapiService.loginPost(post).subscribe(
-      response => {
-        //console.log('Giriş başarılı:', response);
+  //  this.userapiService.loginPost(post).subscribe(
+  //    response => {
+  //      //console.log('Giriş başarılı:', response);
+  //      this.isAuthenticated = true;
+  //      localStorage.setItem('authToken', response.token); // Örnek token kaydı
+  //      this.router.navigate(['/']); // Admin sayfasına yönlendirme
+
+  //    },
+  //    error => {
+  //      console.error('Giriş hatası:', error);
+  //      //return throwError(() => error); // Hata fırlat
+  //    }
+  //  );
+  //}
+  login(post: any): Observable<any> {
+    return this.userapiService.loginPost(post).pipe(
+      tap(response => {
+        console.log('Giriş başarılı:', response);
         this.isAuthenticated = true;
-        localStorage.setItem('authToken', response.token); // Örnek token kaydı
-        this.router.navigate(['/']); // Admin sayfasına yönlendirme
-
-      },
-      error => {
+        localStorage.setItem('authToken', response.token);
+        this.router.navigate(['/']);
+      }),
+      catchError(error => {
         console.error('Giriş hatası:', error);
-        //alert('Giriş hatası:');
-      }
+        return throwError(() => error); // Hata fırlat
+      })
     );
   }
 
