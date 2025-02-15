@@ -38,8 +38,8 @@ export class UserapiService {
   resetPassword(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/reset-password`, data);
   }
-  forgotPassword(email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/forgot-password`, { email });
+  forgotPassword(data : any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/forgot-password`, { data });
   }
   createPost(post: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}`, post);

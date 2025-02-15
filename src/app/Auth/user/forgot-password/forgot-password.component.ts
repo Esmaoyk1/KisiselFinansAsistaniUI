@@ -20,9 +20,11 @@ export class ForgotPasswordComponent {
   }
 
 
-  onSubmit() {  // ✅ EKLENDİ
+  onSubmit() {  
     if (this.forgotPasswordForm.valid) {
-      this.userApiService.forgotPassword(this.forgotPasswordForm.value.email).subscribe({
+      //const data = { email: this.forgotPasswordForm.value.email };
+      const data = { email: this.forgotPasswordForm.value.email };
+      this.userApiService.forgotPassword(data).subscribe({
         next: () => this.message = 'E-posta gönderildi, lütfen gelen kutunuzu kontrol edin.',
         error: (err) => this.message = 'Hata: ' + err.error
       });
