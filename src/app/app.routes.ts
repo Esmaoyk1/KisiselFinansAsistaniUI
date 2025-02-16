@@ -2,7 +2,6 @@ import { Route, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';  // Örnek bileşen
 import { LoginComponent } from './Auth/user/login/login.component';
 import { HomeComponent } from './home/home.component';
-import { Comp1Component } from './comp1/comp1.component';
 import { SignUpComponent } from './Auth/user/sign-up/sign-up.component';
 import { AccountComponent } from './KisiselFinansAsistaniUI/account/account.component';
 import { BudgetComponent } from './KisiselFinansAsistaniUI/budget/budget.component';
@@ -27,6 +26,9 @@ import { UserUpdateComponent } from './KisiselFinansAsistaniUI/admin/user-update
 import { UserDeleteComponent } from './KisiselFinansAsistaniUI/admin/user-delete/user-delete.component';
 import { ResetPasswordComponent } from './Auth/user/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './Auth/user/forgot-password/forgot-password.component';
+import { AdminUpdateComponent } from './KisiselFinansAsistaniUI/admin/admin-update/admin-update.component';
+import { AdminDeleteComponent } from './KisiselFinansAsistaniUI/admin/admin-delete/admin-delete.component';
+
 
 export const routes: Route[] = [
 
@@ -58,7 +60,10 @@ export const routes: Route[] = [
       /*    { path: 'userUpdate', component: UserUpdateComponent, canActivate: [AuthGuard], data: { role: 'Admin' } }*/
 
       { path: 'users/update/:id', component: UserUpdateComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
-      { path: 'userDelete/:id', component: UserDeleteComponent, canActivate: [AuthGuard], data: { role: 'Admin' } }
+      { path: 'userDelete/:id', component: UserDeleteComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
+
+      { path: 'admin/update/:id', component: AdminUpdateComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
+      { path: 'adminDelete/:id', component: AdminDeleteComponent, canActivate: [AuthGuard], data: { role: 'Admin' } }
     ],
   },
 

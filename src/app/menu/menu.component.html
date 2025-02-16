@@ -4,7 +4,8 @@
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
     <div class="sidebar-brand-icon rotate-n-15">
-      <i class="fas fa-laugh-wink"></i>
+      <!--<i class="fas fa-laugh-wink"></i>-->
+      <span class="badge bg-primary text-white" style="font-size: 24px;">e</span>
     </div>
     <div class="sidebar-brand-text mx-3">FinansAsistanı</div>
   </a>
@@ -47,45 +48,45 @@
     <a class="nav-link" [routerLink]="['/transaction']">
       <i class="fas fa-fw fa-chart-line"></i>
       <span>Gelir/Gider</span>
-
     </a>
   </li>
 
   <li *ngIf="authService.isAdmin()" class="nav-item active">
     <a class="nav-link" [routerLink]="['/userMenu']">
-      <i class="fas fa-fw fa-user"></i>
+      <i class="fas fa-users"></i>
       <span>Kullanıcı Bilgileri</span>
-
     </a>
   </li>
 
   <li *ngIf="authService.isAdmin()" class="nav-item active">
     <a class="nav-link" [routerLink]="['/adminMenu']">
-      <i class="fas fa-fw fa-user"></i>
+      <i class="fas fa-user-shield"></i>
       <span>Admin Bilgileri</span>
-
     </a>
   </li>
 
-
   <!-- Divider -->
-  <hr class="sidebar-divider">
-
+  <!--<hr class="sidebar-divider">-->
   <!-- Heading -->
-  <div class="sidebar-heading">
-    Interface
+  <div *ngIf="authService.isAdmin()" class="sidebar-heading">
+    Diğer İşlemler
   </div>
 
   <!-- Nav Item - Pages Collapse Menu -->
-  <li class="nav-item">
+  <li *ngIf="authService.isAdmin()" class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
        aria-expanded="true" aria-controls="collapseTwo">
       <i class="fas fa-fw fa-cog"></i>
-      <span>Components</span>
+      <span>Ayarlar</span>
     </a>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Custom Components:</h6>
+        <!--<h6 class="collapse-header">Custom Components:</h6>-->
+        <a class="collapse-item" *ngIf="authService.isAdmin()" [routerLink]="['/settings']">
+          <i class="fas fa-cog text-dark"></i> Ayarlar ikonu
+
+        </a>
+
         <a class="collapse-item" href="buttons.html">Buttons</a>
         <a class="collapse-item" href="cards.html">Cards</a>
       </div>
@@ -93,7 +94,7 @@
   </li>
 
   <!-- Nav Item - Utilities Collapse Menu -->
-  <li class="nav-item">
+  <!--<li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
        aria-expanded="true" aria-controls="collapseUtilities">
       <i class="fas fa-fw fa-wrench"></i>
@@ -109,18 +110,15 @@
         <a class="collapse-item" href="utilities-other.html">Other</a>
       </div>
     </div>
-  </li>
-
+  </li>-->
   <!-- Divider -->
-  <hr class="sidebar-divider">
-
+  <!--<hr class="sidebar-divider">-->
   <!-- Heading -->
-  <div class="sidebar-heading">
+  <!--<div class="sidebar-heading">
     Addons
-  </div>
-
+  </div>-->
   <!-- Nav Item - Pages Collapse Menu -->
-  <li class="nav-item">
+  <li *ngIf="authService.isAdmin()" class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
        aria-expanded="true" aria-controls="collapsePages">
       <i class="fas fa-fw fa-folder"></i>
@@ -141,35 +139,50 @@
   </li>
 
   <!-- Nav Item - Charts -->
-  <li class="nav-item">
+  <!--<li class="nav-item">
     <a class="nav-link" href="charts.html">
       <i class="fas fa-fw fa-chart-area"></i>
       <span>Charts</span>
     </a>
-  </li>
-
+  </li>-->
   <!-- Nav Item - Tables -->
-  <li class="nav-item">
+  <!--<li class="nav-item">
     <a class="nav-link" href="tables.html">
       <i class="fas fa-fw fa-table"></i>
       <span>Tables</span>
     </a>
-  </li>
-
+  </li>-->
   <!-- Divider -->
-  <hr class="sidebar-divider d-none d-md-block">
-
+  <!--<hr class="sidebar-divider d-none d-md-block">-->
   <!-- Sidebar Toggler (Sidebar) -->
-  <div class="text-center d-none d-md-inline">
+  <!--<div class="text-center d-none d-md-inline">
     <button class="rounded-circle border-0" id="sidebarToggle"></button>
-  </div>
-
+  </div>-->
   <!-- Sidebar Message -->
-  <div class="sidebar-card d-none d-lg-flex">
+  <!--<div class="sidebar-card d-none d-lg-flex">
     <img class="sidebar-card-illustration mb-2" src="./assets/img/undraw_rocket.svg" alt="...">
     <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
     <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
+  </div>-->
+  <!-- Sidebar Message -->
+  <div class="sidebar-card d-none d-lg-flex">
+    <img class="sidebar-card-illustration mb-2" src="./assets/img/undraw_rocket.svg" alt="Finans Asistanı" style="width: 100px; height: auto;">
+    <p class="text-center mb-2"><strong>Kişisel Finans Asistanı</strong> ile finansal hedeflerinizi yönetin!</p>
+
+    <a class="btn btn-linkedin btn-sm mb-2" href="https://www.linkedin.com/in/esmanur-oyan%C4%B1k-05872722b/" target="_blank">
+      <i class="fab fa-linkedin"></i> Daha Fazla Bilgi
+    </a>
+
+    <a class="btn btn-instagram btn-sm" href="https://www.instagram.com/_esmaaaay/" target="_blank">
+      <i class="fab fa-instagram"></i> Instagram
+    </a>
+
+    <a class="btn btn-facebook btn-sm" href="https://tr-tr.facebook.com/esma.oyanik.7" target="_blank">
+      <i class="fab fa-facebook"></i> Facebook
+    </a>
   </div>
+
+ 
 
 </ul>
 <!-- End of Sidebar -->

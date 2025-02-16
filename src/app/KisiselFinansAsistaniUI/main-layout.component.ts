@@ -21,7 +21,7 @@ import { AuthService } from '../Auth/auth-service.service';
 export class MainLayoutComponent implements OnInit {
   hedefler: any[] = [];
   categories: any[] = [];
-  userProfileDetail: any;
+  userProfileDetail: any= [];
   tarih: any[] = [];
 
   constructor(

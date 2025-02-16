@@ -26,7 +26,7 @@ export class ForgotPasswordComponent {
       const data = { email: this.forgotPasswordForm.value.email };
       this.userApiService.forgotPassword(data).subscribe({
         next: () => this.message = 'E-posta gönderildi, lütfen gelen kutunuzu kontrol edin.',
-        error: (err) => this.message = 'Hata: ' + err.error
+        error: (err) => this.message = 'Hata oluştu '
       });
     }
   }

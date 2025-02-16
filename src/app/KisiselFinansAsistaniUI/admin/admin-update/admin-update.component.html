@@ -1,0 +1,27 @@
+<form [formGroup]="adminForm" (ngSubmit)="onUpdate(adminForm)">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="name">Ad Giriniz</label>
+      <input type="text" class="form-control" id="name" formControlName="name" name="name" placeholder="Ad girin" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="surname">Soyad Giriniz</label>
+      <input type="text" class="form-control" id="surname" formControlName="surname" name="surname" placeholder="Soyad girin" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="phone">Telefon</label>
+      <input type="text" class="form-control" id="phone" formControlName="phone" name="phone" placeholder="Telefon girin" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="userEmail">E-posta</label>
+      <input type="email" class="form-control" id="userEmail" formControlName="email" name="email" placeholder="E-posta adresini girin" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="profilePicture">Profil Resmi</label>
+      <input type="file" class="form-control" id="profilePicture" (change)="onFileSelected($event)" accept="image/*">
+      <img *ngIf="profilePictureUrl" [src]="profilePictureUrl" alt="Profil Resmi" class="img-thumbnail mt-2" width="150">
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Güncelle</button>
+</form>

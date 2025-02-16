@@ -1,0 +1,32 @@
+.sidebar {
+  min-height: 225vh !important;
+}
+
+.btn-instagram {
+  background: linear-gradient(45deg, #fd1d1d, #833ab4, #fd1d1d); /* Instagram renk gradyanı */
+  color: white; /* Yazı rengi beyaz */
+}
+
+  .btn-instagram:hover {
+    background: linear-gradient(45deg, #833ab4, #fd1d1d, #833ab4); /* Hover durumunda renk değişimi */
+  }
+
+.btn-linkedin {
+  background-color: #0077b5; /* LinkedIn mavi rengi */
+  color: white; /* Yazı rengi beyaz */
+}
+
+  .btn-linkedin:hover {
+    background-color: #005582; /* Hover durumu için daha koyu mavi */
+  }
+
+
+
+.btn-facebook {
+  background-color: #3b5998; /* Facebook mavi rengi */
+  color: white; /* Yazı rengi beyaz */
+}
+
+  .btn-facebook:hover {
+    background-color: #2e477a; /* Hover durumu için daha koyu mavi */
+  }

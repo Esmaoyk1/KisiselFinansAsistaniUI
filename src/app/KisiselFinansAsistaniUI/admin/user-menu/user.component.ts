@@ -20,6 +20,7 @@ export class UserComponent implements OnInit {
   selectedFile!: File;
   previewUrl: string | ArrayBuffer | null = null;
   editingUserId: number | null = null; // Güncellenen kullanıcının ID'si
+  role: string = 'User';
 
 
 
@@ -81,6 +82,7 @@ export class UserComponent implements OnInit {
       userDetails.append('password', this.personForm.get('password')?.value);
       userDetails.append('confirmPassword', this.personForm.get('confirmPassword')?.value);
       userDetails.append('profilePicture', this.selectedFile);
+      userDetails.append('role', this.role);
 
       if (this.editingUserId) {
         // Güncelleme işlemi

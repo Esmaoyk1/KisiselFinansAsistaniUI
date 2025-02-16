@@ -39,7 +39,7 @@ export class UserapiService {
     return this.http.post(`${this.apiUrl}/reset-password`, data);
   }
   forgotPassword(data : any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/forgot-password`, { data });
+    return this.http.post(`${this.apiUrl}/forgot-password`, data );
   }
   createPost(post: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}`, post);
