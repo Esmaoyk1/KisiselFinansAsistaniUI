@@ -1,0 +1,30 @@
+body {
+  background-color: #f8f9fc;
+}
+
+.card-header {
+  background-color: #4e73df;
+  color: white;
+}
+
+.table th {
+  background-color: #e9ecef;
+}
+
+.badge {
+  font-size: 0.9rem;
+}
+
+.user-list {
+  margin-top: 20px;
+}
+
+  .user-list img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+
+.table td {
+  vertical-align: middle; /* Hücre içeriğini ortala */
+}

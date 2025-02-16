@@ -3,12 +3,12 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserapiService } from '../../../services/user-api.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import {  Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [RouterModule,ReactiveFormsModule, FormsModule, HttpClientModule, CommonModule],
+  imports: [RouterModule, ReactiveFormsModule, FormsModule, HttpClientModule, CommonModule],
   providers: [UserapiService],
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']// Burada `styleUrls` olmalı
@@ -16,7 +16,10 @@ import { RouterModule } from '@angular/router';
 })
 export class SignUpComponent implements OnInit {
 
-  constructor(private userapiService: UserapiService, private http: HttpClient, private fb: FormBuilder) { }
+  constructor(private userapiService: UserapiService,
+    private http: HttpClient,
+    private fb: FormBuilder,
+    private router: Router,) { }
   selectedFile!: File;
   //previewUrl: string | ArrayBuffer | null = null;
 
@@ -121,6 +124,7 @@ export class SignUpComponent implements OnInit {
     this.userapiService.signupPost(formData).subscribe(
       response => {
         console.log('Kayıt başarılı:', response);
+        this.router.navigate(['login'] );
         alert(response.message);
       },
       error => {

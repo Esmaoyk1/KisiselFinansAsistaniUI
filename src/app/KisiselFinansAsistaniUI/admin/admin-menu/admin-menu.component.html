@@ -1,73 +1,86 @@
-<style>
-  body {
-    background-color: #f8f9fc;
-  }
+<div id="wrapper">
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <div class="container-fluid user-list">
+        <h2 class="mt-4">Admin Listesi</h2>
 
-  .card-header {
-    background-color: #4e73df;
-    color: white;
-  }
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="m-0 font-weight-bold">Admin Ekle</h6>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="personForm" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <label for="name">Ad</label>
+                <input formControlName="name" type="text" id="name" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="surname">Soyad</label>
+                <input formControlName="surname" type="text" id="surname" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input formControlName="email" type="email" id="email" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Telefon</label>
+                <input formControlName="phone" type="text" id="phone" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="password">Şifre</label>
+                <input formControlName="password" type="password" id="password" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="confirmPassword">Şifre Onayı</label>
+                <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="profilePicture">Profil Resmi</label>
+                <input type="file" id="profilePicture" (change)="onFileSelected($event)">
+                <img *ngIf="previewUrl" [src]="previewUrl" alt="Preview" class="img-fluid mt-2" />
+              </div>
+              <button type="submit" class="btn btn-primary">{{ editingUserId ? 'Güncelle' : 'Ekle' }}</button>
+            </form>
+          </div>
+        </div>
 
-  .table th {
-    background-color: #e9ecef;
-  }
-
-  .badge {
-    font-size: 0.9rem;
-  }
-
-  .admin-list {
-    margin-top: 20px;
-  }
-
-    .admin-list img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-    }
-
-  .table td {
-    vertical-align: middle; /* Hücre içeriğini ortala */
-  }
-</style>
-
-<div class="container-fluid admin-list">
-  <h2 class="mt-4">Admin Listesi</h2>
-
-  <div class="card mb-4">
-    <div class="card-header">
-      <h6 class="m-0 font-weight-bold">Adminler</h6>
-    </div>
-    <div class="card-body">
-      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Email</th>
-            <th>Telefon Numarası</th>
-            <th>Ad</th>
-            <th>Soyad</th>
-            <th>Profil Resmi</th>
-            <th>İşlemler</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let admin of admins">
-            <td>{{ admin.id }}</td>
-            <td>{{ admin.email }}</td>
-            <td>{{ admin.phoneNumber }}</td>
-            <td>{{ admin.name }}</td>
-            <td>{{ admin.surname }}</td>
-            <td>
-              <img [src]="pictureUrl + admin.profilePictureUrl" alt="{{ admin.name }}" />
-            </td>
-            <td>
-              <a class="badge badge-success">Düzenle</a>
-              <a class="badge badge-danger">Sil</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <div class="card mb-4">
+          <div class="card-header">
+            <h6 class="m-0 font-weight-bold">Adminler</h6>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Email</th>
+                  <th>Telefon Numarası</th>
+                  <th>Ad</th>
+                  <th>Soyad</th>
+                  <th>Profil Resmi</th>
+                  <th>İşlemler</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let admin of admins">
+                  <td>{{ admin.id }}</td>
+                  <td>{{ admin.email }}</td>
+                  <td>{{ admin.phoneNumber }}</td>
+                  <td>{{ admin.name }}</td>
+                  <td>{{ admin.surname }}</td>
+                  <td>
+                    <img [src]="pictureUrl + admin.profilePictureUrl" alt="{{ admin.name }}" />
+                  </td>
+                  <td>
+                    <a class="badge badge-success"  (click)="adminUpdate(admin.id, admin)">Güncelle</a>
+                    <a class="badge badge-danger" [routerLink]="['/adminDelete', admin.id]">Sil</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+  </div>

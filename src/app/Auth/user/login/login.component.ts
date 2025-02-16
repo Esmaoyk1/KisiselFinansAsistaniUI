@@ -37,7 +37,7 @@ export class LoginComponent {
     //this.authService.login(post);
     this.authService.login(post).subscribe({
       next: (response) => {
-        alert("Login successful: " + JSON.stringify(response));
+        alert("Login successful: "/* + JSON.stringify(response)*/);
       },
       error: (err) => {
         alert("Login failed: " + err.error?.message || err.message);
