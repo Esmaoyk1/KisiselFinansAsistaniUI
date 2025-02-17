@@ -73,4 +73,75 @@
       </div>
     </div>
   </div>
+
+  <!-- Pie Chart -->
+  <div class="col-xl-6 col-lg-6 mb-6">
+    <div class="card shadow mb-4">
+      <!-- Card Header - Dropdown -->
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Kategorilere Göre Yıllık Harcamalar</h6>
+        <div class="dropdown no-arrow">
+          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+               aria-labelledby="dropdownMenuLink">
+            <div class="dropdown-header">Dropdown Header:</div>
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="noDataMessageVisible; else noDataTemplate">
+        <h4 style="height:350px" class="text-center text-danger  font-weight-bold  full-height d-flex justify-content-center align-items-center">
+          Kategorilere Göre Yaptığınız Yıllık Harcamalar Grafikte Görünür.
+        </h4>
+      </div>
+      <ng-template #noDataTemplate>
+        <!-- Card Body -->
+        <div class="card-body">
+          <div class="chart-pie pt-5 pb-5">
+            <canvas id="myPieChart"></canvas>
+          </div>
+          <div class="mt-6 text-center small">
+            <br>
+            <span *ngFor="let data of chartData" class="mr-2.5">
+              <!-- Dinamik olarak icon ve metni göstereceğiz -->
+              <!--<i [class]="data.iconClass + ' ' + data.colorClass"></i> {{ data.label }}-->
+              <i [class]="data.iconClass" [style.color]="data.color"></i> {{ data.label }}
+            </span>
+
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+
+  <div class="col-lg-6 mb-6">
+    <!-- Döviz Kurları Kartı -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3 d-flex align-items-center">
+        <i class="fas fa-coins text-warning mr-2"></i>
+        <h6 class="m-0 font-weight-bold text-dark">Döviz Kurları</h6>
+      </div>
+      <div class="card-body">
+        <div *ngFor="let currency of [{name: 'Amerikan Doları (USD)', value: dolarKuru, icon: 'fas fa-dollar-sign text-success'}, {name: 'Euro (EUR)', value: euroKuru, icon: 'fas fa-euro-sign text-primary'}, {name: 'İngiliz Sterlin (GBP)', value: sterlinKuru, icon: 'fas fa-pound-sign text-warning'}, {name: 'İsviçre Frangı (CHF)', value: frangKuru, icon: 'fas fa-money-bill-wave text-danger'}]">
+          <div class="d-flex align-items-center mb-3">
+            <div class="mr-3">
+              <i [class]="currency.icon + ' fa-2x'"></i>
+            </div>
+            <div>
+              <h6 class="font-weight-bold">{{ currency.name }}:</h6>
+              <span class="font-weight-bold">{{ currency.value }} Türk Lirası</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
