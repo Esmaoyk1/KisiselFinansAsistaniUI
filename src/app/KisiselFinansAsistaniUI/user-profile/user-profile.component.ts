@@ -67,7 +67,7 @@ export class UserProfileComponent {
         response => {
           this.getUserDetail();
           alert(response.message);
-          this.router.navigate(['/budget']); // İptal edildiğinde yönlendirme
+          this.router.navigate(['/userProfile']); // İptal edildiğinde yönlendirme
 
         },
         error => {

@@ -12,16 +12,6 @@ export class UserapiService {
   private apiUrl = environment.apiUrl + '/User';
   //private apiUrl = 'http://esmaapp.somee.com/api/User/signup';
 
-
-
-  /* POST
- /api/User / login
- POST
-   / api / User / Logout
- POST
-   / api / User / signup
-   */
-
   constructor(private http: HttpClient) { }
 
   getPosts(): Observable<any> {
@@ -88,6 +78,9 @@ export class UserapiService {
     return this.http.get<any>(`${this.apiUrl}/get-rating`);
   }
 
+  getUserCountsByDate(): Observable<any[]> {
+    return this.http.get<any>(`${this.apiUrl}/countByDate`);
+  }
  
  
 }
