@@ -68,10 +68,10 @@ export class HomeLayoutComponent {
 
   getUserCountsByDate() {
     this.userService.getUserCountsByDate().subscribe(
-      response => {
+      (response : any) => {
         console.log('API Yanıtı:', response);
 
-        if (response && Array.isArray(response)) {
+        if (response && response.success && response.data && Array.isArray(response.data.item)) {
           const today = new Date();
           const last30Days = Array.from({ length: 30 }, (_, i) => {
             const date = new Date(today);
@@ -80,8 +80,10 @@ export class HomeLayoutComponent {
           });
 
           const dailyCounts: { [key: string]: number } = {};
+          //const rep2 = response.data.item;
 
-          response.forEach((item: any) => {
+
+          response.data.item.forEach((item: { date: string; count: number }) => {
             const dateKey = item.date.split('T')[0]; // Sadece tarih kısmını al
             dailyCounts[dateKey] = item.count; // Kullanıcı sayısını ata
           });
