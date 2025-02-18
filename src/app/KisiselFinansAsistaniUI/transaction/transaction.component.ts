@@ -132,9 +132,11 @@ export class TransactionComponent {
           this.loadTransactions(); // İşlemleri yenile
           this.loadAccounts();
           form.resetForm(); // Formu sıfırla
+
+          window.location.reload();
         },
         error => {
-          console.error('İşlem eklenirken hata:', error);
+          console.error('İşlem eklenirken hata:', error); // Hata nesnesini yazdır
           alert('Hata oluştu: ' + error.error.message);
         }
       );
@@ -143,6 +145,7 @@ export class TransactionComponent {
     }
   }
 
+ 
   guncelle(transaction: any): void {
     this.selectedTransaction = { ...transaction }; // Seçilen işlemi kopyala
     this.isUpdateFormVisible = true; // Güncelleme formunu göster
