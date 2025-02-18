@@ -28,6 +28,9 @@ import { ResetPasswordComponent } from './Auth/user/reset-password/reset-passwor
 import { ForgotPasswordComponent } from './Auth/user/forgot-password/forgot-password.component';
 import { AdminUpdateComponent } from './KisiselFinansAsistaniUI/admin/admin-update/admin-update.component';
 import { AdminDeleteComponent } from './KisiselFinansAsistaniUI/admin/admin-delete/admin-delete.component';
+import { SettingBankComponent } from './KisiselFinansAsistaniUI/admin/settings/setting-bank/setting-bank.component';
+import { SettingCategoryComponent } from './KisiselFinansAsistaniUI/admin/settings/setting-category/setting-category.component';
+import { SettingBankDeleteComponent } from './KisiselFinansAsistaniUI/admin/settings/setting-bank-delete/setting-bank-delete.component';
 
 
 export const routes: Route[] = [
@@ -63,7 +66,11 @@ export const routes: Route[] = [
       { path: 'userDelete/:id', component: UserDeleteComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
 
       { path: 'admin/update/:id', component: AdminUpdateComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
-      { path: 'adminDelete/:id', component: AdminDeleteComponent, canActivate: [AuthGuard], data: { role: 'Admin' } }
+      { path: 'adminDelete/:id', component: AdminDeleteComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
+      { path: 'settingBank', component: SettingBankComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
+      { path: 'settingCategory', component: SettingCategoryComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
+      { path: 'settingBankDelete/:id', component: SettingBankDeleteComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
+
     ],
   },
 
