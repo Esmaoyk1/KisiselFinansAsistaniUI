@@ -9,7 +9,7 @@ import { CategoryApiService } from '../../services/category-api.service';
 @Component({
   selector: 'app-transaction',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule, ReactiveFormsModule, NgFor, NgIf],
+  imports: [FormsModule, CommonModule, RouterModule, ReactiveFormsModule],
   templateUrl: './transaction.component.html',
   styleUrl: './transaction.component.css'
 })
@@ -72,23 +72,7 @@ export class TransactionComponent {
       }
     );
   }
-  //loadTransactions(): void {
-  //  this.transactionApiService.getPosts().subscribe(
-  //    response => {
-  //      console.log("*****API den gelen GETRİRİLDİ***" + response);
-  //      if (Array.isArray(response.data.items)) {
-  //        this.transactions = response.data.items; // İşlemleri al
-  //        console.log('İşlemler:', this.transactions);
-  //      } else {
-  //        console.error('İşlemler dizisi alınamadı:', response.data.items);
-  //      }
-  //    },
-  //    error => {
-  //      console.error('İşlemler yüklenirken hata:', error);
-  //      alert('Hata oluştu: ' + error.message);
-  //    }
-  //  );
-  //}
+
   loadTransactions(): void {
     this.transactionApiService.getPosts().subscribe(
       response => {

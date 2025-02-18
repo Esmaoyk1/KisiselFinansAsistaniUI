@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="m-0">Bankalar</h4>
+  </div>
+  <div class="card-body">
+    <div class="mb-3">
+      <label for="newBank" class="form-label">Banka Adı</label>
+      <input type="text"
+             class="form-control"
+             id="newBank"
+             [(ngModel)]="newBank"
+             placeholder="Banka adını girin" />
+    </div>
+
+    <button *ngIf="editingBankId === null" class="btn btn-primary" (click)="addBank()">Ekle</button>
+    <button *ngIf="editingBankId !== null" class="btn btn-success" (click)="updateBank()">Güncelle</button>
+
+    <ul class="list-group mt-3">
+      <li *ngFor="let bank of banks" class="list-group-item d-flex justify-content-between align-items-center">
+        {{ bank.bankName }}
+        <div>
+          <button class="btn btn-warning btn-sm" (click)="editBank(bank.id, bank.bankName)">
+            Düzenle
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="deleteBank(bank.id)" [routerLink]="['/settingBankDelete', bank.id]">
+            Sil
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

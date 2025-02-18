@@ -82,15 +82,21 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <!--<h6 class="collapse-header">Custom Components:</h6>-->
-        <a class="collapse-item" *ngIf="authService.isAdmin()" [routerLink]="['/settings']">
-          <i class="fas fa-cog text-dark"></i> Ayarlar ikonu
-
+        <a class="collapse-item" *ngIf="authService.isAdmin()" [routerLink]="['/settingBank']">
+          Banka İşlemleri
         </a>
 
-        <a class="collapse-item" href="buttons.html">Buttons</a>
+        <a class="collapse-item" *ngIf="authService.isAdmin()" [routerLink]="['/settingCategory']">
+          Gelir-Gider İşlemleri
+        </a>
+
         <a class="collapse-item" href="cards.html">Cards</a>
       </div>
     </div>
+
+ 
+
+
   </li>
 
   <!-- Nav Item - Utilities Collapse Menu -->
@@ -182,7 +188,7 @@
     </a>
   </div>
 
- 
+
 
 </ul>
 <!-- End of Sidebar -->

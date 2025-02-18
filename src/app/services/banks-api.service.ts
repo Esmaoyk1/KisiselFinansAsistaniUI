@@ -22,10 +22,16 @@ export class BanksApiService {
     return this.http.post<any>(`${this.apiUrl}`, post);
   }
 
-  updatePost(id: number, post: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, post);
-  }
+  //updatePost(id: number, post: any): Observable<any> {
+  //  return this.http.put<any>(`${this.apiUrl}/update/${id}`, post);
+  //}
 
+  //updatePost(id: number, updatedBank: any): Observable<any> {
+  //  return this.http.put(`http://localhost:5177/api/Banks/update/${id}`, updatedBank);
+  //}
+  updatePost(id: number, post: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/update/${id}`, post);
+  }
   deletePost(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }

@@ -79,6 +79,7 @@ export class SavingComponent {
   savingCreate(tasarruf: any) {
     this.savingApiService.createPost(tasarruf).subscribe(response => {
       console.log('Başarıyla eklendi:', response);
+      alert('Başarıyla eklendi');
       this.hedefler.push(tasarruf);
      
 
