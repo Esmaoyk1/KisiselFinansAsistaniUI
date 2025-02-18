@@ -59,6 +59,19 @@
                     <label for="targetDate">Tamamlanma Tarihi</label>
                     <input type="date" class="form-control" id="targetDate" [(ngModel)]="targetDate" name="targetDate" required>
                   </div>
+
+                  <div class="form-group col-md-6">
+                    <label for="accountBankId">Hesap Seçin:</label>
+                    <select id="accountBankId" name="accountBankId" class="form-control" [(ngModel)]="AccountID" required>
+                      <option value="" disabled selected>Hesap seçin</option>
+                      <option *ngFor="let account of accounts" [value]="account.accountID">
+                        {{ account.bankName }}
+                        ({{ account.balance }} {{ account.currency }} - {{ account.accountTypeName }})
+                      </option>
+                    </select>
+                    <div *ngIf="AccountID === 0" class="text-danger">Lütfen bir hesap seçin.</div>
+                  </div>
+                
                 </div>
                 <button type="submit" class="btn btn-primary">Ekle</button>
               </form>

@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { SavingApiService } from '../../services/saving.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AccountApiService } from '../../services/account-api.service';
 
 
 
@@ -19,13 +20,14 @@ export class SavingComponent {
 
   hedefler: { goalName: string, goalAmount: number, savedAmount: number, targetDate: string, id: number }[] = [];
 
+  accounts: any[] = [];
 
   Id: number = 0;
   goalName: string = ''; // Hedef adı
   goalAmount: number = 0; // Hedef miktarı
   savedAmount: number = 0; // Biriktirilen miktar
   targetDate: string = ''; // Tamamlanma tarihi
-
+  AccountID: number = 0;
   selectedHedef: any;
 
   isUpdateFormVisible: boolean = false;
@@ -33,17 +35,21 @@ export class SavingComponent {
 
   post: any; // Güncellenen veri
   hedefId: number | null = null; // Güncellenen hedefin ID'si
-  constructor(private router: Router, private savingApiService: SavingApiService) {
+  constructor(private router: Router,
+    private savingApiService: SavingApiService,
+    private accountService: AccountApiService,) {
   }
 
   ngOnInit() {
     this.savingGet(); // Sayfa yüklendiğinde geçmiş tasarrufları al
+    this.loadAccounts();
   }
 
   onSubmit(form: NgForm) {
     if (form.valid) {
       const tasarruf = {
         userID: 1,
+        AccountID: this.AccountID,
         goalName: this.goalName,
         goalAmount: this.goalAmount,
         savedAmount: this.savedAmount,
@@ -57,6 +63,19 @@ export class SavingComponent {
     }
   }
 
+  loadAccounts() {//kullanıcını banka bilgilerini getiryor dropdown için
+    this.accountService.getPosts().subscribe(
+      resns => {
+        this.accounts = resns.data.items; // Hesapları al
+        console.log('this.accounts');
+        console.log(this.accounts);
+      },
+      error => {
+        console.error('Hesapları yüklerken hata:', error);
+      }
+    );
+  }
+
   savingCreate(tasarruf: any) {
     this.savingApiService.createPost(tasarruf).subscribe(response => {
       console.log('Başarıyla eklendi:', response);
@@ -66,7 +85,7 @@ export class SavingComponent {
       window.location.reload();
 
     }, error => {
-      console.error('Ekleme hatası:', error);
+      alert('Hata oluştu: ' + error.error.message);
     });
   }
 
