@@ -15,7 +15,7 @@ export class SettingBankDeleteComponent {
   post: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private bankApiService: BanksApiService) {
-    const id = this.route.snapshot.paramMap.get('sid'); // ID'yi al
+    const id = this.route.snapshot.paramMap.get('id'); // ID'yi al
     this.hedefId = id ? +id : null; // String değerini number'a dönüştür
 
     if (this.hedefId) {
@@ -29,12 +29,10 @@ export class SettingBankDeleteComponent {
 
   confirmDelete() {
     if (this.hedefId) {
-      /* const confirmDelete = confirm('Bu hedefi silmek istediğinize emin misiniz?');*/
-      /*if (confirmDelete) {*/
       this.bankApiService.deletePost(this.hedefId).subscribe(
         response => {
           console.log('Başarıyla silindi:', response);
-          /*  alert('Silme işlemi başarıyla tamamlandı!');*/
+          alert('Silme işlemi başarıyla tamamlandı!'); // Burada alert'i çağırıyoruz
           this.router.navigate(['/settingBank']);
         },
         error => {
@@ -42,7 +40,6 @@ export class SettingBankDeleteComponent {
           alert(error.error.message || 'Silme sırasında bir hata oluştu.');
         }
       );
-
     }
   }
   cancel() {

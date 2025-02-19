@@ -44,9 +44,9 @@ export class SettingBankComponent {
       }
     );
   }
-  editBank(id: number, name: string): void {
-    this.editingBankId = id;
-    this.newBank = name;
+
+  editBank(id: number, bankName: string): void {
+    this.router.navigate(['/settingBankUpdate', id]); // Düzenleme bileşenine yönlendir
   }
 
   addBank(): void {
@@ -76,12 +76,10 @@ export class SettingBankComponent {
   updateBank(): void {
     if (this.editingBankId === null || !this.newBank) return;
 
-    // Güncellenen bankanın modelini oluştur
     const updatedBank = { id: this.editingBankId, banksName: this.newBank };
 
     this.bankApiService.updatePost(this.editingBankId, updatedBank).subscribe(
       (data) => {
-        // Dizide güncellenen bankanın indeksini bul
         const index = this.banks.findIndex(bank => bank.id === this.editingBankId);
         if (index > -1) {
           this.banks[index] = data; // Güncellenen veriyi dizide değiştir
@@ -89,17 +87,11 @@ export class SettingBankComponent {
         this.newBank = '';
         this.editingBankId = null;
 
-        // Başarılı güncelleme alert'i
         alert('Güncelleme başarılı!');
-
-        // Sayfayı yenile ve root'a yönlendir
         this.router.navigate(['/settingBank']); // Yönlendirme
       },
       (error) => {
         console.error('Error updating bank:', error);
-        if (error.error) {
-          console.error('Server response:', error.error);
-        }
       }
     );
   }
@@ -108,16 +100,9 @@ export class SettingBankComponent {
     this.newBank = '';
   }
 
-  deleteBank(id: number): void {
-    this.bankApiService.deletePost(id).subscribe(
-      () => {
-        this.banks = this.banks.filter(bank => bank.id !== id);
-      },
-      (error) => {
-        console.error('Error deleting bank:', error);
-      }
-    );
-  }
+  deleteBank(id: number): void {""
+  this.router.navigate(['/settingBankDelete', id]); // Silme bileşenine yönlendir
+}
 
   async loadScriptsSequentially() {
     try {
