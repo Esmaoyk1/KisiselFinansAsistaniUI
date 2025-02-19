@@ -1,0 +1,18 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="m-0">Banka Güncelle</h4>
+  </div>
+  <div class="card-body">
+    <div class="mb-3">
+      <label for="bankName" class="form-label">Banka Adı</label>
+      <input type="text"
+             class="form-control"
+             id="bankName"
+             [(ngModel)]="bankName"
+             placeholder="Banka adını girin" /> <!-- Kapatma etiketi doğru olmalı -->
+    </div>
+
+    <button class="btn btn-success" (click)="updateBank()">Güncelle</button>
+    <a routerLink="/settingBank" class="btn btn-secondary">İptal</a>
+  </div>
+</div>

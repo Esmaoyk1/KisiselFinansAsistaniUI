@@ -20,7 +20,7 @@
         {{ bank.bankName }}
         <div>
           <button class="btn btn-warning btn-sm" (click)="editBank(bank.id, bank.bankName)">
-            Düzenle
+            Güncelle
           </button>
           <button class="btn btn-danger btn-sm" (click)="deleteBank(bank.id)" [routerLink]="['/settingBankDelete', bank.id]">
             Sil
