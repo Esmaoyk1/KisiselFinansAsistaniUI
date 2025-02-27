@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    <h4 class="m-0">Bankalar</h4>
+    <h4 class="m-0">Banka Ekle</h4>
   </div>
   <div class="card-body">
     <div class="mb-3">
@@ -14,19 +14,35 @@
 
     <button *ngIf="editingBankId === null" class="btn btn-primary" (click)="addBank()">Ekle</button>
     <button *ngIf="editingBankId !== null" class="btn btn-success" (click)="updateBank()">Güncelle</button>
+  </div>
+</div>
 
-    <ul class="list-group mt-3">
-      <li *ngFor="let bank of banks" class="list-group-item d-flex justify-content-between align-items-center">
-        {{ bank.bankName }}
-        <div>
-          <button class="btn btn-warning btn-sm" (click)="editBank(bank.id, bank.bankName)">
-            Güncelle
-          </button>
-          <button class="btn btn-danger btn-sm" (click)="deleteBank(bank.id)" [routerLink]="['/settingBankDelete', bank.id]">
-            Sil
-          </button>
-        </div>
-      </li>
-    </ul>
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h5>Bankalar</h5>
+    <i class="fas fa-plus-circle"></i>
+  </div>
+  <div class="card-body">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Banka Adı</th>
+          <th class="d-flex justify-content-center">İşlemler</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let bank of banks">
+          <td>{{ bank.bankName }}</td>
+          <td class="d-flex justify-content-center">
+            <button class="btn btn-warning btn-sm align-items-right" (click)="editBank(bank.id, bank)">
+              Güncelle
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteBank(bank.id)" [routerLink]="['/settingBankDelete', bank.id]">
+              Sil
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

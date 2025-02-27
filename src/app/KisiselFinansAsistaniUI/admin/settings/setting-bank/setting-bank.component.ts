@@ -45,9 +45,12 @@ export class SettingBankComponent {
     );
   }
 
-  editBank(id: number, bankName: string): void {
-    this.router.navigate(['/settingBankUpdate', id]); // Düzenleme bileşenine yönlendir
+  editBank(id: number, bank: any): void {
+    this.router.navigate(['/settingBankUpdate', id], { state: { post: bank } }); // Düzenleme bileşenine yönlendir
+
   }
+
+
 
   addBank(): void {
     if (!this.newBank) return;
@@ -72,7 +75,7 @@ export class SettingBankComponent {
     );
   }
 
-  
+
   updateBank(): void {
     if (this.editingBankId === null || !this.newBank) return;
 
@@ -100,9 +103,10 @@ export class SettingBankComponent {
     this.newBank = '';
   }
 
-  deleteBank(id: number): void {""
-  this.router.navigate(['/settingBankDelete', id]); // Silme bileşenine yönlendir
-}
+  deleteBank(id: number): void {
+    ""
+    this.router.navigate(['/settingBankDelete', id]); // Silme bileşenine yönlendir
+  }
 
   async loadScriptsSequentially() {
     try {
