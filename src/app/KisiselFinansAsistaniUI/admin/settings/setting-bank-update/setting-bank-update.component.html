@@ -8,11 +8,12 @@
       <input type="text"
              class="form-control"
              id="bankName"
-             [(ngModel)]="bankName"
-             placeholder="Banka adını girin" /> <!-- Kapatma etiketi doğru olmalı -->
+             [(ngModel)]="bank.bankName"
+             name="bankName" 
+             placeholder="Banka adını girin" />
     </div>
 
-    <button class="btn btn-success" (click)="updateBank()">Güncelle</button>
+    <button class="btn btn-primary" (click)="updateBank()">Güncelle</button>
     <a routerLink="/settingBank" class="btn btn-secondary">İptal</a>
   </div>
 </div>

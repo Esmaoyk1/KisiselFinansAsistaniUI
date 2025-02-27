@@ -1,0 +1,16 @@
+body {
+  background-color: #f8f9fc;
+}
+
+.card-header {
+  background-color: #4e73df;
+  color: white;
+}
+
+.table th {
+  background-color: #e9ecef;
+}
+
+.badge {
+  font-size: 0.9rem;
+}
