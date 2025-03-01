@@ -14,6 +14,7 @@ import { TransactionApiService } from '../services/transactionapi.service';
 import { parse } from 'node:path/posix';
 import { map } from 'rxjs/operators';
 import { UserapiService } from '../services/user-api.service';
+import { ExportExcelService } from '../services/export-excel.service';
 
 
 
@@ -67,7 +68,8 @@ export class HomeComponent {
     private savingApiService: SavingApiService,
     private transactionApiService: TransactionApiService,
     private userApiService: UserapiService,
-    private http: HttpClient
+    private http: HttpClient,
+    private servis  : ExportExcelService
   ) { };
 
   //tasaruf değişkenleri
@@ -102,6 +104,22 @@ export class HomeComponent {
     this.GetTrueTransactions();
   }
 
+
+  generatePdf() {
+    this.servis.exportToPdf();
+  }
+  generateReport() {
+    const exampleData = [
+      { Ad: 'Ahmet', Soyad: 'Yılmaz', Yaş: 30 },
+      { Ad: 'Mehmet', Soyad: 'Kaya', Yaş: 25 },
+      { Ad: 'Ayşe', Soyad: 'Demir', Yaş: 28 }
+    ];
+
+    this.servis.exportToExcel(exampleData, 'Kullanıcılar');
+  }
+
+
+  
   GetLastFiveByUser() {
     //bu metod : son girilen 5 tassaruf değerini getirir.
     this.savingApiService.GetLastFiveByUser().subscribe(

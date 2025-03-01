@@ -32,6 +32,7 @@ import { SettingBankComponent } from './KisiselFinansAsistaniUI/admin/settings/s
 import { SettingCategoryComponent } from './KisiselFinansAsistaniUI/admin/settings/setting-category/setting-category.component';
 import { SettingBankDeleteComponent } from './KisiselFinansAsistaniUI/admin/settings/setting-bank-delete/setting-bank-delete.component';
 import { SettingBankUpdateComponent } from './KisiselFinansAsistaniUI/admin/settings/setting-bank-update/setting-bank-update.component';
+import { BalanceReportComponent } from './KisiselFinansAsistaniUI/admin/reports/balance-report/balance-report.component';
 
 
 export const routes: Route[] = [
@@ -72,6 +73,7 @@ export const routes: Route[] = [
       { path: 'settingCategory', component: SettingCategoryComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
       { path: 'settingBankDelete/:id', component: SettingBankDeleteComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
       { path: 'settingBankUpdate/:id', component: SettingBankUpdateComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
+      { path: 'admin/reports/balance-report', component: BalanceReportComponent, canActivate: [AuthGuard], data: { role: 'Admin' } }
     ],
   },
 
