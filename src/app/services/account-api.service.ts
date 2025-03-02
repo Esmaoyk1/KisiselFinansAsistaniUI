@@ -17,6 +17,10 @@ export class AccountApiService {
     return this.http.get<any>(`${this.apiUrl}`);
   }
 
+  getUserTransactionReport(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/UserTransactionReport`);
+  }
+
   getUserAccountBalance(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/UserBalance`);
   }

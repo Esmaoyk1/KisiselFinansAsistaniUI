@@ -1,26 +1,23 @@
-<!-- Page Heading -->
 <div id="wrapper">
   <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
-      <div class="container-fluid">
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 class="h3 mb-0 text-gray-800">Bakiye Raporu</h1>
-          <a (click)="generateReport()" href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
-          </a>
+      <div class="container-fluid  ">
+        <div class="container-fluid">
+          <div class="d-flex justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800"></h1>
+            <div class="d-flex flex-column align-items-end">
+              <!-- Align buttons to the right -->
+              <a (click)="generateReportExcel()" class="btn btn-sm btn-primary shadow-sm mb-2">
+                <!-- Margin-bottom for spacing -->
+                <i class="fas fa-file-excel fa-sm text-white-50"></i> Raporu Oluştur (Excel)
+              </a>
+              <a (click)="generateReportPdf()" class="btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-file-pdf fa-sm text-white-50"></i> Raporu Oluştur (PDF)
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div id="wrapper">
-  <div id="content-wrapper" class="d-flex flex-column">
-    <div id="content">
-      <div class="container-fluid">
-
-
-        <!-- Past Budgets Table -->
         <div class="card">
           <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold" style="color: white;">Bakiye Raporu</h6>
@@ -29,26 +26,21 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
+                  <th>id</th>
                   <th>Adı</th>
                   <th>Soyadı</th>
-                  <th>e-Mail</th>
+                  <th>E-Posta</th>
                   <th>Toplam Bakiye</th>
                 </tr>
               </thead>
               <tbody>
-                <!--<tr *ngFor="let item of items">-->
-                  <!--<td>{{ item.categoryName }}</td>
-                  <td>{{ item.amount }}</td>
-                  <td>{{ item.startDate | date }}</td>
-                  <td>{{ item.endDate | date }}</td>
-                  <td>
-                    <a class="badge badge-success" (click)="budgetUpdate(item.budgetId, item)">Güncelle</a>
-                    &nbsp;
-                    <a class="badge badge-danger" [routerLink]="['/budgetDelete', item.budgetId]">Sil</a>
-                    &nbsp;
-                    <button class="badge badge-info" (click)="openModal(item)">Tamamlandı</button>
-                  </td>-->
-                <!--</tr>-->
+                <tr *ngFor="let user of users">
+                  <td>{{ user.userId }}</td>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.surname }}</td>
+                  <td>{{ user.email }}</td>
+                  <td>{{ user.totalBalance + user.totalAmount | number:'1.2-2' }} TL</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -57,4 +49,3 @@
     </div>
   </div>
 </div>
-
