@@ -102,11 +102,13 @@ export class HomeComponent {
     this.GetLastFiveByUser();
     this.getKurlaar();
     this.GetTrueTransactions();
+    this.GetUserBalanceWithTotal();
   }
 
 
-  generatePdf() {
-    this.servis.exportToPdf();
+  generatePDFReport() {
+    alert("regerhg");
+    this.servis.generatePDFReport();
   }
   generateReport() {
     const exampleData = [

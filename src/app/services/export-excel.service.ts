@@ -3,6 +3,10 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
 
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+
+
 //const pdfMake = require('pdfmake/build/pdfmake');
 //const pdfFonts = require('pdfmake/build/vfs_fonts');
 
@@ -29,6 +33,39 @@ export class ExportExcelService {
   }
 
 
+
+  async generatePDFReport() {
+    const exampleData = [
+      { Ad: 'Ahmet', Soyad: 'Yılmaz', Yaş: 30 },
+      { Ad: 'Mehmet', Soyad: 'Kaya', Yaş: 25 },
+      { Ad: 'Ayşe', Soyad: 'Demir', Yaş: 28 }
+    ];
+
+    const doc = new jsPDF();
+    const fontUrl = 'assets/fonts/Roboto-Regular.ttf';  // Font dosyanızın yolu
+    const fontData = await fetch(fontUrl).then(res => res.arrayBuffer());
+    const decoder = new TextDecoder('utf-8');
+    const text = decoder.decode(fontData); // arrayBuffer yerine değişkenin adını yaz
+
+    doc.addFileToVFS('Roboto-Regular.ttf', text);
+    doc.addFont('Roboto-Regular.ttf', 'Roboto', 'normal');
+    doc.setFont('Roboto');
+    const tableColumn = ['Ad', 'Soyad', 'Yaş'];
+    const tableRows: any[] = [];
+
+    exampleData.forEach(item => {
+      tableRows.push([item.Ad, item.Soyad, item.Yaş]);
+    });
+
+    // **Eğer hata alıyorsan, aşağıdaki satırı dene**
+    // (Bu, bazı sürümlerde gereklidir)
+    autoTable(doc, {
+      head: [tableColumn],
+      body: tableRows
+    });
+
+    doc.save('Kullanıcılar_Raporu.pdf');
+  }
 
   exportToPdf() {
   //  const documentDefinition = {
