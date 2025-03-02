@@ -2,17 +2,8 @@ import { Injectable } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
-
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-
-
-//const pdfMake = require('pdfmake/build/pdfmake');
-//const pdfFonts = require('pdfmake/build/vfs_fonts');
-
-//pdfMake.vfs = pdfFonts.pdfMake ? pdfFonts.pdfMake.vfs : pdfFonts.vfs;
-
-
 
 
 @Injectable({
@@ -32,14 +23,8 @@ export class ExportExcelService {
     saveAs(data, `${fileName}.xlsx`);
   }
 
-
-
-  async generatePDFReport() {
-    const exampleData = [
-      { Ad: 'Ahmet', Soyad: 'Yılmaz', Yaş: 30 },
-      { Ad: 'Mehmet', Soyad: 'Kaya', Yaş: 25 },
-      { Ad: 'Ayşe', Soyad: 'Demir', Yaş: 28 }
-    ];
+  async generatePDFReport(jsonData: any[]/*, fileName: string*/) {
+    const exampleData = jsonData;
 
     const doc = new jsPDF();
     const fontUrl = 'assets/fonts/Roboto-Regular.ttf';  // Font dosyanızın yolu
@@ -50,13 +35,15 @@ export class ExportExcelService {
     doc.addFileToVFS('Roboto-Regular.ttf', text);
     doc.addFont('Roboto-Regular.ttf', 'Roboto', 'normal');
     doc.setFont('Roboto');
-    const tableColumn = ['Ad', 'Soyad', 'Yaş'];
+    const tableColumn = ['User ID', 'Name', 'Surname', 'Email', 'Total Balance'];
     const tableRows: any[] = [];
 
-    exampleData.forEach(item => {
-      tableRows.push([item.Ad, item.Soyad, item.Yaş]);
+    //exampleData.forEach(item => {
+    //  tableRows.push([item.Ad, item.Soyad, item.Yaş]);
+    //});
+    jsonData.forEach(item => {
+      tableRows.push([item.ID, item.Ad, item.Soyad, item.Email, item.ToplamBakiye]);
     });
-
     // **Eğer hata alıyorsan, aşağıdaki satırı dene**
     // (Bu, bazı sürümlerde gereklidir)
     autoTable(doc, {
@@ -67,32 +54,8 @@ export class ExportExcelService {
     doc.save('Kullanıcılar_Raporu.pdf');
   }
 
-  exportToPdf() {
-  //  const documentDefinition = {
-  //    content: [
-  //      { text: 'Kullanıcı Listesi', style: 'header' },
-  //      {
-  //        table: {
-  //          headerRows: 1,
-  //          widths: ['*', '*', '*'],
-  //          body: [
-  //            ['Ad', 'Soyad', 'Yaş'],
-  //            ['Ahmet', 'Yılmaz', '30'],
-  //            ['Mehmet', 'Kaya', '25'],
-  //            ['Ayşe', 'Demir', '28']
-  //          ]
-  //        }
-  //      }
-  //    ],
-  //    styles: {
-  //      header: {
-  //        fontSize: 18,
-  //        bold: true,
-  //        margin: [0, 0, 0, 10]
-  //      }
-  //    }
-  //  };
-
-  //  pdfMake.createPdf(documentDefinition).download('Kullanıcılar.pdf');
-  }
+ 
+  
 }
+
+
