@@ -57,10 +57,6 @@ export class BudgetComponent implements OnInit {
   accounts: any[] = [];
 
   async ngOnInit() {
-    this.loadScriptsSequentially();
-
-    this.loadCss('assets/vendor/datatables/dataTables.bootstrap4.min.css');
-
     this.loadItems(); // Sayfa yüklendiğinde bütçe öğelerini al
     this.loadCategoryItems();
     // Modal nesnesini al ve başlat
@@ -203,6 +199,9 @@ export class BudgetComponent implements OnInit {
       // Yanıtın içindeki data nesnesini kontrol edin
       if (response && response.data && Array.isArray(response.data.items)) {
         this.items = response.data.items; // items dizisine atama yapın
+        this.loadScriptsSequentially();
+        this.loadCss('assets/vendor/datatables/dataTables.bootstrap4.min.css');
+
       } else {
         console.error('Beklenen dizi değil:', response);
         this.items = []; // Hata durumunda boş dizi atayın

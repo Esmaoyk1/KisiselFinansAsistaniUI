@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { MenuComponent } from '../../menu/menu.component';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -37,7 +37,8 @@ export class SavingComponent {
   hedefId: number | null = null; // Güncellenen hedefin ID'si
   constructor(private router: Router,
     private savingApiService: SavingApiService,
-    private accountService: AccountApiService,) {
+    private accountService: AccountApiService,
+    private renderer: Renderer2,) {
   }
 
   ngOnInit() {
@@ -93,22 +94,21 @@ export class SavingComponent {
 
   savingGet() {
     this.savingApiService.getPosts().subscribe(response => {
-
       // response.data'nın dizide olup olmadığını kontrol edin
-      if (Array.isArray(response.data)) {
-
+      if (Array.isArray(response.data.items)) {
+        // Eğer response.data.items bir dizi ise
         this.hedefler = response.data.items;
-        console.log(this.hedefler
-        );
-
       } else {
         // Eğer nesne ise diziyi oluşturun
         this.hedefler = Object.values(response.data.items);
-
       }
+
+      // Ortak işlemler
+      console.log(this.hedefler);
+      this.loadScriptsSequentially();
+      this.loadCss('assets/vendor/datatables/dataTables.bootstrap4.min.css');
     });
   }
-
   savingUpdate(sid: number, post: any) {
     this.router.navigate(['savingUpdate', sid], { state: { post: post } });
 
@@ -157,6 +157,41 @@ export class SavingComponent {
         console.error('Silme hatası:', error);
       });
     }
+  }
+
+  async loadScriptsSequentially() {
+    try {
+      await this.loadScript('assets/vendor/jquery/jquery.min.js');
+      console.log('jQuery yüklendi.');
+      await this.loadScript('assets/vendor/datatables/jquery.dataTables.min.js');
+      console.log('DataTables JS yüklendi.');
+      await this.loadScript('assets/vendor/datatables/dataTables.bootstrap4.min.js');
+      console.log('Bootstrap DataTables yüklendi.');
+      await this.loadScript('assets/js/demo/datatables-demo.js');
+      console.log('Demo script yüklendi.');
+      await this.loadScript('assets/js/test.js');
+      console.log('Test script yüklendi.');
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  loadScript(scriptUrl: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = scriptUrl;
+      script.async = true;
+      script.onload = () => resolve();
+      script.onerror = () => reject(`Script yüklenemedi: ${scriptUrl}`);
+      document.body.appendChild(script);
+    });
+  }
+
+  private loadCss(url: string) {
+    const link = this.renderer.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = url;
+    this.renderer.appendChild(document.head, link);
   }
 
 }

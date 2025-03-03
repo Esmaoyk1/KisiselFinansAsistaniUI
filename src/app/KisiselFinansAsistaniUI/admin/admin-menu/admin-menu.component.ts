@@ -165,8 +165,7 @@ export class AdminMenuComponent {
 
   ngOnInit(): void {
     this.getAdmins(); // bileşen yüklendiğinde kullanıcıları al
-    this.loadScriptsSequentially();
-    this.loadCss('assets/vendor/datatables/dataTables.bootstrap4.min.css');
+    
 
   }
 
@@ -178,6 +177,8 @@ export class AdminMenuComponent {
      
         this.admins = [...data.adminUsers];
         //this.admins = data.adminUsers || []; // adminUsers dizisi olup olmadığını kontrol et
+        this.loadScriptsSequentially();
+        this.loadCss('assets/vendor/datatables/dataTables.bootstrap4.min.css');
       },
       (error) => {
         console.error('Kullanıcı verileri alınamadı:', error); // Hata durumunu yönet

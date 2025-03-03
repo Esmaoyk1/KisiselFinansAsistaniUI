@@ -80,14 +80,6 @@ export class HomeComponent {
   //public url = 'https://www.tcmb.gov.tr/kurlar/today.xml';
 
 
-
-  gramAltin: number = 100;
-  ceyrekAltin: number = 200;
-  yarimAltin: number = 300;
-  tamAltin: number = 500;
-
-
-
   dolarKuru: number = 0;
   euroKuru: number = 0;
   sterlinKuru: number = 0;
@@ -143,8 +135,8 @@ export class HomeComponent {
   GetUserBalance(): void {
     this.accountapiService.getUserAccountBalance().subscribe(
       response => {
-        this.userBalance = response.data.balance;
-        this.currency = response.data.currency;
+          this.userBalance = response.data.balance;
+          this.currency = response.data.currency;
         console.log("Kullanıcı Bakiyesi (Banka): " + this.userBalance);
         this.KalanButce();
       },
