@@ -28,9 +28,8 @@ export class BalanceReportComponent {
     private renderer: Renderer2,
   ) { };
   async ngOnInit() {
+   
     this.GetUserTransactionReport();
-    this.loadScriptsSequentially();
-    this.loadCss('assets/vendor/datatables/dataTables.bootstrap4.min.css');
   }
   generateReportExcel() {
     const exampleData = this.users.map(user => ({
@@ -50,6 +49,8 @@ export class BalanceReportComponent {
       response => {
         this.users = response.data.items; // Cevap yapısının buna uygun olduğunu varsayıyoruz
         console.log("Kullanıcı Verileri:", this.users);
+        this.loadScriptsSequentially();
+        this.loadCss('assets/vendor/datatables/dataTables.bootstrap4.min.css');
       },
       error => {
         console.error('Hata:', error);
@@ -103,4 +104,21 @@ export class BalanceReportComponent {
     link.href = url;
     this.renderer.appendChild(document.head, link);
   }
+
+
+
+  //initializeDataTable() {
+  //  if ($.fn.DataTable && $('#dataTable').length > 0) {
+  //    $('#dataTable').DataTable({
+  //      paging: true,
+  //      searching: true,
+  //      ordering: true,
+  //      info: true,
+  //      destroy: true // Mevcut tabloyu silip yeniden oluşturur, hataları önler
+  //    });
+  //  } else {
+  //    console.error("DataTable kütüphanesi yüklenemedi veya tablo bulunamadı.");
+  //  }
+  //}
+
 }

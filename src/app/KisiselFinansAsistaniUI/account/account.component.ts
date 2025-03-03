@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MenuComponent } from '../../menu/menu.component';
 import { AccountApiService } from '../../services/account-api.service';
@@ -39,7 +39,8 @@ export class AccountComponent {
   isUpdateFormVisible: boolean = false;
   constructor(private accountapiService: AccountApiService,
     private bankApiService: BanksApiService,
-    private router: Router) {
+    private router: Router,
+    private renderer: Renderer2) {
 
   /*  this.accountName = this.bankName;*/
   };
@@ -49,6 +50,8 @@ export class AccountComponent {
     this.GetUserBalance();
     this.accountGet();
     this.loadBankNames();
+    this.loadScriptsSequentially();
+          this.loadCss('assets/vendor/datatables/dataTables.bootstrap4.min.css');
   }
   GetUserBalance() {
     this.accountapiService.getUserAccountBalance().subscribe(
@@ -91,6 +94,7 @@ export class AccountComponent {
         if (Array.isArray(response.data)) {
           this.bankaBilgileri = response.data.items; // Hesapları dizi olarak al
           console.log(' this.accounts:', this.bankaBilgileri);
+         
         } else {
           // Eğer nesne ise, diziyi oluştur
           this.bankaBilgileri = Object.values(response.data.items);
@@ -161,7 +165,42 @@ export class AccountComponent {
       console.log('Form geçersiz.');
     }
   }
-  
+
+  async loadScriptsSequentially() {
+    try {
+      await this.loadScript('assets/vendor/jquery/jquery.min.js');
+      console.log('jQuery yüklendi.');
+      await this.loadScript('assets/vendor/datatables/jquery.dataTables.min.js');
+      console.log('DataTables JS yüklendi.');
+      await this.loadScript('assets/vendor/datatables/dataTables.bootstrap4.min.js');
+      console.log('Bootstrap DataTables yüklendi.');
+      await this.loadScript('assets/js/demo/datatables-demo.js');
+      console.log('Demo script yüklendi.');
+      await this.loadScript('assets/js/test.js');
+      console.log('Test script yüklendi.');
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  loadScript(scriptUrl: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = scriptUrl;
+      script.async = true;
+      script.onload = () => resolve();
+      script.onerror = () => reject(`Script yüklenemedi: ${scriptUrl}`);
+      document.body.appendChild(script);
+    });
+  }
+
+  private loadCss(url: string) {
+    const link = this.renderer.createElement('link');
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = url;
+    this.renderer.appendChild(document.head, link);
+  }
+
 }
 
 

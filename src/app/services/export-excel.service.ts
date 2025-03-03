@@ -35,7 +35,9 @@ export class ExportExcelService {
     doc.addFileToVFS('Roboto-Regular.ttf', text);
     doc.addFont('Roboto-Regular.ttf', 'Roboto', 'normal');
     doc.setFont('Roboto');
-    const tableColumn = ['User ID', 'Name', 'Surname', 'Email', 'Total Balance'];
+    //const tableColumn = ['User ID', 'Name', 'Surname', 'Email', 'Total Balance'];
+    const tableColumn = exampleData.length > 0 ? Object.keys(exampleData[0]) : [];
+
     const tableRows: any[] = [];
 
     //exampleData.forEach(item => {

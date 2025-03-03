@@ -1,5 +1,5 @@
 <div id="wrapper">
-  <div id="content-wrapper" class="d-flex flex-column">
+  <div id="content-wrapper" class="d-flex flex-column ">
     <div id="content">
       <div class="container-fluid  ">
         <div class="container-fluid">
@@ -34,13 +34,23 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let user of users">
-                  <td>{{ user.userId }}</td>
-                  <td>{{ user.name }}</td>
-                  <td>{{ user.surname }}</td>
-                  <td>{{ user.email }}</td>
-                  <td>{{ user.totalBalance + user.totalAmount | number:'1.2-2' }} TL</td>
-                </tr>
+                <!-- Veriler yüklendiğinde tabloyu göster -->
+                <ng-container *ngIf="users; else loading">
+                  <tr *ngFor="let user of users">
+                    <td>{{ user.userId }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.surname }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ (user.totalBalance + user.totalAmount) | number:'1.2-2' }} TL</td>
+                  </tr>
+                </ng-container>
+
+                <!-- Veriler yükleniyorsa -->
+                <ng-template #loading>
+                  <tr>
+                    <td colspan="5" class="text-center">Veriler yükleniyor...</td>
+                  </tr>
+                </ng-template>
               </tbody>
             </table>
           </div>
@@ -49,3 +59,6 @@
     </div>
   </div>
 </div>
+
+
+

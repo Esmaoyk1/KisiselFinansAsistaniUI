@@ -26,8 +26,6 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers(); // bileşen yüklendiğinde kullanıcıları al
-    this.loadScriptsSequentially();
-    this.loadCss('assets/vendor/datatables/dataTables.bootstrap4.min.css');
     this.getUserDetail();
 
   }
@@ -198,7 +196,9 @@ export class UserComponent implements OnInit {
         console.log(data);
         // Admin ve regular kullanıcıları birleştir
         this.users = [...data.regularUsers];
-/*        this.admins = [...data.adminUsers];*/
+        /*        this.admins = [...data.adminUsers];*/
+        this.loadScriptsSequentially();
+        this.loadCss('assets/vendor/datatables/dataTables.bootstrap4.min.css');
       },
       (error) => {
         console.error('Kullanıcı verileri alınamadı:', error); // Hata durumunu yönet
