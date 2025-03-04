@@ -64,16 +64,16 @@ export class ExportExcelService {
       headStyles: {
         fillColor: [0, 123, 255], // Başlık hücrelerinin arka plan rengi
         textColor: [255, 255, 255], // Başlık metni rengi
-        fontSize: 12,
+        fontSize: 8,
         fontStyle: 'bold',
         halign: 'center', // Başlıkların ortalanması
       },
       bodyStyles: {
-        fontSize: 10,
+        fontSize: 7,
         halign: 'center', // Veri hücrelerini ortalamak
       },
       styles: {
-        cellPadding: 5, // Hücre içi boşluk
+        cellPadding: 3, // Hücre içi boşluk
         lineColor: [0, 0, 0], // Hücre kenarlıklarının rengi
         lineWidth: 0.1, // Hücre kenarlıklarının kalınlığı
       },
