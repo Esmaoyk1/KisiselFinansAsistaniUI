@@ -49,4 +49,7 @@ export class SavingApiService {
   GetHighSavingsByUser(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/HighSavings`); 
   }
+  UserSavingReport(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/UserSavingReport`);
+  }
 }
