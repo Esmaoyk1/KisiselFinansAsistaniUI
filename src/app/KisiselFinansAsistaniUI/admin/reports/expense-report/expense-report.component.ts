@@ -1,64 +1,55 @@
 import { Component, Renderer2 } from '@angular/core';
+import { TransactionApiService } from '../../../../services/transactionapi.service';
 import { ExportExcelService } from '../../../../services/export-excel.service';
-import { AccountApiService } from '../../../../services/account-api.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-declare var $: any;
+
 @Component({
-  selector: 'app-balance-report',
+  selector: 'app-expense-report',
   standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './balance-report.component.html',
-  styleUrl: './balance-report.component.css'
+  imports: [CommonModule],
+  templateUrl: './expense-report.component.html',
+  styleUrl: './expense-report.component.css'
 })
+export class ExpenseReportComponent {
+  amount: number = 0;
 
-export class BalanceReportComponent {
-
-
-  userBalance: number = 0; // Başlangıç değeri
-  currency: string | undefined;
-  savedAmount: number = 0; // Başlangıç değeri
-  transactionAmount: number = 0; // Başlangıç değeri
-  remainingBudget: number = 0; // Başlangıç değeri
-  percentageRemaining: number = 0;
-  totalTransactions: number = 0;
-
-  users: any[] = []; // Kullanıcı verilerini tutmak için dizi
+  users: any[] = [];
   constructor(
     private reportServis: ExportExcelService,
-    private accountapiService: AccountApiService,
+    private transactionApiService: TransactionApiService,
     private renderer: Renderer2,
   ) { };
+
   async ngOnInit() {
-   
+
     this.GetUserTransactionReport();
   }
+
   generateReportExcel() {
     const exampleData = this.users.map(user => ({
       ID: user.userId,
       Ad: user.name,
       Soyad: user.surname,
       Email: user.email,
-      ToplamBakiye: user.totalBalance + user.totalAmount
+      HarcananButce: user.expenceAmount 
 
     }));
 
-    this.reportServis.exportToExcel(exampleData, 'Kullanıcılar');
+    this.reportServis.exportToExcel(exampleData, 'HarcamaTablosu');
   }
-  
+
   GetUserTransactionReport(): void {
-    this.accountapiService.getUserTransactionReport().subscribe(
+    this.transactionApiService.UserTransactionReport().subscribe(
       response => {
         this.users = response.data.items.map((user: {
           userId: number;
           name: string;
           surname: string;
           email: string;
-          totalBalance: number;
-          totalAmount: number;
+          expenceAmount: number;
         }) => ({
           ...user,
-          total: user.totalBalance + user.totalAmount
+          total: user.expenceAmount 
         }));
 
         this.users.sort((a, b) => b.total - a.total);
@@ -76,18 +67,17 @@ export class BalanceReportComponent {
 
   generateReportPdf() {
 
-
     const exampleData = this.users.map(user => ({
       ID: user.userId,
       Ad: user.name,
       Soyad: user.surname,
       Email: user.email,
-      ToplamBakiye: user.totalBalance + user.totalAmount
-
-
+      HarcananButce: user.expenceAmount 
     }));
-    this.reportServis.generatePDFReport(exampleData, "Bakiye Raporu","Bakiye Raporu");
+    this.reportServis.generatePDFReport(exampleData, "Harcama Raporu", "Harcama Raporu");
   }
+
+
   async loadScriptsSequentially() {
     try {
       await this.loadScript('assets/vendor/jquery/jquery.min.js');
@@ -122,21 +112,5 @@ export class BalanceReportComponent {
     link.href = url;
     this.renderer.appendChild(document.head, link);
   }
-
-
-
-  //initializeDataTable() {
-  //  if ($.fn.DataTable && $('#dataTable').length > 0) {
-  //    $('#dataTable').DataTable({
-  //      paging: true,
-  //      searching: true,
-  //      ordering: true,
-  //      info: true,
-  //      destroy: true // Mevcut tabloyu silip yeniden oluşturur, hataları önler
-  //    });
-  //  } else {
-  //    console.error("DataTable kütüphanesi yüklenemedi veya tablo bulunamadı.");
-  //  }
-  //}
 
 }

@@ -1,26 +1,22 @@
 <div id="wrapper">
-  <div id="content-wrapper" class="d-flex flex-column ">
+  <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
-      <div class="container-fluid  ">
-        <div class="container-fluid">
-          <div class="d-flex justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Bakiye Raporu</h1>
-            <div class="d-flex flex-column align-items-end">
-              <!-- Align buttons to the right -->
-              <a (click)="generateReportExcel()" class="btn btn-sm btn-primary shadow-sm mb-2">
-                <!-- Margin-bottom for spacing -->
-                <i class="fas fa-file-excel fa-sm text-white-50"></i> Raporu Oluştur (Excel)
-              </a>
-              <a (click)="generateReportPdf()" class="btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-file-pdf fa-sm text-white-50"></i> Raporu Oluştur (PDF)
-              </a>
-            </div>
+      <div class="container-fluid">
+        <div class="d-flex justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Harcama Raporu</h1>
+          <div class="d-flex flex-column align-items-end">
+            <a (click)="generateReportExcel()" class="btn btn-sm btn-primary shadow-sm mb-2">
+              <i class="fas fa-file-excel fa-sm text-white-50"></i> Raporu Oluştur (Excel)
+            </a>
+            <a (click)="generateReportPdf()" class="btn btn-sm btn-primary shadow-sm">
+              <i class="fas fa-file-pdf fa-sm text-white-50"></i> Raporu Oluştur (PDF)
+            </a>
           </div>
         </div>
 
         <div class="card">
           <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold" style="color: white;">Bakiye Raporu</h6>
+            <h6 class="m-0 font-weight-bold" style="color: white;">Harcama Raporu</h6>
           </div>
           <div class="card-body">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -30,11 +26,10 @@
                   <th>Adı</th>
                   <th>Soyadı</th>
                   <th>E-Posta</th>
-                  <th>Toplam Bakiye</th>
+                  <th>Harcanan Bütçe</th>
                 </tr>
               </thead>
               <tbody>
-                <!-- Veriler yüklendiğinde tabloyu göster -->
                 <ng-container *ngIf="users; else loading">
                   <tr *ngFor="let user of users">
                     <td>{{ user.userId }}</td>
@@ -45,7 +40,6 @@
                   </tr>
                 </ng-container>
 
-                <!-- Veriler yükleniyorsa -->
                 <ng-template #loading>
                   <tr>
                     <td colspan="5" class="text-center">Veriler yükleniyor...</td>
@@ -59,6 +53,3 @@
     </div>
   </div>
 </div>
-
-
-

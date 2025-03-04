@@ -48,6 +48,10 @@ export class TransactionApiService {
   GetTrueTransactions(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/GetTrueTransactions`);
   }
+
+  UserTransactionReport(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/UserTransactionReport`);
+  }
   getPostById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/GetPostById/${id}`); // API URL'sini güncelleyin
   }
