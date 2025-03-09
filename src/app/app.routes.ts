@@ -31,10 +31,12 @@ import { AdminDeleteComponent } from './KisiselFinansAsistaniUI/admin/admin-dele
 import { SettingBankComponent } from './KisiselFinansAsistaniUI/admin/settings/setting-bank/setting-bank.component';
 import { SettingCategoryComponent } from './KisiselFinansAsistaniUI/admin/settings/setting-category/setting-category.component';
 import { SettingBankDeleteComponent } from './KisiselFinansAsistaniUI/admin/settings/setting-bank-delete/setting-bank-delete.component';
-import { SettingBankUpdateComponent } from './KisiselFinansAsistaniUI/admin/settings/setting-bank-update/setting-bank-update.component';
 import { BalanceReportComponent } from './KisiselFinansAsistaniUI/admin/reports/balance-report/balance-report.component';
 import { ExpenseReportComponent } from './KisiselFinansAsistaniUI/admin/reports/expense-report/expense-report.component';
 import { SavingReportComponent } from './KisiselFinansAsistaniUI/admin/reports/saving-report/saving-report.component';
+import { SettingCategoryDeleteComponent } from './KisiselFinansAsistaniUI/admin/settings/setting-category-delete/setting-category-delete.component';
+import { SettingCategoryUpdateComponent } from './KisiselFinansAsistaniUI/admin/settings/setting-category-update/setting-category-update.component';
+import { SettingBankUpdateComponent } from './KisiselFinansAsistaniUI/admin/settings/setting-bank-update/setting-bank-update.component';
 
 
 export const routes: Route[] = [
@@ -77,7 +79,9 @@ export const routes: Route[] = [
       { path: 'settingBankUpdate/:id', component: SettingBankUpdateComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
       { path: 'admin/reports/balance-report', component: BalanceReportComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
       { path: 'admin/reports/expense-report', component: ExpenseReportComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
-      { path: 'admin/reports/saving-report', component: SavingReportComponent, canActivate: [AuthGuard], data: { role: 'Admin' } }
+      { path: 'admin/reports/saving-report', component: SavingReportComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
+      { path: 'settingCategoryDelete/:id', component: SettingCategoryDeleteComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
+      { path: 'settingCategoryUpdate/:id', component: SettingCategoryUpdateComponent, canActivate: [AuthGuard], data: { role: 'Admin' } }
     ],
   },
 
