@@ -28,7 +28,7 @@ export class ExportExcelService {
     console.log(exampleData);
     const doc = new jsPDF();
     doc.text(fileHedaer, 14, 15);
-    const fontUrl = 'assets/fonts/Roboto-Regular.ttf';  // Font dosyanızın yolu
+    const fontUrl = '/assets/fonts/Roboto-Regular.ttf';  // Font dosyanızın yolu
     const fontData = await fetch(fontUrl).then(res => res.arrayBuffer());
     const decoder = new TextDecoder('utf-8');
     const text = decoder.decode(fontData); // arrayBuffer yerine değişkenin adını yaz

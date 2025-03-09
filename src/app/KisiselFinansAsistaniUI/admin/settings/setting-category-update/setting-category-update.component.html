@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="m-0">Kategori Güncelle</h4>
+  </div>
+  <div class="card-body">
+    <form #categoryForm="ngForm" (ngSubmit)="updateCategory()">
+      <div class="mb-3">
+        <label for="categoryName" class="form-label">Kategori Adı</label>
+        <input type="text"
+               class="form-control"
+               id="categoryName"
+               [(ngModel)]="post.categoryName"
+               name="categoryName"
+               required />
+      </div>
+
+      <div class="mb-3">
+        <label for="categoryType" class="form-label">Kategori Türü</label>
+        <select class="form-control"
+                id="categoryType"
+                [(ngModel)]="post.categoryType"
+                name="categoryType"
+                required>
+          <option value="0">Gider</option>
+          <option value="1">Gelir</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-success" [disabled]="categoryForm.invalid">
+        Güncelle
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="cancelEdit()">İptal</button>
+    </form>
+  </div>
+</div>
