@@ -4,6 +4,7 @@ import { saveAs } from 'file-saver';
 
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { DecimalPipe } from '@angular/common';
 
 
 @Injectable({
@@ -86,6 +87,84 @@ export class ExportExcelService {
   }
 
 
+  async generatePDFReport2(a: number, b: number, c: number, d: number, e: number[], f: string[] , g:number[]) {
+    const doc = new jsPDF();
+
+    // Rapor Başlığı
+    const title = "Finansal Durum Raporu";
+    doc.setFontSize(16);
+    doc.text(title, 14, 15);
+
+    // Finansal Özet
+    const summary = [
+      ["Toplam Bakiyeniz:", a + "TL" ],
+      ["Toplam Tasarruf:", b + "TL"],
+      ["Harcanan Bütçe:", c + "TL"],
+      ["Kalan Bütçe:",d + "TL"]
+    ];
+
+    autoTable(doc, {
+      startY: 25,
+      body: summary,
+      theme: 'plain',
+      styles: { fontSize: 10, cellPadding: 3, halign: 'left' },
+      columnStyles: { 0: { fontStyle: 'bold' } }
+    });
+
+    // Yıllık Harcamalar Tablosu
+    const spendingData = [
+      ["Ocak", e[0] + "TL"],
+      ["Şubat", e[1] + "TL"],
+      ["Mart", e[2] + "TL"],
+      ["Nisan", e[3] + "TL"],
+      ["Mayıs", e[4] + "TL"],
+      ["Haziran", e[5] + "TL"],
+      ["Temmuz", e[6] + "TL"],
+      ["Ağustos", e[7] + "TL"],
+      ["Eylül", e[8] + "TL"],
+      ["Ekim", e[9] + "TL"],
+      ["Kasım", e[10] + "TL"],
+      ["Aralık", e[11] + "TL"]
+    ];
+
+    autoTable(doc, {
+      startY: ((doc as any).lastAutoTable?.finalY || 10) + 10, 
+      head: [["Ay", "Harcama (TL)"]],
+      body: spendingData,
+      theme: 'grid',
+      headStyles: { fillColor: [0, 123, 255], textColor: [255, 255, 255], fontSize: 10, halign: 'center' },
+      bodyStyles: { fontSize: 9, halign: 'center' },
+      alternateRowStyles: { fillColor: [240, 240, 240] }
+    });
+
+    // Kategorilere Göre Yıllık Harcamalar
+    const categoryData = [
+      [f[0], "%" + g[0].toFixed(2).toString()],
+      [f[1], "%" + g[1].toFixed(2).toString()],
+      [f[2], "%" + g[2].toFixed(2).toString()],
+      [f[3], "%" + g[3].toFixed(2).toString()]
+    ];
+
+    autoTable(doc, {
+      startY: ((doc as any).lastAutoTable?.finalY || 10) + 10,
+      head: [["Kategori", "Harcama Oranı"]],
+      body: categoryData,
+      theme: 'grid',
+      headStyles: { fillColor: [0, 123, 255], textColor: [255, 255, 255], fontSize: 10, halign: 'center' },
+      bodyStyles: { fontSize: 9, halign: 'center' },
+      alternateRowStyles: { fillColor: [240, 240, 240] }
+    });
+
+    // Sonuç Bölümü
+    //const resultText =
+    //  "";
+
+    doc.setFontSize(10);
+    //doc.text(resultText, 14, ((doc as any).lastAutoTable?.finalY || 10) + 10,  { maxWidth: 180 });
+
+    // PDF Dosyasını Kaydet
+    doc.save("Finansal_Durum_Raporu.pdf");
+  }
 
 }
 

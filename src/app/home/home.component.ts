@@ -99,8 +99,7 @@ export class HomeComponent {
 
 
   generatePDFReport() {
-    alert("regerhg");
-  /*  this.servis.generatePDFReport();*/
+    this.servis.generatePDFReport2(this.userBalance, this.savedAmount, this.totalTransactions, this.remainingBudget, this.dataArea, this.datalabels, this.dataResp);
   }
   generateReport() {
     const exampleData = [
