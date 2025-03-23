@@ -23,6 +23,8 @@ export class UserProfileComponent {
       password: [''],
       confirmPassword: [''],
       phone: ['', Validators.required],
+      age: ['', [Validators.required, Validators.min(0), Validators.max(120)]], // Yaş için validasyon ekledik
+      gender: ['', Validators.required], // Cinsiyet için validasyon ekledik
       profilePicture: [null],
     },
 
@@ -60,6 +62,8 @@ export class UserProfileComponent {
       userDetails.append('surname', this.personForm!.get('surname')?.value);
       userDetails.append('email', this.personForm!.get('email')?.value);
       userDetails.append('phoneNumber', this.personForm!.get('phone')?.value);
+      userDetails.append('age', this.personForm!.get('age')?.value);
+      userDetails.append('gender', this.personForm!.get('gender')?.value);
       userDetails.append('profilePicture', this.selectedFile); // Resmi ekl
 
 
@@ -98,6 +102,8 @@ export class UserProfileComponent {
         surname: data.surname,
         email: data.email,
         phone: data.phoneNumber,
+        age: data.age,
+        gender: data.gender,
         profilePicture: 'http://localhost:5177/uploads/' + data.profilePictureUrl
       });
     }, error => {

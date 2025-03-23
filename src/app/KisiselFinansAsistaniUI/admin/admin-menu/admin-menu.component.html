@@ -19,6 +19,18 @@
                 <input formControlName="surname" type="text" id="surname" class="form-control" required>
               </div>
               <div class="form-group">
+                <label for="age">Yaş</label>
+                <input formControlName="age" type="text" id="age" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="gender">Cinsiyet</label>
+                <select formControlName="gender" id="gender" class="form-control" required>
+                  <option value="">Cinsiyet seçin</option>
+                  <option value="false">Erkek</option>
+                  <option value="true">Kadın</option>
+                </select>
+              </div>
+              <div class="form-group">
                 <label for="email">Email</label>
                 <input formControlName="email" type="email" id="email" class="form-control" required>
               </div>
@@ -57,6 +69,8 @@
                   <th>Telefon Numarası</th>
                   <th>Ad</th>
                   <th>Soyad</th>
+                  <th>Yaş</th>
+                  <th>Cinsiyet</th>
                   <th>Profil Resmi</th>
                   <th>İşlemler</th>
                 </tr>
@@ -68,11 +82,13 @@
                   <td>{{ admin.phoneNumber }}</td>
                   <td>{{ admin.name }}</td>
                   <td>{{ admin.surname }}</td>
+                  <td>{{ admin.age }}</td>
+                  <td>{{ admin.gender ? 'Kadın' : 'Erkek' }}</td>
                   <td>
                     <img [src]="pictureUrl + admin.profilePictureUrl" alt="{{ admin.name }}" />
                   </td>
                   <td>
-                    <a class="badge badge-success"  (click)="adminUpdate(admin.id, admin)">Güncelle</a>
+                    <a class="badge badge-success" (click)="adminUpdate(admin.id, admin)">Güncelle</a>
                     <a class="badge badge-danger" [routerLink]="['/adminDelete', admin.id]">Sil</a>
                   </td>
                 </tr>

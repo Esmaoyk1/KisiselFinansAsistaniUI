@@ -9,6 +9,20 @@
       <input type="text" class="form-control" id="surname" formControlName="surname" name="surname" placeholder="Soyad girin" required>
     </div>
     <div class="form-group col-md-6">
+      <label for="age">Yaş Giriniz</label>
+      <input type="text" class="form-control" id="age" formControlName="age" name="age" placeholder="Yaş girin" required>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="gender">Cinsiyet Giriniz</label>
+      <select class="form-control" id="gender" name="gender" formControlName="gender" required>
+        <option value="">Cinsiyet seçin</option>
+        <option value="false">Erkek</option>
+        <option value="true">Kadın</option>
+      </select>
+    </div>
+
+    <div class="form-group col-md-6">
       <label for="phone">Telefon</label>
       <input type="text" class="form-control" id="phone" formControlName="phone" name="phone" placeholder="Telefon girin" required>
     </div>

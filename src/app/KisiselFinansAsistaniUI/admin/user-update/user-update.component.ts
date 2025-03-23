@@ -28,6 +28,8 @@ export class UserUpdateComponent {
       surname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
+      age: ['', [Validators.required, Validators.min(0), Validators.max(120)]], // Yaş için validasyon ekledik
+      gender: ['', Validators.required], // Cinsiyet için validasyon ekledik
       profilePicture: [null],
     });
     const id = this.route.snapshot.paramMap.get('id');
@@ -42,7 +44,9 @@ export class UserUpdateComponent {
         name: userData.name,
         surname: userData.surname,
         email: userData.email,
-        phone: userData.phoneNumber // Eğer 'phoneNumber' mevcutsa
+        phone: userData.phoneNumber, // Eğer 'phoneNumber' mevcutsa
+        age: userData.age,
+        gender : userData.gender
       });
 
       console.log("this.userForm");
@@ -74,6 +78,8 @@ export class UserUpdateComponent {
         surname: data.surname,
         email: data.email,
         phone: data.phoneNumber,
+        age: data.age,
+        gender : data.gender,
         profilePicture: data.profilePictureUrl
       });
     }, error => {
@@ -99,6 +105,8 @@ export class UserUpdateComponent {
       userDetails.append('surname', this.userForm.get('surname')?.value);
       userDetails.append('email', this.userForm.get('email')?.value);
       userDetails.append('phone', this.userForm.get('phone')?.value);
+      userDetails.append('age', this.userForm.get('age')?.value);
+      userDetails.append('gender', this.userForm.get('gender')?.value);
 
       if (this.selectedFile) {
         userDetails.append('profilePicture', this.selectedFile);
@@ -126,7 +134,9 @@ export class UserUpdateComponent {
       userDetails.append('surname', this.userForm!.get('surname')?.value);
       userDetails.append('email', this.userForm!.get('email')?.value);
       userDetails.append('phoneNumber', this.userForm!.get('phone')?.value);
-
+      userDetails.append('age', this.userForm!.get('age')?.value);
+      userDetails.append('gender', this.userForm!.get('gender')?.value);
+      alert(this.userForm!.get('age')?.value);
       if (this.selectedFile) {
         userDetails.append('profilePicture', this.selectedFile);
       }

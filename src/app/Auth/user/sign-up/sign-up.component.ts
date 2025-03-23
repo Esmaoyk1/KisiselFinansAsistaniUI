@@ -40,6 +40,8 @@ export class SignUpComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
       phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+      age: ['', [Validators.required, Validators.min(0), Validators.max(120)]], // Yaş için validasyon ekledik
+      gender: ['', Validators.required], // Cinsiyet için validasyon ekledik
       previewUrl: ['']
 
     }, {
@@ -114,6 +116,8 @@ export class SignUpComponent implements OnInit {
     formData.append('password', this.signUpForm!.get('password')?.value);
     formData.append('confirmPassword', this.signUpForm!.get('confirmPassword')?.value);
     formData.append('phone', this.signUpForm!.get('phone')?.value);
+    formData.append('age', this.signUpForm!.get('age')?.value);
+    formData.append('gender', this.signUpForm!.get('gender')?.value);
     formData.append('profilePicture', this.selectedFile); // Resmi ekl
 
 

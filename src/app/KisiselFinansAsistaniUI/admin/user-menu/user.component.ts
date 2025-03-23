@@ -38,6 +38,8 @@ export class UserComponent implements OnInit {
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
       phone: ['', Validators.required],
+      age: ['', Validators.required],
+      gender: ['', Validators.required],
       profilePicture: [null],
     },
 
@@ -77,6 +79,8 @@ export class UserComponent implements OnInit {
       userDetails.append('surname', this.personForm.get('surname')?.value);
       userDetails.append('email', this.personForm.get('email')?.value);
       userDetails.append('phone', this.personForm.get('phone')?.value);
+      userDetails.append('age', this.personForm.get('age')?.value);
+      userDetails.append('gender', this.personForm.get('gender')?.value);
       userDetails.append('password', this.personForm.get('password')?.value);
       userDetails.append('confirmPassword', this.personForm.get('confirmPassword')?.value);
       userDetails.append('profilePicture', this.selectedFile);
@@ -133,6 +137,8 @@ export class UserComponent implements OnInit {
       surname: user.surname,
       email: user.email,
       phone: user.phoneNumber,
+      age: user.age,
+      gender : user.gender,
       profilePicture: user.profilePictureUrl,
       password: user.password,
       confirmPassword: user.confirmPassword
