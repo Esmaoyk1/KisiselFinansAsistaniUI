@@ -26,6 +26,8 @@ export class AdminUpdateComponent {
     this.adminForm = this.fb.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
+      age: ['', Validators.required],
+      gender: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
       profilePicture: [null],
@@ -41,6 +43,8 @@ export class AdminUpdateComponent {
       this.adminForm.patchValue({
         name: userData.name,
         surname: userData.surname,
+        age: userData.age,
+        gender:userData.gender,
         email: userData.email,
         phone: userData.phoneNumber // Eğer 'phoneNumber' mevcutsa
       });
@@ -72,6 +76,8 @@ export class AdminUpdateComponent {
         surname: data.surname,
         email: data.email,
         phone: data.phoneNumber,
+        age: data.age,
+        gender: data.gender,
         profilePicture: data.profilePictureUrl
       });
     }, error => {
@@ -124,6 +130,8 @@ export class AdminUpdateComponent {
       userDetails.append('surname', this.adminForm!.get('surname')?.value);
       userDetails.append('email', this.adminForm!.get('email')?.value);
       userDetails.append('phoneNumber', this.adminForm!.get('phone')?.value);
+      userDetails.append('age', this.adminForm!.get('age')?.value);
+      userDetails.append('gender', this.adminForm!.get('gender')?.value);
 
       if (this.selectedFile) {
         userDetails.append('profilePicture', this.selectedFile);

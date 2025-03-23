@@ -19,6 +19,18 @@
                 <input formControlName="surname" type="text" id="surname" class="form-control" required>
               </div>
               <div class="form-group">
+                <label for="age">Yaş</label>
+                <input formControlName="age" type="text" id="age" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="gender">Cinsiyet</label>
+                <select formControlName="gender" id="gender" class="form-control" required>
+                  <option value="">Cinsiyet seçin</option>
+                  <option value="false">Erkek</option>
+                  <option value="true">Kadın</option>
+                </select>
+              </div>
+              <div class="form-group">
                 <label for="email">Email</label>
                 <input formControlName="email" type="email" id="email" class="form-control" required>
               </div>
@@ -58,6 +70,8 @@
                   <th>Telefon Numarası</th>
                   <th>Ad</th>
                   <th>Soyad</th>
+                  <th>Yaş</th>
+                  <th>Cinsiyet</th>
                   <th>Profil Resmi</th>
                   <th>İşlemler</th>
                 </tr>
@@ -69,6 +83,8 @@
                   <td>{{ user.phoneNumber }}</td>
                   <td>{{ user.name }}</td>
                   <td>{{ user.surname }}</td>
+                  <td>{{ user.age }}</td>
+                  <td>{{ user.gender ? 'Kadın' : 'Erkek' }}</td>
                   <td>
                     <img [src]="pictureUrl + user.profilePictureUrl" alt="{{ user.name }}" />
                   </td>

@@ -34,6 +34,29 @@
               </div>
 
               <div class="form-group">
+                <label for="age">Enter Age:</label>
+                <input formControlName="age" type="number" class="form-control form-control-user"
+                       id="exampleInputAge" placeholder="Enter Age" />
+                <div *ngIf="signUpForm.get('age')?.invalid && signUpForm.get('age')?.touched" class="text-danger">
+                  <small *ngIf="signUpForm.get('age')?.errors?.['required']">Age is required.</small>
+                  <small *ngIf="signUpForm.get('age')?.errors?.['min']">Age must be at least 0.</small>
+                  <small *ngIf="signUpForm.get('age')?.errors?.['max']">Age must be 120 or less.</small>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="gender">Select Gender:</label>
+                <select formControlName="gender" class="form-control form-control-user" id="exampleInputGender">
+                  <option value="">Select Gender</option>
+                  <option value="true">Male</option>
+                  <option value="false">Female</option>
+                </select>
+                <div *ngIf="signUpForm.get('gender')?.invalid && signUpForm.get('gender')?.touched" class="text-danger">
+                  <small *ngIf="signUpForm.get('gender')?.errors?.['required']">Gender is required.</small>
+                </div>
+              </div>
+
+              <div class="form-group">
                 <label for="confirmPassword">Enter Email Address:</label>
                 <input formControlName="email" type="email" class="form-control form-control-user"
                        id="exampleInputEmail" placeholder="Enter Email Address..." />
@@ -73,8 +96,8 @@
                 </div>
               </div>
               <div class="form-group">
-                <label >Profil Resmi Seçin:</label>
-                <br/>
+                <label>Profil Resmi Seçin:</label>
+                <br />
                 <input type="file" (change)="onFileSelected($event)" accept="image/*">
                 <img *ngIf="previewUrl" [src]="previewUrl" Name="previewUrl" alt="Seçilen Resim" width="50">
 

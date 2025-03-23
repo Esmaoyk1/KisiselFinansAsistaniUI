@@ -138,12 +138,19 @@ export class ExportExcelService {
     });
 
     // Kategorilere Göre Yıllık Harcamalar
-    const categoryData = [
-      [f[0], "%" + g[0].toFixed(2).toString()],
-      [f[1], "%" + g[1].toFixed(2).toString()],
-      [f[2], "%" + g[2].toFixed(2).toString()],
-      [f[3], "%" + g[3].toFixed(2).toString()]
-    ];
+    //const categoryData = [
+    //  [f[0], "%" + g[0].toFixed(2).toString()],
+    //  [f[1], "%" + g[1].toFixed(2).toString()],
+    //  [f[2], "%" + g[2].toFixed(2).toString()],
+    //  [f[3], "%" + g[3].toFixed(2).toString()]
+    //];
+
+    const categoryData = [];
+
+    for (let i = 0; i < f.length; i++) {
+      const percentage = (g[i] !== undefined && g[i] !== 0) ? "%" + g[i].toFixed(2).toString() : '0.00';
+      categoryData.push([f[i], percentage]);
+    }
 
     autoTable(doc, {
       startY: ((doc as any).lastAutoTable?.finalY || 10) + 10,

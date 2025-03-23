@@ -24,6 +24,30 @@
             <input type="text" id="surname" formControlName="surname" class="form-control" placeholder="Soyisminizi girin" />
           </div>
         </div>
+        <!-- Age Alanı -->
+        <div class="form-group">
+          <label for="age">Yaş</label>
+          <input type="number" id="age" formControlName="age" class="form-control" placeholder="Yaşınızı girin" />
+          <div *ngIf="personForm.get('age')?.invalid && personForm.get('age')?.touched" class="text-danger">
+            <small *ngIf="personForm.get('age')?.errors?.['required']">Age is required.</small>
+            <small *ngIf="personForm.get('age')?.errors?.['min']">Age must be at least 0.</small>
+            <small *ngIf="personForm.get('age')?.errors?.['max']">Age must be 120 or less.</small>
+          </div>
+        </div>
+
+        <!-- Gender Alanı -->
+        <div class="form-group">
+          <label for="gender">Cinsiyet</label>
+          <select id="gender" formControlName="gender" class="form-control">
+            <option value="">Cinsiyet Seçin</option>
+            <option value="false">Erkek</option>
+            <option value="true">Kadın</option>
+          </select>
+          <div *ngIf="personForm.get('gender')?.invalid && personForm.get('gender')?.touched" class="text-danger">
+            <small *ngIf="personForm.get('gender')?.errors?.['required']">Gender is required.</small>
+          </div>
+        </div>
+
         <div class="form-group">
           <label for="email">E-posta</label>
           <input type="email" id="email" formControlName="email" class="form-control" placeholder="E-posta adresinizi girin" />
